@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 18:21:41 by cgoh              #+#    #+#             */
-/*   Updated: 2024/05/20 17:53:03 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/02/24 19:19:22 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	void	*d;
-	void	*s;
+	char	*d;
+	char	*s;
 
 	d = NULL;
 	s = NULL;
 	if (dest == src)
 		return (dest);
-	if (src < dest && dest - src < (int)n)
+	if (src < dest && (char *)dest - (char *)src < (int)n)
 	{
-		d = dest + n - 1;
-		s = (void *)src + n - 1;
+		d = (char *)dest + n - 1;
+		s = (char *)src + n - 1;
 		while (n--)
-			*((unsigned char *)d--) = *((unsigned char *)s--);
+			*(d--) = *(s--);
 	}
 	else
 	{
 		d = dest;
-		s = (void *)src;
+		s = (char *)src;
 		while (n--)
-			*((unsigned char *)d++) = *((unsigned char *)s++);
+			*(d++) = *(s++);
 	}
 	return (dest);
 }

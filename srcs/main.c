@@ -6,11 +6,21 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/02/22 19:51:56 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/02/24 21:29:31 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	init_data(t_data *data)
+{
+	data->player_pos.x = 3;
+	data->player_pos.y = 3;
+	data->player_direction.x = 0;
+	data->player_direction.y = -1;
+	data->camera_plane_pos.x = 0;
+	data->camera_plane_pos.y = 0.66;
+}
 
 static int	close_window(t_data *data)
 {
@@ -62,6 +72,7 @@ int	main(int argc, char **argv)
 	printf("Initialising Window\n");
 	ft_memset(&data, 0, sizeof(t_data));
 	ft_memcpy(data.map, map_array, sizeof(map_array));
+	init_data(&data);
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 	{
