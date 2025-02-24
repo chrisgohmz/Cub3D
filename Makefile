@@ -23,7 +23,7 @@ RM = rm -rf
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(MLX)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
 $(MLX):
