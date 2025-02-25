@@ -27,7 +27,12 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+	void	*addr;
 	char	map[5][6];
+	int	bits_per_pixel;
+	int	size_line;
+	int	endian;
 	t_point	player_pos;
 	t_point	player_direction;
 	t_point	camera_plane_pos;
