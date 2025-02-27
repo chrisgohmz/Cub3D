@@ -65,6 +65,10 @@ void	drawing_multiple_rays(t_data *data, t_renderdata *render)
 	while (render->k < render->num_rays)
 	{
 		render->angle_offset = ((render->k / (double)(render->num_rays - 1)) - 0.5) * render->fov;
+		render->ray_cast_angle = atan2(data->player_direction.y, data->player_direction.x) + render->angle_offset;
+		cast_ray(data, render);
+		render->rayLength = render->wall_distances[render->k] * 800;
+		printf("Drawing ray %d: Length %2.f\n", render->k, render->rayLength);
 		drawing_single_ray(data, render);
 		render->k++;
 	}

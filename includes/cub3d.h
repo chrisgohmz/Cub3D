@@ -42,12 +42,14 @@ typedef struct s_data
 
 typedef struct s_renderdata
 {
+	double	wall_distances[60];
 	double	cos_offset;
 	double	sin_offset;
 	double	dirX;
 	double	dirY;
 	double	rayLength;
 	double	angle_offset;
+	double	ray_cast_angle;
 	double	fov;
 	int	x;
 	int	y;
@@ -103,5 +105,8 @@ void	drawing_player(t_data *data, t_renderdata *render);
 void	drawing_single_ray(t_data *data, t_renderdata *render);
 void	drawing_multiple_rays(t_data *data, t_renderdata *render);
 
+// ray_casting.c //
+int	wall_collision(t_data *data, double x, double y);
+void	cast_ray(t_data *data, t_renderdata *render);
 
 #endif

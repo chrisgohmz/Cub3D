@@ -4,7 +4,7 @@ LDLIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz
 
 SRCS_DIR = srcs/
 
-SRCS = $(addprefix $(SRCS_DIR), main.c init.c close_window.c print_map.c render_map.c render_map_cells.c drawing_grid_lines.c drawing_player.c drawing_rays.c)
+SRCS = $(addprefix $(SRCS_DIR), main.c init.c close_window.c print_map.c render_map.c render_map_cells.c drawing_grid_lines.c drawing_player.c drawing_rays.c ray_casting.c)
 DEPS = $(SRCS:.c=.d)
 OBJS = $(SRCS:.c=.o)
 
