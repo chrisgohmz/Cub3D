@@ -17,12 +17,14 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <math.h>
 
 typedef struct s_point
 {
 	double	x;
 	double	y;
 }	t_point;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -37,5 +39,69 @@ typedef struct s_data
 	t_point	player_direction;
 	t_point	camera_plane_pos;
 }	t_data;
+
+typedef struct s_renderdata
+{
+	double	cos_offset;
+	double	sin_offset;
+	double	dirX;
+	double	dirY;
+	double	rayLength;
+	double	angle_offset;
+	double	fov;
+	int	x;
+	int	y;
+	int	block_size_x;
+	int	block_size_y;
+	int	color;
+	int	line_color;
+	int	i;
+	int	j;
+	int	pixel;
+	int	player_screen_x;
+	int	player_screen_y;
+	int	player_radius;
+	int	player_color;
+	int	py;
+	int	px;
+	int	ray_end_x;
+	int	ray_end_y;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+	int	current_x;
+	int	current_y;
+	int	num_rays;
+	int	k;
+}	t_renderdata;
+
+// init.c //
+void	init_data(t_data *data);
+
+// close_window.c //
+int	close_window(t_data *data);
+
+// print_map.c //
+void	print_map(t_data *data);
+
+// render_map.c //
+void	render_map(t_data *data);
+
+// render_map_cells.c //
+void	render_map_cells(t_data *data, t_renderdata *render);
+
+// drawing_grid_lines.c //
+void	drawing_grid_lines(t_data *data, t_renderdata *render);
+
+// drawing_player.c //
+void	drawing_player(t_data *data, t_renderdata *render);
+
+// drawing_rays.c //
+void	drawing_single_ray(t_data *data, t_renderdata *render);
+void	drawing_multiple_rays(t_data *data, t_renderdata *render);
+
 
 #endif
