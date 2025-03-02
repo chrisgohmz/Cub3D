@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/02/24 21:24:55 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/01 20:10:03 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <X11/keysym.h>
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct s_point
 {
@@ -79,6 +82,10 @@ typedef struct s_renderdata
 	int	num_rays;
 	int	k;
 }	t_renderdata;
+
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	render_scene(t_data *data);
+void	rotate_view(t_data *data, int direction);
 
 // init.c //
 void	init_data(t_data *data);

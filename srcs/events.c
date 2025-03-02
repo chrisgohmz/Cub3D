@@ -3,11 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:32:37 by apoh              #+#    #+#             */
-/*   Updated: 2025/02/27 12:32:48 by apoh             ###   ########.fr       */
+/*   Updated: 2025/03/01 20:10:20 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	close_window(t_data *data)
+{
+	if (data->img != NULL)
+	{
+		mlx_destroy_image(data->mlx, data->img);
+		data->img = NULL;
+	}
+	if (data->win != NULL)
+	{
+		mlx_destroy_window(data->mlx, data->win);
+		data->win = NULL;
+	}
+	if (data->mlx != NULL)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+		data->mlx = NULL;
+	}
+	exit(EXIT_SUCCESS);
+}
+
+int	keydown(int keycode, t_data *data)
+{
+	if (keycode == XK_Escape)
+		close_window(data);
+	else if (keycode == XK_Left || keycode == XK_Right)
+		rotate_view(data, keycode);
+}

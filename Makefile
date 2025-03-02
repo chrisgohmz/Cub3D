@@ -1,10 +1,12 @@
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -pedantic -Ofast
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -pedantic
 LDFLAGS = -Llibft -L$(MLXDIR) -L/usr/lib
 LDLIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz 
 
 SRCS_DIR = srcs/
 
-SRCS = $(addprefix $(SRCS_DIR), main.c init.c close_window.c print_map.c render_map.c render_map_cells.c drawing_grid_lines.c drawing_player.c drawing_rays.c ray_casting.c)
+SRCS = $(addprefix $(SRCS_DIR), main.c init.c events.c print_map.c render_map.c\
+		 render_map_cells.c drawing_grid_lines.c drawing_player.c drawing_rays.c\
+		 ray_casting.c chris_test_rays.c image.c)
 DEPS = $(SRCS:.c=.d)
 OBJS = $(SRCS:.c=.o)
 

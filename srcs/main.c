@@ -6,11 +6,20 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/02/24 21:29:31 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/01 18:10:00 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dest;
+
+	dest = (char *)data->addr + (y * data->size_line + x
+			* (data->bits_per_pixel / 8));
+	*((unsigned int *)dest) = color;
+}
 
 int	main(int argc, char **argv)
 {
