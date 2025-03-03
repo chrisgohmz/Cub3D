@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   casting_rays.c                                     :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:07:05 by apoh              #+#    #+#             */
-/*   Updated: 2025/02/27 17:07:28 by apoh             ###   ########.fr       */
+/*   Updated: 2025/03/03 18:42:14 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void	cast_ray(t_data *data, t_renderdata *render)
 	}
 	// Calculate distance projected on camera direction (avoiding fisheye effect)
 	if (side == 0)
-		perpWallDist = (render->mapX - data->player_pos.x + (1 - stepX) / 2) / render->dirX;
+		perpWallDist = sideDistX - render->deltaDistX;
 	else
-		perpWallDist = (render->mapY - data->player_pos.y + (1 - stepY) / 2) / render->dirY;
+		perpWallDist = sideDistY - render->deltaDistY;
 	printf("perpWallDist : %.2f\n", perpWallDist);
 	render->wall_distances[render->k] = perpWallDist;
 	printf("Ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->wall_distances[render->k]);

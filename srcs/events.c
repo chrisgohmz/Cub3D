@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:32:37 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/01 20:10:20 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/03 20:45:42 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@ int	close_window(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-/*int	keydown(int keycode, t_data *data)
+int	keydown(int keycode, t_data *data)
 {
 	if (keycode == XK_Escape)
 		close_window(data);
 	else if (keycode == XK_Left || keycode == XK_Right)
 		rotate_view(data, keycode);
-}*/
+	else if (keycode == XK_w || keycode == XK_s || keycode == XK_a || keycode == XK_d)
+		move_player(data, keycode);
+	return (1);
+}

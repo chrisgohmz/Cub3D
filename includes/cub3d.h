@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/01 20:10:03 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/03 21:02:52 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <X11/keysym.h>
 # define WIDTH 1920
 # define HEIGHT 1080
+# define ON_KEYDOWN 2
+# define ON_MOUSEDOWN 4
+# define ON_MOUSEMOVE 6
+# define ON_DESTROY 17
 
 typedef struct s_point
 {
@@ -34,7 +38,7 @@ typedef struct s_data
 	void	*win;
 	void	*img;
 	void	*addr;
-	char	map[5][6];
+	char	map[20][20];
 	int	bits_per_pixel;
 	int	size_line;
 	int	endian;
@@ -92,6 +96,8 @@ typedef struct s_renderdata
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
 void	rotate_view(t_data *data, int direction);
+int		keydown(int keycode, t_data *data);
+void	move_player(t_data *data, int direction);
 
 // init.c //
 void	init_data(t_data *data);

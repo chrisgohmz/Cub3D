@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:33 by apoh              #+#    #+#             */
-/*   Updated: 2025/02/27 19:04:30 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/03 18:45:34 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 	render->current_y = render->player_screen_y;
 	while (1)
 	{
-		if (render->current_x >= 0 && render->current_x < 1920 && render->current_y >= 0 && render->current_y < 1080)
+		if (render->current_x >= 0 && render->current_x < 630 && render->current_y >= 0 && render->current_y < 630)
 		{
 			render->pixel = (render->current_y * data->size_line) + (render->current_x *(data->bits_per_pixel / 8));
 			*(unsigned int*)((char*)data->addr + render->pixel) = 0x00FF00;
 		}
-		if (render->current_x == render->ray_end_x && render->current_y == render->ray_end_y)
+		if (render->current_x == render->ray_end_x || render->current_y == render->ray_end_y)
 			break ;
 		render->e2 = 2 * render->err;
 		if (render->e2 > -render->dy)
@@ -61,7 +61,7 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 void	drawing_multiple_rays(t_data *data, t_renderdata *render)
 {
 	render->num_rays = 60;
-	render->fov = 3.14 / 3;
+	render->fov = M_PI / 3;
 	render->k = 0;
 	while (render->k < render->num_rays)
 	{

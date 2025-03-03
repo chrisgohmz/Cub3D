@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:22:38 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/01 20:06:17 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/03 21:14:07 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	render_scene(t_data *data)
 				mapY += stepY;
 				side = 1;
 			}
-			hit = (data->map[mapX][mapY] == '1');
+			hit = (data->map[mapY][mapX] == '1');
 		}
 		if (side == 0)
 			perpWallDist = sideDistX - deltaDistX;
@@ -91,7 +91,7 @@ void	render_scene(t_data *data)
 			y2 = HEIGHT - 1;
 		while (y1 <= y2)
 		{
-			ft_mlx_pixel_put(data, x, y1, 0xFF0000);
+			ft_mlx_pixel_put(data, x, y1, 0xFFFFFF);
 			y1++;
 		}
 	}

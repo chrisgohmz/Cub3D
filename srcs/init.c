@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:17:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/01 18:35:29 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/03 21:23:41 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	init_data(t_data *data)
 {
-	data->player_pos.x = 3;
-	data->player_pos.y = 3;
+	data->player_pos.x = 9;
+	data->player_pos.y = 10;
 	data->player_direction.x = 0;
 	data->player_direction.y = -1;
-	data->camera_plane_pos.x = 0;
-	data->camera_plane_pos.y = 0.66;
+	data->camera_plane_pos.x = -data->player_direction.y * 0.66;
+	data->camera_plane_pos.y = data->player_direction.x * 0.66;
 }
