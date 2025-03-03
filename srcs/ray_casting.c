@@ -12,38 +12,74 @@
 
 #include "../includes/cub3d.h"
 
-int	wall_collision(t_data *data, double x, double y)
-{
-	int	map_x;
-	int	map_y;
-	
-	map_x = (int)x;
-	map_y = (int)y;
-	
-	if (map_x < 0 || map_x >= 6 || map_y < 0 || map_y >= 5)
-		return (1);
-	if (data->map[map_y][map_x] == '1')
-		return (1);
-	return (0);
-}
-
 void	cast_ray(t_data *data, t_renderdata *render)
 {
-	double	ray_x = data->player_pos.x;
-	double	ray_y = data->player_pos.y;
-	double	ray_dir_x = cos(render->ray_cast_angle);
-	double	ray_dir_y = sin(render->ray_cast_angle);
-	double	step = 0.1;
-	double	distance = 0;
-	
-	while (distance <= 10)
+	double	sideDistX;
+	double	sideDistY;
+	double	perpWallDist;
+	int	stepX;
+	int	stepY;
+	int	hit;
+	int	side; // 0 for X side, 1 for Y side
+
+	render->dirX = cos(render->ray_cast_angle);
+	render->dirY = sin(render->ray_cast_angle);
+	render->mapX = (int)data->player_pos.x;
+	render->mapY = (int)data->player_pos.y;
+	render->deltaDistX = fabs(1 / render->dirX);
+	render->deltaDistY = fabs(1 / render->dirY);
+	hit = 0;
+	printf("dirX :%.2f\n", render->dirX);
+	printf("dirY :%.2f\n", render->dirY);
+	printf("mapX :%d\n", render->mapX);
+	printf("mapY : %d\n", render->mapY);
+	printf("deltaDistX :%.2f\n", render->deltaDistX);
+	printf("deltaDistY :%.2f\n", render->deltaDistY);
+	// Calculate step and initial sideDist
+	if (render->dirX < 0)
 	{
-		if (wall_collision(data, ray_x, ray_y) == 1)
-			break ;
-		ray_x = ray_x + (ray_dir_x * step);
-		ray_y = ray_y + (ray_dir_y * step);
-		distance = distance + step;
+		stepX = -1;
+		sideDistX = (data->player_pos.x - render->mapX) * render->deltaDistX;
 	}
-	render->wall_distances[render->k] = distance;
-	printf("Ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, distance);
+	else
+	{
+		stepX = 1;
+		sideDistX = (render->mapX + 1.0 - data->player_pos.x) * render->deltaDistX;
+	}
+	if (render->dirY < 0)
+	{
+		stepY = -1;
+		sideDistY = (data->player_pos.y - render->mapY) * render->deltaDistY;
+	}
+	else
+	{
+		stepY = 1;
+		sideDistY = (render->mapY + 1.0 - data->player_pos.y) * render->deltaDistY;
+	}
+	// Perform DDA
+	while (hit == 0)
+	{
+		if (sideDistX < sideDistY)
+		{
+			sideDistX = sideDistX + render->deltaDistX;
+			render->mapX = render->mapX + stepX;
+			side = 0;
+		}
+		else
+		{
+			sideDistY = sideDistY + render->deltaDistY;
+			render->mapY = render->mapY + stepY;
+			side = 1;
+		}
+		if (data->map[render->mapY][render->mapX] == '1')
+			hit = 1;
+	}
+	// Calculate distance projected on camera direction (avoiding fisheye effect)
+	if (side == 0)
+		perpWallDist = (render->mapX - data->player_pos.x + (1 - stepX) / 2) / render->dirX;
+	else
+		perpWallDist = (render->mapY - data->player_pos.y + (1 - stepY) / 2) / render->dirY;
+	printf("perpWallDist : %.2f\n", perpWallDist);
+	render->wall_distances[render->k] = perpWallDist;
+	printf("Ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->wall_distances[render->k]);
 }

@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		{'1', '1', '1', '1', '1', '1'},
 		{'1', '0', '0', '0', '0', '1'},
 		{'1', '0', '0', '0', '0', '1'},
-		{'1', '0', '0', 'N', '0', '1'},
+		{'1', '0', '0', '0', 'N', '1'},
 		{'1', '1', '1', '1', '1', '1'},
 		};
 	(void)argc;
@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	printf("Creating Window\n");
-	data.win = mlx_new_window(data.mlx, 1920, 1080, "Cub3d");
+	data.win = mlx_new_window(data.mlx, 630, 630, "Cub3d");
 	if (data.win == NULL)
 	{
 		perror("Failed to create window");
@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	print_map(&data);
-	data.img = mlx_new_image(data.mlx, 1920, 1080);
+	data.img = mlx_new_image(data.mlx, 630, 630);
 	if (data.img == NULL)
 	{
 		perror("Failed to create image");

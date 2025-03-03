@@ -14,12 +14,14 @@
 
 void	drawing_single_ray(t_data *data, t_renderdata *render)
 {
-	render->cos_offset = cos(render->angle_offset);
-	render->sin_offset = sin(render->angle_offset);
-	render->dirX = data->player_direction.x * render->cos_offset - data->player_direction.y * render->sin_offset;
-	render->dirY = data->player_direction.x * render->sin_offset + data->player_direction.y * render->cos_offset;
-	render->ray_end_x = render->player_screen_x + (int)(render->dirX * render->rayLength);
-	render->ray_end_y = render->player_screen_y + (int)(render->dirY * render->rayLength);
+	int	scale = 630;
+	
+	printf("dirX : %.2f\n", render->dirX);
+	printf("dirY : %.2f\n", render->dirY);
+	render->end_x = render->player_screen_x + (render->dirX * render->wall_distances[render->k] * scale);
+	render->end_y = render->player_screen_y + (render->dirY * render->wall_distances[render->k] * scale);
+	render->ray_end_x = (int)(render->end_x);
+	render->ray_end_y = (int)(render->end_y);
 	render->dx = abs(render->ray_end_x - render->player_screen_x);
 	render->dy = abs(render->ray_end_y - render->player_screen_y);
 	if (render->player_screen_x < render->ray_end_x)
@@ -59,16 +61,16 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 void	drawing_multiple_rays(t_data *data, t_renderdata *render)
 {
 	render->num_rays = 60;
-	render->rayLength = 700;
 	render->fov = 3.14 / 3;
 	render->k = 0;
 	while (render->k < render->num_rays)
 	{
 		render->angle_offset = ((render->k / (double)(render->num_rays - 1)) - 0.5) * render->fov;
+		printf("angle_offset %.2f\n", render->angle_offset);
 		render->ray_cast_angle = atan2(data->player_direction.y, data->player_direction.x) + render->angle_offset;
-		// cast_ray(data, render);
-		// render->rayLength = render->wall_distances[render->k] * 800;
-		// printf("Drawing ray %d: Length %2.f\n", render->k, render->rayLength);
+		printf("ray_cast_angle %.2f\n", render->ray_cast_angle);
+		cast_ray(data, render);
+		printf("Drawing ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->wall_distances[render->k]);
 		drawing_single_ray(data, render);
 		render->k++;
 	}

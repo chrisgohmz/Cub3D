@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-void	redraw_image(t_data *data)
+/*void	redraw_image(t_data *data)
 {
 	mlx_destroy_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
@@ -22,9 +22,9 @@ void	redraw_image(t_data *data)
 	render_scene(data);
 	mlx_put_image_to_window(data->mlx, data->win,
 		data->img, 0, 0);
-}
+}*/
 
-void	rotate_view(t_data *data, int direction)
+/*void	rotate_view(t_data *data, int direction)
 {
 	double	angle_change;
 
@@ -37,4 +37,4 @@ void	rotate_view(t_data *data, int direction)
 	data->player_direction.y = data->player_direction.x * sin(angle_change)
 	+ data->player_direction.y * cos(angle_change);
 	redraw_image(data);
-}
+}*/

@@ -50,10 +50,14 @@ typedef struct s_renderdata
 	double	sin_offset;
 	double	dirX;
 	double	dirY;
+	double	deltaDistX;
+	double	deltaDistY;
 	double	rayLength;
 	double	angle_offset;
 	double	ray_cast_angle;
 	double	fov;
+	int	mapX;
+	int	mapY;
 	int	x;
 	int	y;
 	int	block_size_x;
@@ -69,6 +73,8 @@ typedef struct s_renderdata
 	int	player_color;
 	int	py;
 	int	px;
+	double	end_x;
+	double	end_y;
 	int	ray_end_x;
 	int	ray_end_y;
 	int	dx;
@@ -113,7 +119,6 @@ void	drawing_single_ray(t_data *data, t_renderdata *render);
 void	drawing_multiple_rays(t_data *data, t_renderdata *render);
 
 // ray_casting.c //
-int	wall_collision(t_data *data, double x, double y);
 void	cast_ray(t_data *data, t_renderdata *render);
 
 #endif
