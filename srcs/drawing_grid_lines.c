@@ -16,10 +16,10 @@ void	drawing_grid_lines(t_data *data, t_renderdata *render)
 {
 	// this is for drawing lines for each cell //
 	render->y = 0;
-	while (render->y <= 5)
+	while (render->y <= 20)
 	{
 		render->i = 0;
-		while (render->i < 6 * render->block_size_x)
+		while (render->i < 20 * render->block_size_x)
 		{
 			render->pixel = (render->y * render->block_size_y * data->size_line) + (render->i * (data->bits_per_pixel / 8));
 			*(unsigned int*)((char*)data->addr + render->pixel) = render->line_color;
@@ -28,10 +28,10 @@ void	drawing_grid_lines(t_data *data, t_renderdata *render)
 		render->y++;
 	}
 	render->x = 0;
-	while (render->x <= 6)
+	while (render->x <= 20)
 	{
 		render->j = 0;
-		while (render->j < 5 * render->block_size_y)
+		while (render->j < 20 * render->block_size_y)
 		{
 			render->pixel = (render->j * data->size_line) + (render->x * render->block_size_x  * (data->bits_per_pixel / 8));
 			*(unsigned int*)((char*)data->addr + render->pixel) = render->line_color;

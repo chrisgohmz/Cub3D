@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/03 21:02:52 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/01 20:10:03 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_data
 	void	*win;
 	void	*img;
 	void	*addr;
-	char	map[20][20];
+	char	map[9][9];
 	int	bits_per_pixel;
 	int	size_line;
 	int	endian;
@@ -49,14 +49,15 @@ typedef struct s_data
 
 typedef struct s_renderdata
 {
-	double	wall_distances[60];
+	double	perpWallDist;
 	double	cos_offset;
 	double	sin_offset;
 	double	dirX;
 	double	dirY;
+	double	hitPointX;
+	double	hitPointY;
 	double	deltaDistX;
 	double	deltaDistY;
-	double	rayLength;
 	double	angle_offset;
 	double	ray_cast_angle;
 	double	fov;

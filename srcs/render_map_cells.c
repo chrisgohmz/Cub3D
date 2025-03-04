@@ -15,10 +15,10 @@
 void	render_map_cells(t_data *data, t_renderdata *render)
 {
 	// this is for adding colour to each cell //
-	while (render->y < 5)
+	while (render->y < 20)
 	{
 		render->x = 0;
-		while (render->x < 6)
+		while (render->x < 20)
 		{
 			if (data->map[render->y][render->x] == '1')
 				render->color = 0x808080;
