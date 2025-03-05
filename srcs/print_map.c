@@ -18,10 +18,10 @@ void	print_map(t_data *data)
 	int	j;
 	
 	i = 0;
-	while (i < 5)
+	while (i < 20)
 	{
 		j = 0;
-		while (j < 6)
+		while (j < 20)
 		{
 			printf("%c ", data->map[i][j]);
 			j++;

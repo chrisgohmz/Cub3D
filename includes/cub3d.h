@@ -19,8 +19,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <X11/keysym.h>
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 630
+# define HEIGHT 630
 # define ON_KEYDOWN 2
 # define ON_MOUSEDOWN 4
 # define ON_MOUSEMOVE 6
@@ -38,7 +38,7 @@ typedef struct s_data
 	void	*win;
 	void	*img;
 	void	*addr;
-	char	map[9][9];
+	char	map[20][20];
 	int	bits_per_pixel;
 	int	size_line;
 	int	endian;

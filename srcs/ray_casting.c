@@ -28,12 +28,12 @@ void	cast_ray(t_data *data, t_renderdata *render)
 	render->deltaDistX = fabs(1 / render->dirX);
 	render->deltaDistY = fabs(1 / render->dirY);
 	hit = 0;
-	printf("dirX :%.2f\n", render->dirX);
+	/*printf("dirX :%.2f\n", render->dirX);
 	printf("dirY :%.2f\n", render->dirY);
 	printf("mapX :%d\n", render->mapX);
 	printf("mapY : %d\n", render->mapY);
 	printf("deltaDistX :%.2f\n", render->deltaDistX);
-	printf("deltaDistY :%.2f\n", render->deltaDistY);
+	printf("deltaDistY :%.2f\n", render->deltaDistY);*/
 	// Calculate step and initial sideDist
 	if (render->dirX < 0)
 	{
@@ -70,25 +70,31 @@ void	cast_ray(t_data *data, t_renderdata *render)
 			render->mapY = render->mapY + stepY;
 			side = 1;
 		}
-		if (render->mapX < 0 || render->mapX >= 9 || render->mapY < 0 || render->mapY >= 9)
+		if (render->mapX < 0 || render->mapX >= 20 || render->mapY < 0 || render->mapY >= 20)
 		{
 			hit = 1;
 			render->hitPointX = render->mapX;
 			render->hitPointY = render->mapY;
 		}
-		if (data->map[(int)render->mapY][(int)render->mapX] == '1' || (data->map[(int)(render->mapY + 0.01)][(int)(render->mapX + 0.01)] == '1'))
+		if (data->map[(int)render->mapY][(int)render->mapX] == '1')
 		{
-			printf("Wall collison detected\n");
+			/*printf("Wall collison detected\n");*/
 			hit = 1;
 		}
 	}
 	// Calculate distance projected on camera direction (avoiding fisheye effect)
 	if (side == 0)
-		render->perpWallDist = (render->mapX - data->player_pos.x + (1 - stepX) / 2) / render->dirX;
+	{
+		render->perpWallDist = (render->mapX - data->player_pos.x + (1 - stepX) / 2) / render->dirX;	
+		render->hitPointX = render->mapX + (1 - stepX) / 2.0;
+		render->hitPointY = data->player_pos.y + render->perpWallDist * render->dirY;
+	}
 	else
+	{
 		render->perpWallDist = (render->mapY - data->player_pos.y + (1 - stepY) / 2) / render->dirY;
-	render->hitPointX = data->player_pos.x + render->perpWallDist * render->dirX;
-	render->hitPointY = data->player_pos.y + render->perpWallDist * render->dirY;
-	printf("Ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->perpWallDist);
-	printf("Ray hit at: (%.2f, %.2f)\n", render->hitPointX, render->hitPointY);
+		render->hitPointX = data->player_pos.x + render->perpWallDist * render->dirX;
+		render->hitPointY = render->mapY + (1 - stepY) / 2.0;
+	}
+	/*printf("Ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->perpWallDist);
+	printf("Ray hit at: (%.2f, %.2f)\n", render->hitPointX, render->hitPointY);*/
 }

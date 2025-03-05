@@ -14,8 +14,8 @@
 
 void	init_data(t_data *data)
 {
-	data->player_pos.x = 9;
-	data->player_pos.y = 10;
+	data->player_pos.x = 9.5;
+	data->player_pos.y = 9.5;
 	data->player_direction.x = 0;
 	data->player_direction.y = -1;
 	data->camera_plane_pos.x = -data->player_direction.y * 0.66;

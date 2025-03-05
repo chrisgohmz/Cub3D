@@ -49,37 +49,83 @@ void	rotate_view(t_data *data, int direction)
 	redraw_image(data);
 }
 
+/*void	move_player(t_data *data, int direction)
+{
+	const double speed = 0.1;
+	double new_x, new_y;
+
+	if (direction == XK_w)
+	{
+		new_x = data->player_pos.x + data->player_direction.x * speed;
+		new_y = data->player_pos.y + data->player_direction.y * speed;
+	}
+	else if (direction == XK_s)
+	{
+		new_x = data->player_pos.x - data->player_direction.x * speed;
+		new_y = data->player_pos.y - data->player_direction.y * speed;
+	}
+	else if (direction == XK_a)
+	{
+		new_x = data->player_pos.x + data->player_direction.y * speed;
+		new_y = data->player_pos.y - data->player_direction.x * speed;
+	}
+	else if (direction == XK_d)
+	{
+		new_x = data->player_pos.x - data->player_direction.y * speed;
+		new_y = data->player_pos.y + data->player_direction.x * speed;
+	}
+	else
+	{
+		return;  // No movement if not a valid direction key
+	}
+	printf("Current position: (%f, %f)\n", data->player_pos.x, data->player_pos.y);
+	printf("New position: (%f, %f)\n", new_x, new_y);
+	printf("Map value at new position: %c\n", data->map[(int)new_y][(int)new_x]);
+	// Check collision and update position if no collision
+	if (data->map[(int)new_y][(int)new_x] != '1')
+	{
+		data->player_pos.x = new_x;
+		data->player_pos.y = new_y;
+		printf("Movement allowed\n");
+		redraw_image(data);
+	}
+	else
+	{
+		printf("Movement blocked\n");
+	}
+}*/
+
 void	move_player(t_data *data, int direction)
 {
 	const double	speed = 0.1;
 	
 	if (direction == XK_w)
 	{
-		if (data->map[(int)(data->player_pos.x + data->player_direction.x * speed)][(int)data->player_pos.y] == '0')
+		if (data->map[(int)(data->player_pos.x + data->player_direction.x * speed)][(int)data->player_pos.y] != '1')
 			data->player_pos.x += data->player_direction.x * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y + data->player_direction.y * speed)] == '0')
+		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y + data->player_direction.y * speed)] != '1')
 			data->player_pos.y += data->player_direction.y * speed;
 	}
 	else if (direction == XK_s)
 	{
-		if (data->map[(int)(data->player_pos.x - data->player_direction.x * speed)][(int)data->player_pos.y] == '0')
+		if (data->map[(int)(data->player_pos.x - data->player_direction.x * speed)][(int)data->player_pos.y] != '1')
 			data->player_pos.x -= data->player_direction.x * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y - data->player_direction.y * speed)] == '0')
+		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y - data->player_direction.y * speed)] != '1')
 			data->player_pos.y -= data->player_direction.y * speed;
 	}
 	else if (direction == XK_a)
 	{
-		if (data->map[(int)(data->player_pos.x + data->player_direction.x * speed)][(int)data->player_pos.y] == '0')
-			data->player_pos.x += data->player_direction.x * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y - data->player_direction.y * speed)] == '0')
-			data->player_pos.y -= data->player_direction.y * speed;
+		if (data->map[(int)(data->player_pos.x + data->player_direction.y * speed)][(int)data->player_pos.y] != '1')
+			data->player_pos.x += data->player_direction.y * speed;
+		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y - data->player_direction.x * speed)] != '1')
+			data->player_pos.y -= data->player_direction.x * speed;
 	}
 	else if (direction == XK_d)
 	{
-		if (data->map[(int)(data->player_pos.x - data->player_direction.x * speed)][(int)data->player_pos.y] == '0')
-			data->player_pos.x -= data->player_direction.x * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y + data->player_direction.y * speed)] == '0')
-			data->player_pos.y += data->player_direction.y * speed;
+		if (data->map[(int)(data->player_pos.x - data->player_direction.y * speed)][(int)data->player_pos.y] != '1')
+			data->player_pos.x -= data->player_direction.y * speed;
+		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y + data->player_direction.x * speed)] != '1')
+			data->player_pos.y += data->player_direction.x * speed;
 	}
 	redraw_image(data);
 }

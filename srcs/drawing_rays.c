@@ -14,18 +14,18 @@
 
 void	drawing_single_ray(t_data *data, t_renderdata *render)
 {
-	printf("dirX : %.2f\n", render->dirX);
-	printf("dirY : %.2f\n", render->dirY);
+	/*printf("dirX : %.2f\n", render->dirX);
+	printf("dirY : %.2f\n", render->dirY);*/
 	render->end_x = render->hitPointX * render->block_size_x;
 	render->end_y = render->hitPointY * render->block_size_y;
 	render->ray_end_x = (int)render->end_x;
 	render->ray_end_y = (int)render->end_y;
-	printf("ray_end_x : %d\n", render->ray_end_x);
-	printf("ray_end_y : %d\n", render->ray_end_y);
+	/*printf("ray_end_x : %d\n", render->ray_end_x);
+	printf("ray_end_y : %d\n", render->ray_end_y);*/
 	render->dx = abs(render->ray_end_x - render->player_screen_x);
 	render->dy = abs(render->ray_end_y - render->player_screen_y);
-	printf("dx : %d\n", render->dx);
-	printf("dy : %d\n", render->dy);
+	/*printf("dx : %d\n", render->dx);
+	printf("dy : %d\n", render->dy);*/
 	if (render->player_screen_x < render->ray_end_x)
 		render->sx = 1;
 	else
@@ -35,16 +35,16 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 	else
 		render->sy = -1;
 	render->err = render->dx - render->dy;
-	printf("player x %d\n", render->player_screen_x);
-	printf("player y %d\n", render->player_screen_y);
+	/*printf("player x %d\n", render->player_screen_x);
+	printf("player y %d\n", render->player_screen_y);*/
 	render->current_x = render->player_screen_x;
 	render->current_y = render->player_screen_y;
-	printf("current_x : %d\n", render->current_x);
+	/*printf("current_x : %d\n", render->current_x);
 	printf("current_y : %d\n", render->current_y);
 	printf("Player world pos: (%.2f, %.2f)\n", data->player_pos.x, data->player_pos.y);
 	printf("Player screen pos: (%d, %d)\n", render->player_screen_x, render->player_screen_y);
 	printf("Hit point: (%.2f, %.2f)\n", render->hitPointX, render->hitPointY);
-	printf("End point: (%.2f, %.2f)\n", render->end_x, render->end_y);
+	printf("End point: (%.2f, %.2f)\n", render->end_x, render->end_y);*/
 
 	while (1)
 	{
@@ -75,23 +75,25 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 
 void	drawing_multiple_rays(t_data *data, t_renderdata *render)
 {
-	render->num_rays = 150;
-	render->fov = 3.14 / 2;
+	render->num_rays = 61;
+	render->fov = 3.14 / 3;
 	render->k = 0;
 	while (render->k < render->num_rays)
 	{
-		printf("Player direction : (%.2f, %.2f)\n", data->player_direction.x, data->player_direction.y);
-		double central_angle = atan2(data->player_direction.y, data->player_direction.x);
-		printf("Central angle: %.2f radians (%.2f degrees)\n", central_angle, central_angle * 180 / 3.14);
+		/*printf("Player direction : (%.2f, %.2f)\n", data->player_direction.x, data->player_direction.y);*/
+		/*double central_angle = atan2(data->player_direction.y, data->player_direction.x);*/
+		/*printf("Central angle: %.2f radians (%.2f degrees)\n", central_angle, central_angle * 180 / 3.14);*/
 		double ray_progress = (double)render->k / (render->num_rays - 1);
 		render->angle_offset = (ray_progress - 0.5) * render->fov;
-		printf("angle_offset %.2f\n", render->angle_offset);
+		/*printf("angle_offset %.2f\n", render->angle_offset);*/
 		render->ray_cast_angle = atan2(data->player_direction.y, data->player_direction.x) + render->angle_offset;
-		printf("Ray %d: offset %.2f, angle %.2f radians (%.2f degrees)\n", render->k, render->angle_offset, render->ray_cast_angle, render->ray_cast_angle * 180 / 3.14);
-		printf("ray_cast_angle %.2f\n", render->ray_cast_angle);
+		/*printf("Ray %d: offset %.2f, angle %.2f radians (%.2f degrees)\n", render->k, render->angle_offset, render->ray_cast_angle, render->ray_cast_angle * 180 / 3.14);
+		printf("ray_cast_angle %.2f\n", render->ray_cast_angle);*/
 		cast_ray(data, render);
-		printf("Drawing ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->perpWallDist);
+		/*printf("Drawing ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->perpWallDist);*/
 		drawing_single_ray(data, render);
 		render->k++;
 	}
+	printf("Player world pos: (%.2f, %.2f)\n", data->player_pos.x, data->player_pos.y);
+	printf("Player screen pos: (%d, %d)\n", render->player_screen_x, render->player_screen_y);
 }
