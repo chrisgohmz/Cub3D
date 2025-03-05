@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 20:00:44 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/01 20:19:11 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/05 20:17:02 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	redraw_image(t_data *data)
 	data->addr = mlx_get_data_addr(data->img,
 			&data->bits_per_pixel, &data->size_line,
 			&data->endian);
-	/*render_scene(data);*/
+	render_scene(data);
 	render_map(data);
 	mlx_put_image_to_window(data->mlx, data->win,
 		data->img, 0, 0);
@@ -101,30 +101,30 @@ void	move_player(t_data *data, int direction)
 	
 	if (direction == XK_w)
 	{
-		if (data->map[(int)(data->player_pos.x + data->player_direction.x * speed)][(int)data->player_pos.y] != '1')
+		if (data->map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.x * speed)] != '1')
 			data->player_pos.x += data->player_direction.x * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y + data->player_direction.y * speed)] != '1')
+		if (data->map[(int)(data->player_pos.y + data->player_direction.y * speed)][(int)data->player_pos.x] != '1')
 			data->player_pos.y += data->player_direction.y * speed;
 	}
 	else if (direction == XK_s)
 	{
-		if (data->map[(int)(data->player_pos.x - data->player_direction.x * speed)][(int)data->player_pos.y] != '1')
+		if (data->map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.x * speed)] != '1')
 			data->player_pos.x -= data->player_direction.x * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y - data->player_direction.y * speed)] != '1')
+		if (data->map[(int)(data->player_pos.y - data->player_direction.y * speed)][(int)data->player_pos.x] != '1')
 			data->player_pos.y -= data->player_direction.y * speed;
 	}
 	else if (direction == XK_a)
 	{
-		if (data->map[(int)(data->player_pos.x + data->player_direction.y * speed)][(int)data->player_pos.y] != '1')
+		if (data->map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.y * speed)] != '1')
 			data->player_pos.x += data->player_direction.y * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y - data->player_direction.x * speed)] != '1')
+		if (data->map[(int)(data->player_pos.y - data->player_direction.x * speed)][(int)data->player_pos.x] != '1')
 			data->player_pos.y -= data->player_direction.x * speed;
 	}
 	else if (direction == XK_d)
 	{
-		if (data->map[(int)(data->player_pos.x - data->player_direction.y * speed)][(int)data->player_pos.y] != '1')
+		if (data->map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.y * speed)] != '1')
 			data->player_pos.x -= data->player_direction.y * speed;
-		if (data->map[(int)data->player_pos.x][(int)(data->player_pos.y + data->player_direction.x * speed)] != '1')
+		if (data->map[(int)(data->player_pos.y + data->player_direction.x * speed)][(int)data->player_pos.x] != '1')
 			data->player_pos.y += data->player_direction.x * speed;
 	}
 	redraw_image(data);

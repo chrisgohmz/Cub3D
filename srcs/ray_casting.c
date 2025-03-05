@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   casting_rays.c                                     :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:07:05 by apoh              #+#    #+#             */
-/*   Updated: 2025/02/27 17:07:28 by apoh             ###   ########.fr       */
+/*   Updated: 2025/03/05 20:16:33 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	cast_ray(t_data *data, t_renderdata *render)
 {
 	double	sideDistX;
 	double	sideDistY;
-	int	stepX;
-	int	stepY;
-	int	hit;
-	int	side; // 0 for X side, 1 for Y side
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side; // 0 for X side, 1 for Y side
 
 	render->dirX = cos(render->ray_cast_angle);
 	render->dirY = sin(render->ray_cast_angle);
@@ -95,6 +95,4 @@ void	cast_ray(t_data *data, t_renderdata *render)
 		render->hitPointX = data->player_pos.x + render->perpWallDist * render->dirX;
 		render->hitPointY = render->mapY + (1 - stepY) / 2.0;
 	}
-	/*printf("Ray %d: Angle %.2f, Distance %.2f\n", render->k, render->ray_cast_angle, render->perpWallDist);
-	printf("Ray hit at: (%.2f, %.2f)\n", render->hitPointX, render->hitPointY);*/
 }

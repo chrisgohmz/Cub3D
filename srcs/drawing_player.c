@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_player.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:43:32 by apoh              #+#    #+#             */
-/*   Updated: 2025/02/27 13:43:43 by apoh             ###   ########.fr       */
+/*   Updated: 2025/03/05 19:27:24 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	drawing_player(t_data *data, t_renderdata *render)
 		render->player_screen_x = data->player_pos.x * render->block_size_x;
 		render->player_screen_y = data->player_pos.y * render->block_size_y;
 	}
-	render->player_radius = 5;
+	render->player_radius = 2;
 	render->player_color = 0xFF0000;
 	render->py = -render->player_radius;
 	while (render->py <= render->player_radius)
