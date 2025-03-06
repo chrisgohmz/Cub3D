@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include <X11/keysym.h>
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -95,6 +98,22 @@ typedef struct s_renderdata
 	int	k;
 }	t_renderdata;
 
+typedef struct	s_mapdata
+{
+	char	*north_texture;
+	char	*south_texture;
+	char	*west_texture;
+	char	*east_texture;
+	char	*floor_colour;
+	char	*ceiling_colour;
+	char	**map;
+	int	map_height;
+	int	map_width;
+	int	fd;
+	char	*line;
+	char	**tokens;
+}	t_mapdata;
+
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
 void	rotate_view(t_data *data, int direction);
@@ -128,5 +147,8 @@ void	drawing_multiple_rays(t_data *data, t_renderdata *render);
 
 // ray_casting.c //
 void	cast_ray(t_data *data, t_renderdata *render);
+
+// parsing.c //
+int	parsing(void);
 
 #endif

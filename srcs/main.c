@@ -95,6 +95,14 @@ int	main(int argc, char **argv)
 	}
 	render_map(&data);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	if (parsing() == -1)
+	{
+		printf("reading file failed\n");
+	}
+	else
+	{
+		printf("reading file success\n");
+	}
 	mlx_hook(data.win, ON_DESTROY, 0, close_window, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, keydown, &data);
 	mlx_loop(data.mlx);
