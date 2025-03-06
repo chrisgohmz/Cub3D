@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chris_test_rays.c                                  :+:      :+:    :+:   */
+/*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:22:38 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/05 21:13:34 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/06 21:28:27 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	render_scene(t_data *data)
 			floorX += floorStepX;
 			floorY += floorStepY;
 			if (x > MINIMAP_SIZE || y > MINIMAP_SIZE)
-				ft_mlx_pixel_put(data, x, y, 0x802C4D);
+				ft_mlx_pixel_put(data, x, y, data->map_data.floor_colour);
 			if (x > MINIMAP_SIZE || HEIGHT - y - 1 > MINIMAP_SIZE)
-				ft_mlx_pixel_put(data, x, HEIGHT - y - 1, 0x7E63A8);
+				ft_mlx_pixel_put(data, x, HEIGHT - y - 1, data->map_data.ceiling_colour);
 		}
 	}
 	x = -1;
@@ -103,7 +103,7 @@ void	render_scene(t_data *data)
 				mapY += stepY;
 				side = 1;
 			}
-			hit = (data->map[mapY][mapX] == '1');
+			hit = (data->map_data.map[mapY][mapX] == '1');
 		}
 		if (side == 0)
 			perpWallDist = sideDistX - deltaDistX;

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/05 19:24:58 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/06 21:40:12 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <X11/keysym.h>
+# include <stdbool.h>
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MINIMAP_SIZE 400
@@ -29,6 +30,12 @@
 # define ON_MOUSEDOWN 4
 # define ON_MOUSEMOVE 6
 # define ON_DESTROY 17
+# define NORTH "NO"
+# define SOUTH "SO"
+# define WEST "WE"
+# define EAST "EA"
+# define FLOOR "F"
+# define CEILING "C"
 
 typedef struct s_point
 {
@@ -36,19 +43,38 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
+typedef struct	s_mapdata
+{
+	char	*north_texture;
+	char	*south_texture;
+	char	*west_texture;
+	char	*east_texture;
+	int		floor_colour;
+	int		ceiling_colour;
+	char	**map;
+	int		map_height;
+	int		map_width;
+	int		fd;
+	char	*line;
+	char	*file_content;
+	char	*tmp;
+	char	**elements;
+	char	**elements_info;
+}	t_mapdata;
+
 typedef struct s_data
 {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	void	*addr;
-	char	map[20][20];
-	int	bits_per_pixel;
-	int	size_line;
-	int	endian;
-	t_point	player_pos;
-	t_point	player_direction;
-	t_point	camera_plane_pos;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	void		*addr;
+	int			bits_per_pixel;
+	int			size_line;
+	int			endian;
+	t_point		player_pos;
+	t_point		player_direction;
+	t_point		camera_plane_pos;
+	t_mapdata	map_data;
 }	t_data;
 
 typedef struct s_renderdata
@@ -98,22 +124,6 @@ typedef struct s_renderdata
 	int	k;
 }	t_renderdata;
 
-typedef struct	s_mapdata
-{
-	char	*north_texture;
-	char	*south_texture;
-	char	*west_texture;
-	char	*east_texture;
-	char	*floor_colour;
-	char	*ceiling_colour;
-	char	**map;
-	int	map_height;
-	int	map_width;
-	int	fd;
-	char	*line;
-	char	**tokens;
-}	t_mapdata;
-
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
 void	rotate_view(t_data *data, int direction);
@@ -125,9 +135,6 @@ void	init_data(t_data *data);
 
 // close_window.c //
 int	close_window(t_data *data);
-
-// print_map.c //
-void	print_map(t_data *data);
 
 // render_map.c //
 void	render_map(t_data *data);
@@ -149,6 +156,6 @@ void	drawing_multiple_rays(t_data *data, t_renderdata *render);
 void	cast_ray(t_data *data, t_renderdata *render);
 
 // parsing.c //
-int	parsing(void);
+int		parsing(t_data *data, char *file_path);
 
 #endif

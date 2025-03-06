@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:33 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/05 19:28:36 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/06 21:10:57 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 		}
 		int map_x = render->current_x / render->block_size_x;
 		int map_y = render->current_y / render->block_size_y;
-		if (data->map[map_y][map_x] == '1')
+		if (data->map_data.map[map_y][map_x] == '1')
 			break ;
 		if (render->current_x == render->ray_end_x && render->current_y == render->ray_end_y)
 			break ;

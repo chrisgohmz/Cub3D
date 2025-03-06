@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:07:05 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/05 20:16:33 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/06 21:11:20 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	cast_ray(t_data *data, t_renderdata *render)
 			render->hitPointX = render->mapX;
 			render->hitPointY = render->mapY;
 		}
-		if (data->map[(int)render->mapY][(int)render->mapX] == '1')
+		if (data->map_data.map[(int)render->mapY][(int)render->mapX] == '1')
 		{
 			/*printf("Wall collison detected\n");*/
 			hit = 1;
