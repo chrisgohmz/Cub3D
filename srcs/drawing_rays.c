@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:33 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/06 21:10:57 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/07 21:23:58 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 
 	while (1)
 	{
-		if (render->current_x >= 0 && render->current_x < MINIMAP_SIZE && render->current_y >= 0 && render->current_y < MINIMAP_SIZE)
+		if (render->current_x >= 0 && render->current_x < WIDTH && render->current_y >= 0 && render->current_y < HEIGHT)
 		{
 			render->pixel = (render->current_y * data->size_line) + (render->current_x *(data->bits_per_pixel / 8));
 			*(unsigned int*)((char*)data->addr + render->pixel) = 0x00FF00;

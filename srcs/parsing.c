@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/06 22:15:05 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/07 21:13:22 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,20 +129,20 @@ static bool	get_map(t_data *data)
 	while (data->map_data.line)
 	{
 		if (!data->map_data.file_content)
-			data->map_data.file_content = data->map_data.line;
+			data->map_data.file_content = ft_strdup(data->map_data.line);
 		else
 		{
 			data->map_data.tmp = data->map_data.file_content;
 			data->map_data.file_content = ft_strjoin(data->map_data.file_content, data->map_data.line);
 			free(data->map_data.tmp);
-			free(data->map_data.line);
-			if (!data->map_data.file_content)
-				return (false);
 		}
+		if (!data->map_data.file_content)
+				return (false);
 		data->map_data.map_height++;
 		width = ft_strlen(data->map_data.line);
 		if (width > (size_t)data->map_data.map_width)
 			data->map_data.map_width = width;
+		free(data->map_data.line);
 		data->map_data.line = get_next_line(data->map_data.fd);
 	}
 	data->map_data.map = ft_split(data->map_data.file_content, '\n');
@@ -196,15 +196,5 @@ int	parsing(t_data *data, char *file_path)
 	printf("South texture : %s\n", data->map_data.south_texture);
 	printf("West texture : %s\n", data->map_data.west_texture);
 	printf("East texture : %s\n", data->map_data.east_texture);
-	for (int i = 0; data->map_data.map[i]; i++)
-	{
-		printf("%s\n", data->map_data.map[i]);
-		free(data->map_data.map[i]);
-	}
-	free(data->map_data.map);
-	free(data->map_data.north_texture);
-	free(data->map_data.south_texture);
-	free(data->map_data.west_texture);
-	free(data->map_data.east_texture);
 	return (0);
 }

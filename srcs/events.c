@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:32:37 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/03 20:45:42 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/07 22:53:12 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int	close_window(t_data *data)
 		free(data->mlx);
 		data->mlx = NULL;
 	}
+	free(data->map_data.north_texture);
+	free(data->map_data.south_texture);
+	free(data->map_data.east_texture);
+	free(data->map_data.west_texture);
+	free_2d_arr((void ***)&data->map_data.map);
 	exit(EXIT_SUCCESS);
 }
 

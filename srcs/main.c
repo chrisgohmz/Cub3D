@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/06 22:13:30 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/07 20:52:52 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	main(int argc, char **argv)
 		printf("Usage: ./cub3D <.cub file>\n");
 		exit(EXIT_FAILURE);
 	}
+	ft_bzero(&data, sizeof(t_data));
 	if (parsing(&data, argv[1]) == -1)
 	{
 		printf("Error\n");
 		exit(EXIT_FAILURE);
 	}
-	ft_memset(&data, 0, sizeof(t_data));
 	init_data(&data);
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)

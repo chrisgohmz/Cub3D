@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:33:05 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/06 21:49:45 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/07 21:15:04 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	render_map_cells(t_data *data, t_renderdata *render)
 	while (render->y < data->map_data.map_height)
 	{
 		render->x = 0;
-		while (render->x < data->map_data.map_width)
+		while (render->x < data->map_data.map_width && data->map_data.map[render->y][render->x])
 		{
 			if (data->map_data.map[render->y][render->x] == '1')
 				render->color = 0x808080;
