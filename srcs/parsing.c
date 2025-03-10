@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/07 21:13:22 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/10 23:15:48 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ static int	get_color(char *str)
 	color = (ft_atoi(color_rgb_arr[0]) << 16) + (ft_atoi(color_rgb_arr[1]) << 8) + (ft_atoi(color_rgb_arr[2]));
 	free_2d_arr((void ***)&color_rgb_arr);
 	return (color);
+}
+
+static bool	get_texture(t_wall_texture *wall, char *path)
+{
+	wall->mlx = mlx_init();
+	wall->img = mlx_xpm_file_to_image(wall->mlx, path, &wall->img_width, &wall->img_height);
+	if (!wall->img)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file\n");
+		mlx_destroy_display(wall->mlx);
+		free(wall->mlx);
+		return (false);
+	}
+	return (true);
 }
 
 static bool	get_element_info(t_mapdata *data)
@@ -90,37 +104,6 @@ static bool	get_element_info(t_mapdata *data)
 	}
 	return (true);
 }
-
-// static int	read_map_line(t_mapdata *data->map_data)
-// {
-// 	char	*line;
-// 	int	height;
-	
-// 	height = 0;
-// 	data->map_data->map = malloc(sizeof(char *) * 30);
-// 	if (data->map_data->map == NULL)
-// 	{
-// 		printf("Allocating memory for map failed\n");
-// 		return (-1);
-// 	}
-// 	while (1)
-// 	{
-// 		line = get_next_line(data->map_data->fd);
-// 		if (line == NULL)
-// 			break ;
-// 		if (ft_strncmp(line, "\n", 1) == 0)
-// 		{
-// 			free(line);
-// 			continue ;
-// 		}
-// 		data->map_data->map[height] = ft_strdup(line);
-// 		height++;
-// 		free(line);
-// 	}
-// 	data->map_data->map[height] = NULL;
-// 	data->map_data->map_height = height;
-// 	return (0);
-// }
 
 static bool	get_map(t_data *data)
 {
@@ -191,10 +174,5 @@ int	parsing(t_data *data, char *file_path)
 	if (!get_map(data))
 		return (-1);
 	close(data->map_data.fd);
-	printf("After parsing, initialising data collected\n");
-	printf("North texture : %s\n", data->map_data.north_texture);
-	printf("South texture : %s\n", data->map_data.south_texture);
-	printf("West texture : %s\n", data->map_data.west_texture);
-	printf("East texture : %s\n", data->map_data.east_texture);
 	return (0);
 }

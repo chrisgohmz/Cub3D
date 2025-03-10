@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/06 21:40:12 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/10 19:34:51 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,21 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
+typedef struct s_wall_texture
+{
+	void	*mlx;
+	void	*img;
+	char	*path;
+	int		img_width;
+	int		img_height;
+}	t_wall_texture;
+
 typedef struct	s_mapdata
 {
-	char	*north_texture;
-	char	*south_texture;
-	char	*west_texture;
-	char	*east_texture;
+	t_wall_texture	north_texture;
+	t_wall_texture	south_texture;
+	t_wall_texture	west_texture;
+	t_wall_texture	east_texture;
 	int		floor_colour;
 	int		ceiling_colour;
 	char	**map;
