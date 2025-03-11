@@ -31,18 +31,18 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	ft_bzero(&data, sizeof(t_data));
-	if (parsing(&data, argv[1]) == -1)
-	{
-		printf("Error\n");
-		exit(EXIT_FAILURE);
-	}
-	init_data(&data);
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
 	{
 		perror("Failed to initialise window");
 		exit(EXIT_FAILURE);
 	}
+	if (parsing(&data, argv[1]) == -1)
+	{
+		printf("Error\n");
+		exit(EXIT_FAILURE);
+	}
+	init_data(&data);
 	printf("Creating Window\n");
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Cub3d");
 	if (data.win == NULL)
