@@ -43,64 +43,81 @@ static int	get_color(char *str)
 	return (color);
 }
 
-/*static bool	get_texture(t_wall_texture *wall, char *path)
+static bool	get_texture(t_wall_texture *wall, t_data *data, char *path)
 {
-	wall->mlx = mlx_init();
-	wall->img = mlx_xpm_file_to_image(wall->mlx, path, &wall->img_width, &wall->img_height);
+	wall->img = mlx_xpm_file_to_image(data->mlx, path, &wall->img_width, &wall->img_height);
 	if (!wall->img)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file\n");
-		mlx_destroy_display(wall->mlx);
-		free(wall->mlx);
+		return (false);
+	}
+	wall->addr = mlx_get_data_addr(wall->img, &wall->bits_per_pixel, &wall->size_line, &wall->endian);
+	if (!wall->addr)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nFailed to get image data address: %s\n", path);
+		mlx_destroy_image(data->mlx, wall->img);
 		return (false);
 	}
 	return (true);
-}*/
+}
 
-static bool	get_element_info(t_mapdata *data)
+static bool	get_element_info(t_data *data)
 {
 	int	i;
 
 	i = -1;
-	while (data->elements[++i])
+	while (data->map_data.elements[++i])
 	{
-		data->elements_info = ft_split(data->elements[i], ' ');
-		if (!data->elements_info)
+		data->map_data.elements_info = ft_split(data->map_data.elements[i], ' ');
+		if (!data->map_data.elements_info)
 			return (false);
-		if (count_arr_elements(data->elements_info) == 2)
+		if (count_arr_elements(data->map_data.elements_info) == 2)
 		{
-			if (!ft_strncmp(data->elements_info[0], NORTH, sizeof(NORTH)))
-				data->north_texture.path = ft_strdup(data->elements_info[1]);
-			else if (!ft_strncmp(data->elements_info[0], SOUTH, sizeof(SOUTH)))
-				data->south_texture.path = ft_strdup(data->elements_info[1]);
-			else if (!ft_strncmp(data->elements_info[0], EAST, sizeof(EAST)))
-				data->east_texture.path = ft_strdup(data->elements_info[1]);
-			else if (!ft_strncmp(data->elements_info[0], WEST, sizeof(WEST)))
-				data->west_texture.path = ft_strdup(data->elements_info[1]);
-			else if (!ft_strncmp(data->elements_info[0], FLOOR, sizeof(FLOOR)))
+			if (!ft_strncmp(data->map_data.elements_info[0], NORTH, sizeof(NORTH)))
 			{
-				data->floor_colour = get_color(data->elements_info[1]);
-				if (data->floor_colour == -1)
+				printf("%s\n", data->map_data.elements_info[1]);
+				if (!get_texture((&(data->map_data).north_texture), data, data->map_data.elements_info[1]))
+					return (false);
+			}
+			else if (!ft_strncmp(data->map_data.elements_info[0], SOUTH, sizeof(SOUTH)))
+			{
+				if (!get_texture(&data->map_data.south_texture, data, data->map_data.elements_info[1]))
+					return (false);
+			}
+			else if (!ft_strncmp(data->map_data.elements_info[0], EAST, sizeof(EAST)))
+			{
+				if (!get_texture(&data->map_data.east_texture, data, data->map_data.elements_info[1]))
+					return (false);
+			}
+			else if (!ft_strncmp(data->map_data.elements_info[0], WEST, sizeof(WEST)))
+			{
+				if (!get_texture(&data->map_data.west_texture, data, data->map_data.elements_info[1]))
+					return (false);
+			}
+			else if (!ft_strncmp(data->map_data.elements_info[0], FLOOR, sizeof(FLOOR)))
+			{
+				data->map_data.floor_colour = get_color(data->map_data.elements_info[1]);
+				if (data->map_data.floor_colour == -1)
 					return (false);	
 			}
-			else if (!ft_strncmp(data->elements_info[0], CEILING, sizeof(CEILING)))
+			else if (!ft_strncmp(data->map_data.elements_info[0], CEILING, sizeof(CEILING)))
 			{
-				data->ceiling_colour = get_color(data->elements_info[1]);
-				if (data->ceiling_colour == -1)
+				data->map_data.ceiling_colour = get_color(data->map_data.elements_info[1]);
+				if (data->map_data.ceiling_colour == -1)
 					return (false);	
 			}
 			else
 			{
-				free_2d_arr((void ***)&data->elements_info);
+				free_2d_arr((void ***)&data->map_data.elements_info);
 				return (false);
 			}
 		}
 		else
 		{
-			free_2d_arr((void ***)&data->elements_info);
+			free_2d_arr((void ***)&data->map_data.elements_info);
 			return (false);
 		}
-		free_2d_arr((void ***)&data->elements_info);
+		free_2d_arr((void ***)&data->map_data.elements_info);
 	}
 	return (true);
 }
@@ -165,7 +182,7 @@ int	parsing(t_data *data, char *file_path)
 	data->map_data.file_content = NULL;
 	if (!data->map_data.elements)
 		return (-1);
-	if (!get_element_info(&data->map_data))
+	if (!get_element_info(data))
 	{
 		free_2d_arr((void ***)&data->map_data.elements);
 		return (-1);

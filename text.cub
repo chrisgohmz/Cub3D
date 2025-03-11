@@ -1,13 +1,13 @@
-     NO      ./path_to_the_north_texture
+     NO      ./textures/Brick.xpm
 
 
-   SO     ./path_to_the_south_texture
+   SO     ./textures/Metal.xpm
 
 
-    WE     ./path_to_the_west_texture
+    WE     ./textures/Stone.xpm
 
 
-        EA       ./path_to_the_east_texture     
+        EA       ./textures/Wood.xpm
 
 
 

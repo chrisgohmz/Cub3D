@@ -45,11 +45,13 @@ typedef struct s_point
 
 typedef struct s_wall_texture
 {
-	void	*mlx;
 	void	*img;
-	char	*path;
+	char	*addr;
 	int		img_width;
 	int		img_height;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
 }	t_wall_texture;
 
 typedef struct	s_mapdata

@@ -118,8 +118,25 @@ void	render_scene(t_data *data)
 			y2 = HEIGHT - 1;
 		while (y1 <= y2)
 		{
-			if (x > MINIMAP_SIZE || y1 > MINIMAP_SIZE)
-				ft_mlx_pixel_put(data, x, y1, 0xFFFFFF);
+			t_wall_texture *texture;
+			if (side == 0 && rayDirX > 0)
+				texture = &data->map_data.east_texture; // East wall
+			else if (side == 0 && rayDirX < 0)
+				texture = &data->map_data.west_texture; // West wall
+			else if (side == 1 && rayDirY > 0)
+				texture = &data->map_data.south_texture; // South wall
+			else
+				texture = &data->map_data.north_texture; // North wall
+		// Calculate texture coordinates
+			double wallX = (side == 0) ? data->player_pos.y + perpWallDist * rayDirY : data->player_pos.x + perpWallDist * rayDirX;
+			wallX -= floor(wallX); // Get fractional part of wallX
+			int texX = (int)(wallX * texture->img_width);
+			if ((side == 0 && rayDirX > 0) || (side == 1 && rayDirY < 0))
+				texX = texture->img_width - texX - 1; // Flip texture horizontally
+			int texY = (y1 - HEIGHT / 2 + lineHeight / 2) * texture->img_height / lineHeight;
+			// Fetch color from texture
+			int color = *(unsigned int *)(texture->addr + texY * texture->size_line + texX * (texture->bits_per_pixel / 8));
+			ft_mlx_pixel_put(data, x, y1, color);
 			y1++;
 		}
 	}
