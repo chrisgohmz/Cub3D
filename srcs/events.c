@@ -30,10 +30,10 @@ int	close_window(t_data *data)
 		free(data->mlx);
 		data->mlx = NULL;
 	}
-	free(data->map_data.north_texture);
-	free(data->map_data.south_texture);
-	free(data->map_data.east_texture);
-	free(data->map_data.west_texture);
+	free(data->map_data.north_texture.path);
+	free(data->map_data.south_texture.path);
+	free(data->map_data.east_texture.path);
+	free(data->map_data.west_texture.path);
 	free_2d_arr((void ***)&data->map_data.map);
 	exit(EXIT_SUCCESS);
 }

@@ -70,7 +70,7 @@ void	cast_ray(t_data *data, t_renderdata *render)
 			render->mapY = render->mapY + stepY;
 			side = 1;
 		}
-		if (render->mapX < 0 || render->mapX >= 20 || render->mapY < 0 || render->mapY >= 20)
+		if (render->mapX < 0 || render->mapX >= MINIMAP_SIZE * render->block_size_x || render->mapY < 0 || render->mapY >= MINIMAP_SIZE * render->block_size_y)
 		{
 			hit = 1;
 			render->hitPointX = render->mapX;

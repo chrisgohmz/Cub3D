@@ -21,8 +21,12 @@ void	drawing_grid_lines(t_data *data, t_renderdata *render)
 		render->i = 0;
 		while (render->i < data->map_data.map_width * render->block_size_x)
 		{
-			render->pixel = (render->y * render->block_size_y * data->size_line) + (render->i * (data->bits_per_pixel / 8));
-			*(unsigned int*)((char*)data->addr + render->pixel) = render->line_color;
+			if (render->y < data->map_data.map_height &&
+			(size_t)(render->i / render->block_size_x) < ft_strlen(data->map_data.map[render->y]) && data->map_data.map[render->y][render->i / render->block_size_x] != ' ')
+			{
+				render->pixel = (render->y * render->block_size_y * data->size_line) + (render->i * (data->bits_per_pixel / 8));
+				*(unsigned int*)((char*)data->addr + render->pixel) = render->line_color;
+			}
 			render->i++;
 		}
 		render->y++;
@@ -33,8 +37,11 @@ void	drawing_grid_lines(t_data *data, t_renderdata *render)
 		render->j = 0;
 		while (render->j < data->map_data.map_height * render->block_size_y)
 		{
-			render->pixel = (render->j * data->size_line) + (render->x * render->block_size_x  * (data->bits_per_pixel / 8));
-			*(unsigned int*)((char*)data->addr + render->pixel) = render->line_color;
+			if ((size_t)render->x <= ft_strlen(data->map_data.map[render->j / render->block_size_y]) && data->map_data.map[render->j / render->block_size_y][render->x] != ' ')
+			{
+				render->pixel = (render->j * data->size_line) + (render->x * render->block_size_x  * (data->bits_per_pixel / 8));
+				*(unsigned int*)((char*)data->addr + render->pixel) = render->line_color;
+			}
 			render->j++;
 		}
 		render->x++;

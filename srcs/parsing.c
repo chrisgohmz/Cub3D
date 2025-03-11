@@ -43,7 +43,7 @@ static int	get_color(char *str)
 	return (color);
 }
 
-static bool	get_texture(t_wall_texture *wall, char *path)
+/*static bool	get_texture(t_wall_texture *wall, char *path)
 {
 	wall->mlx = mlx_init();
 	wall->img = mlx_xpm_file_to_image(wall->mlx, path, &wall->img_width, &wall->img_height);
@@ -55,7 +55,7 @@ static bool	get_texture(t_wall_texture *wall, char *path)
 		return (false);
 	}
 	return (true);
-}
+}*/
 
 static bool	get_element_info(t_mapdata *data)
 {
@@ -70,13 +70,13 @@ static bool	get_element_info(t_mapdata *data)
 		if (count_arr_elements(data->elements_info) == 2)
 		{
 			if (!ft_strncmp(data->elements_info[0], NORTH, sizeof(NORTH)))
-				data->north_texture = ft_strdup(data->elements_info[1]);
+				data->north_texture.path = ft_strdup(data->elements_info[1]);
 			else if (!ft_strncmp(data->elements_info[0], SOUTH, sizeof(SOUTH)))
-				data->south_texture = ft_strdup(data->elements_info[1]);
+				data->south_texture.path = ft_strdup(data->elements_info[1]);
 			else if (!ft_strncmp(data->elements_info[0], EAST, sizeof(EAST)))
-				data->east_texture = ft_strdup(data->elements_info[1]);
+				data->east_texture.path = ft_strdup(data->elements_info[1]);
 			else if (!ft_strncmp(data->elements_info[0], WEST, sizeof(WEST)))
-				data->west_texture = ft_strdup(data->elements_info[1]);
+				data->west_texture.path = ft_strdup(data->elements_info[1]);
 			else if (!ft_strncmp(data->elements_info[0], FLOOR, sizeof(FLOOR)))
 			{
 				data->floor_colour = get_color(data->elements_info[1]);
