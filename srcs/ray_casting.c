@@ -76,7 +76,7 @@ void	cast_ray(t_data *data, t_renderdata *render)
 			render->hitPointX = render->mapX;
 			render->hitPointY = render->mapY;
 		}
-		if (data->map_data.map[(int)render->mapY][(int)render->mapX] == '1')
+		if ((data->map_data.map[(int)render->mapY][(int)render->mapX] == '1') || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'D'))
 		{
 			/*printf("Wall collison detected\n");*/
 			hit = 1;

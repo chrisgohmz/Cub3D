@@ -22,6 +22,8 @@ void	render_map_cells(t_data *data, t_renderdata *render)
 		{
 			if (data->map_data.map[render->y][render->x] == '1')
 				render->color = 0x808080;
+			else if (data->map_data.map[render->y][render->x] == 'D')
+				render->color = 0xFF0000;
 			else
 				render->color = 0x000000;
 			render->i = 0;

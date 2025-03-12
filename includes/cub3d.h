@@ -60,6 +60,9 @@ typedef struct	s_mapdata
 	t_wall_texture	south_texture;
 	t_wall_texture	west_texture;
 	t_wall_texture	east_texture;
+	t_wall_texture	door_texture;
+	int		door_x;
+	int		door_y;
 	int		floor_colour;
 	int		ceiling_colour;
 	char	**map;

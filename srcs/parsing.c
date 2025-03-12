@@ -61,6 +61,12 @@ static bool	get_texture(t_wall_texture *wall, t_data *data, char *path)
 	return (true);
 }
 
+static bool	load_door_texture(t_data *data)
+{
+	char	*door_texture_path = "./textures/Door.xpm";
+	return (get_texture(&data->map_data.door_texture, data, door_texture_path));
+}
+
 static bool	get_element_info(t_data *data)
 {
 	int	i;
@@ -125,7 +131,11 @@ static bool	get_element_info(t_data *data)
 static bool	get_map(t_data *data)
 {
 	size_t	width;
+	int	y;
+	int	x;
 	
+	y = 0;
+	x = 0;
 	while (data->map_data.line)
 	{
 		if (!data->map_data.file_content)
@@ -149,6 +159,20 @@ static bool	get_map(t_data *data)
 	free(data->map_data.file_content);
 	if (!data->map_data.map)
 		return (false);
+	while (y < data->map_data.map_height)
+	{
+		while (x < data->map_data.map_width)
+		{
+			if (data->map_data.map[y][x] == 'D')
+			{
+				data->map_data.door_x = x;
+				data->map_data.door_y = y;
+				return (true);
+			}
+			x++;
+		}
+		y++;
+	}
 	return (true);
 }
 
@@ -189,6 +213,8 @@ int	parsing(t_data *data, char *file_path)
 	}
 	free_2d_arr((void ***)&data->map_data.elements);
 	if (!get_map(data))
+		return (-1);
+	if (!load_door_texture(data))
 		return (-1);
 	close(data->map_data.fd);
 	return (0);

@@ -103,7 +103,7 @@ void	render_scene(t_data *data)
 				mapY += stepY;
 				side = 1;
 			}
-			hit = (data->map_data.map[mapY][mapX] == '1');
+			hit = (data->map_data.map[mapY][mapX] == '1') || data->map_data.map[mapY][mapX] == 'D';
 		}
 		if (side == 0)
 			perpWallDist = sideDistX - deltaDistX;
@@ -119,7 +119,9 @@ void	render_scene(t_data *data)
 		while (y1 <= y2)
 		{
 			t_wall_texture *texture;
-			if (side == 0 && rayDirX > 0)
+			if (data->map_data.map[mapY][mapX] == 'D')
+				texture = &data->map_data.door_texture;
+			else if (side == 0 && rayDirX > 0)
 				texture = &data->map_data.east_texture; // East wall
 			else if (side == 0 && rayDirX < 0)
 				texture = &data->map_data.west_texture; // West wall
@@ -127,7 +129,7 @@ void	render_scene(t_data *data)
 				texture = &data->map_data.south_texture; // South wall
 			else
 				texture = &data->map_data.north_texture; // North wall
-		// Calculate texture coordinates
+			// Calculate texture coordinates
 			double wallX = (side == 0) ? data->player_pos.y + perpWallDist * rayDirY : data->player_pos.x + perpWallDist * rayDirX;
 			wallX -= floor(wallX); // Get fractional part of wallX
 			int texX = (int)(wallX * texture->img_width);
