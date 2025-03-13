@@ -12,6 +12,20 @@
 
 #include "../includes/cub3d.h"
 
+static	int	get_door_index(t_data *data, int x, int y)
+{
+	int	i;
+	
+	i = 0;
+	while (i < data->map_data.num_doors)
+	{
+		if (data->map_data.door_x[i] == x && data->map_data.door_y[i] == y)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 void	render_scene(t_data *data)
 {
 	int	x;
@@ -103,7 +117,14 @@ void	render_scene(t_data *data)
 				mapY += stepY;
 				side = 1;
 			}
-			hit = (data->map_data.map[mapY][mapX] == '1') || data->map_data.map[mapY][mapX] == 'D';
+			if (data->map_data.map[mapY][mapX] == '1')
+				hit = 1;
+			else if (data->map_data.map[mapY][mapX] == 'D')
+			{
+				int	door_index = get_door_index(data, mapX, mapY);
+				if (door_index != -1 && !data->map_data.door_states[door_index])
+					hit = 1;
+			}
 		}
 		if (side == 0)
 			perpWallDist = sideDistX - deltaDistX;
@@ -120,7 +141,13 @@ void	render_scene(t_data *data)
 		{
 			t_wall_texture *texture;
 			if (data->map_data.map[mapY][mapX] == 'D')
-				texture = &data->map_data.door_texture;
+			{
+				int	door_index = get_door_index(data, mapX, mapY);
+				if (door_index != -1 && !data->map_data.door_states[door_index])
+					texture = &data->map_data.door_texture;
+				else
+					continue ;
+			}
 			else if (side == 0 && rayDirX > 0)
 				texture = &data->map_data.east_texture; // East wall
 			else if (side == 0 && rayDirX < 0)

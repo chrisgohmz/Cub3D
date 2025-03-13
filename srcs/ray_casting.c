@@ -12,6 +12,20 @@
 
 #include "../includes/cub3d.h"
 
+int	is_door_open(t_data *data, int x, int y)
+{
+	int	i;
+	
+	i = 0;
+	while (i < data->map_data.num_doors)
+	{
+		if (data->map_data.door_x[i] == x && data->map_data.door_y[i] == y)
+			return (data->map_data.door_states[i]);
+		i++;
+	}
+	return (0);
+}
+
 void	cast_ray(t_data *data, t_renderdata *render)
 {
 	double	sideDistX;
@@ -76,7 +90,7 @@ void	cast_ray(t_data *data, t_renderdata *render)
 			render->hitPointX = render->mapX;
 			render->hitPointY = render->mapY;
 		}
-		if ((data->map_data.map[(int)render->mapY][(int)render->mapX] == '1') || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'D'))
+		if ((data->map_data.map[(int)render->mapY][(int)render->mapX] == '1') || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'D' && !is_door_open(data, (int)render->mapX, (int)render->mapY)))
 		{
 			/*printf("Wall collison detected\n");*/
 			hit = 1;

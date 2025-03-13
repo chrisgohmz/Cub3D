@@ -61,8 +61,10 @@ typedef struct	s_mapdata
 	t_wall_texture	west_texture;
 	t_wall_texture	east_texture;
 	t_wall_texture	door_texture;
-	int		door_x;
-	int		door_y;
+	bool	*door_states;
+	int		num_doors;
+	int	*door_x;
+	int	*door_y;
 	int		floor_colour;
 	int		ceiling_colour;
 	char	**map;
@@ -140,9 +142,11 @@ typedef struct s_renderdata
 
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
+void	redraw_image(t_data *data);
 void	rotate_view(t_data *data, int direction);
 int		keydown(int keycode, t_data *data);
 void	move_player(t_data *data, int direction);
+int	is_door_open(t_data *data, int x, int y);
 
 // init.c //
 void	init_data(t_data *data);

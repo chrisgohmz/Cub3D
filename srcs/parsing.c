@@ -133,6 +133,7 @@ static bool	get_map(t_data *data)
 	size_t	width;
 	int	y;
 	int	x;
+	int	door_index;
 	
 	y = 0;
 	x = 0;
@@ -159,20 +160,43 @@ static bool	get_map(t_data *data)
 	free(data->map_data.file_content);
 	if (!data->map_data.map)
 		return (false);
+	data->map_data.num_doors = 0;
 	while (y < data->map_data.map_height)
 	{
+		x = 0;
+		while (x < data->map_data.map_width)
+		{
+			if (data->map_data.map[y][x] == 'D')
+				data->map_data.num_doors++;
+			x++;
+		}
+		y++;
+	}
+	data->map_data.door_x = malloc(sizeof(int) * data->map_data.num_doors);
+	data->map_data.door_y = malloc(sizeof(int) * data->map_data.num_doors);
+	data->map_data.door_states = malloc(sizeof(bool) * data->map_data.num_doors);
+	if (!data->map_data.door_x || !data->map_data.door_y || !data->map_data.door_states)
+		return (false);
+	y = 0;
+	door_index = 0;
+	while (y < data->map_data.map_height)
+	{
+		x = 0;
 		while (x < data->map_data.map_width)
 		{
 			if (data->map_data.map[y][x] == 'D')
 			{
-				data->map_data.door_x = x;
-				data->map_data.door_y = y;
-				return (true);
+				data->map_data.door_x[door_index] = x;
+				data->map_data.door_y[door_index] = y;
+				data->map_data.door_states[door_index] = false;
+				door_index++;
 			}
 			x++;
 		}
 		y++;
 	}
+	if (door_index != data->map_data.num_doors)
+		return (false);	
 	return (true);
 }
 

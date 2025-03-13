@@ -95,37 +95,69 @@ void	rotate_view(t_data *data, int direction)
 	}
 }*/
 
+static bool	can_move_to(t_data *data, double x, double y)
+{
+	int	map_x = (int)x;
+	int	map_y = (int)y;
+	char	map_cell = data->map_data.map[map_y][map_x];
+	int	i;
+	
+	i = 0;
+	if (map_cell == '1')
+		return (false);
+	if (map_cell == 'D')
+	{
+		while (i < data->map_data.num_doors)
+		{
+			if (data->map_data.door_x[i] == map_x && data->map_data.door_y[i] == map_y)
+				return (data->map_data.door_states[i]);
+			i++;
+		}
+		return (false);
+	}
+	return (true);
+}
+
+
 void	move_player(t_data *data, int direction)
 {
 	const double	speed = 0.1;
+	double	new_x;
+	double	new_y;
 	
 	if (direction == XK_w)
 	{
-		if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.x * speed)] != '1')
-			data->player_pos.x += data->player_direction.x * speed;
-		if (data->map_data.map[(int)(data->player_pos.y + data->player_direction.y * speed)][(int)data->player_pos.x] != '1')
-			data->player_pos.y += data->player_direction.y * speed;
+		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.x * speed)] != '1')*/
+		new_x = data->player_pos.x + data->player_direction.x * speed;
+		/*if (data->map_data.map[(int)(data->player_pos.y + data->player_direction.y * speed)][(int)data->player_pos.x] != '1')*/
+		new_y = data->player_pos.y + data->player_direction.y * speed;
 	}
 	else if (direction == XK_s)
 	{
-		if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.x * speed)] != '1')
-			data->player_pos.x -= data->player_direction.x * speed;
-		if (data->map_data.map[(int)(data->player_pos.y - data->player_direction.y * speed)][(int)data->player_pos.x] != '1')
-			data->player_pos.y -= data->player_direction.y * speed;
+		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.x * speed)] != '1')*/
+		new_x = data->player_pos.x - data->player_direction.x * speed;
+		/*if (data->map_data.map[(int)(data->player_pos.y - data->player_direction.y * speed)][(int)data->player_pos.x] != '1')*/
+		new_y = data->player_pos.y - data->player_direction.y * speed;
 	}
 	else if (direction == XK_a)
 	{
-		if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.y * speed)] != '1')
-			data->player_pos.x += data->player_direction.y * speed;
-		if (data->map_data.map[(int)(data->player_pos.y - data->player_direction.x * speed)][(int)data->player_pos.x] != '1')
-			data->player_pos.y -= data->player_direction.x * speed;
+		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.y * speed)] != '1')*/
+		new_x = data->player_pos.x + data->player_direction.y * speed;
+		/*if (data->map_data.map[(int)(data->player_pos.y - data->player_direction.x * speed)][(int)data->player_pos.x] != '1')*/
+		new_y = data->player_pos.y - data->player_direction.x * speed;
 	}
 	else if (direction == XK_d)
 	{
-		if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.y * speed)] != '1')
-			data->player_pos.x -= data->player_direction.y * speed;
-		if (data->map_data.map[(int)(data->player_pos.y + data->player_direction.x * speed)][(int)data->player_pos.x] != '1')
-			data->player_pos.y += data->player_direction.x * speed;
+		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.y * speed)] != '1')*/
+		new_x = data->player_pos.x - data->player_direction.y * speed;
+		/*if (data->map_data.map[(int)(data->player_pos.y + data->player_direction.x * speed)][(int)data->player_pos.x] != '1')*/
+		new_y = data->player_pos.y + data->player_direction.x * speed;
 	}
+	else
+		return ;
+	if (can_move_to(data, new_x, data->player_pos.y))
+		data->player_pos.x = new_x;
+	if (can_move_to(data, data->player_pos.x, new_y))
+		data->player_pos.y = new_y;
 	redraw_image(data);
 }
