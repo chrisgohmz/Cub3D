@@ -128,6 +128,24 @@ static bool	load_door_texture(t_data *data)
 	return (get_texture(&data->map_data.door_texture, data, door_texture_path));
 }
 
+static bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path)
+{
+	sprite->img = mlx_xpm_file_to_image(data->mlx, path, &sprite->width, &sprite->height);
+	if (!sprite->img)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file\n");
+		return (false);
+	}
+	sprite->addr = mlx_get_data_addr(sprite->img, &sprite->bits_per_pixel, &sprite->size_line, &sprite->endian);
+	if (!sprite->addr)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nFailed to get image data address: %s\n", path);
+		mlx_destroy_image(data->mlx, sprite->img);
+		return (false);
+	}
+	return (true);
+}
+
 static bool	get_element_info(t_data *data)
 {
 	int	i;
@@ -322,7 +340,7 @@ static bool	check_map_chars_valid(const char *line, bool *player_found)
 	i = -1;
 	while (line[++i])
 	{
-		if (!ft_strchr("01NSEWD \n", line[i]))
+		if (!ft_strchr("01NSEWDM \n", line[i]))
 		{
 			ft_dprintf(STDERR_FILENO, "Error\nMap contains an invalid character\n");
 			return (false);
@@ -348,10 +366,13 @@ static bool	get_map(t_data *data)
 	int		x;
 	int		door_index;
 	bool	player_found;
+	int	sprite_index;
 	
 	y = 0;
 	x = 0;
 	player_found = false;
+	sprite_index = 0;
+	data->map_data.num_sprites = 0;
 	while (data->map_data.line)
 	{
 		if (!check_map_chars_valid(data->map_data.line, &player_found))
@@ -399,6 +420,8 @@ static bool	get_map(t_data *data)
 		{
 			if (data->map_data.map[y][x] == 'D')
 				data->map_data.num_doors++;
+			if (data->map_data.map[y][x] == 'M')
+				data->map_data.num_sprites++;
 		}
 		y++;
 	}
@@ -406,6 +429,9 @@ static bool	get_map(t_data *data)
 	data->map_data.door_y = malloc(sizeof(int) * data->map_data.num_doors);
 	data->map_data.door_states = malloc(sizeof(bool) * data->map_data.num_doors);
 	if (!data->map_data.door_x || !data->map_data.door_y || !data->map_data.door_states)
+		return (false);
+	data->map_data.sprites = malloc(sizeof(t_sprite) * data->map_data.num_sprites);
+	if (!data->map_data.sprites)
 		return (false);
 	y = 0;
 	door_index = 0;
@@ -420,6 +446,14 @@ static bool	get_map(t_data *data)
 				data->map_data.door_y[door_index] = y;
 				data->map_data.door_states[door_index] = false;
 				door_index++;
+			}
+			if (data->map_data.map[y][x] == 'M')
+			{
+				data->map_data.sprites[sprite_index].x = x + 0.5;
+				data->map_data.sprites[sprite_index].y = y + 0.5;
+				if (!load_sprite_texture(&data->map_data.sprites[sprite_index], data, "./textures/Enemy.xpm"))
+					return (false);
+				sprite_index++;
 			}
 		}
 		y++;

@@ -55,6 +55,8 @@ int	close_window(t_data *data)
 		free(data->mlx);
 		data->mlx = NULL;
 	}
+	if (data->zBuffer)
+		free(data->zBuffer);
 	free(data->map_data.door_x);
 	free(data->map_data.door_y);
 	free(data->map_data.door_states);

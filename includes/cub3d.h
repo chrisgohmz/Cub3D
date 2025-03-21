@@ -43,6 +43,19 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
+typedef struct s_sprite
+{
+	double	x;
+	double	y;
+	void 	*img;
+	char	*addr;
+	int	width;
+	int	height;
+	int	bits_per_pixel;
+	int	size_line;
+	int	endian;
+}	t_sprite;
+
 typedef struct s_wall_texture
 {
 	void	*img;
@@ -61,6 +74,8 @@ typedef struct	s_mapdata
 	t_wall_texture	west_texture;
 	t_wall_texture	east_texture;
 	t_wall_texture	door_texture;
+	t_sprite	*sprites;
+	int		num_sprites;
 	bool	*door_states;
 	int		num_doors;
 	int	*door_x;
@@ -91,6 +106,7 @@ typedef struct s_data
 	t_point		player_direction;
 	t_point		camera_plane_pos;
 	t_mapdata	map_data;
+	double		*zBuffer;
 }	t_data;
 
 typedef struct s_renderdata
@@ -147,6 +163,8 @@ void	rotate_view(t_data *data, int direction);
 int		keydown(int keycode, t_data *data);
 void	move_player(t_data *data, int direction);
 int	is_door_open(t_data *data, int x, int y);
+void	render_sprites(t_data *data);
+void	sort_sprites(t_data *data);
 
 // init.c //
 void	init_data(t_data *data);

@@ -34,4 +34,5 @@ void	render_map(t_data *data)
 	drawing_player(data, &render);
 	drawing_multiple_rays(data, &render);
 	render_scene(data);
+	render_sprites(data);
 }

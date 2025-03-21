@@ -75,7 +75,7 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 
 void	drawing_multiple_rays(t_data *data, t_renderdata *render)
 {
-	render->num_rays = 60;
+	render->num_rays = WIDTH;
 	render->fov = M_PI / 3;
 	render->k = 0;
 	while (render->k < render->num_rays)
