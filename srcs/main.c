@@ -24,14 +24,29 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 int	game_loop(t_data *data)
 {
 	int	i;
+	int	new_x;
+	int	new_y;
+	int	old_x;
+	int	old_y;
 	
 	i = 0;
 	while (i < data->map_data.num_sprites)
 	{
+		old_x = (int)data->map_data.sprites[i].x;
+		old_y = (int)data->map_data.sprites[i].y;
 		update_sprite(data, i);
+		new_x = (int)data->map_data.sprites[i].x;
+		new_y = (int)data->map_data.sprites[i].y;
+		if (new_x != old_x || new_y != old_y)
+		{
+			data->map_data.map[old_y][old_x] = '0';
+			data->map_data.map[new_y][new_x] = 'M';
+		}
 		i++;
 	}
-	redraw_image(data);
+	render_map(data);
+	render_sprites(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 

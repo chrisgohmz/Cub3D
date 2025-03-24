@@ -392,7 +392,7 @@ static bool	get_map(t_data *data)
 			free(data->map_data.tmp);
 		}
 		if (!data->map_data.file_content)
-				return (false);
+			return (false);
 		data->map_data.map_height++;
 		width = ft_strlen(data->map_data.line);
 		if (width > (size_t)data->map_data.map_width)
@@ -450,8 +450,8 @@ static bool	get_map(t_data *data)
 			}
 			if (data->map_data.map[y][x] == 'M')
 			{
-				data->map_data.sprites[sprite_index].x = x + 0.5;
-				data->map_data.sprites[sprite_index].y = y + 0.5;
+				data->map_data.sprites[sprite_index].x = x;
+				data->map_data.sprites[sprite_index].y = y;
 				if (!load_sprite_texture(&data->map_data.sprites[sprite_index], data, "./textures/Enemy.xpm"))
 					return (false);
 				sprite_index++;

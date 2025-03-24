@@ -15,17 +15,8 @@
 void	drawing_player(t_data *data, t_renderdata *render)
 {
 	// this is for drawing a dot for the player coordinates, but shifting it to the middle of the cell for realistic purposes //
-	if (data->player_pos.x == 9 && data->player_pos.y == 9)
-	{
-		render->player_screen_x = data->player_pos.x * render->block_size_x + (render->block_size_x / 2);
-		render->player_screen_y = data->player_pos.y * render->block_size_y + (render->block_size_y / 2);
-	}
-	else
-	{
-		printf("Coming here\n");
-		render->player_screen_x = data->player_pos.x * render->block_size_x;
-		render->player_screen_y = data->player_pos.y * render->block_size_y;
-	}
+	render->player_screen_x = data->player_pos.x * render->block_size_x;
+	render->player_screen_y = data->player_pos.y * render->block_size_y;
 	render->player_radius = 2;
 	render->player_color = 0xFF0000;
 	render->py = -render->player_radius;
