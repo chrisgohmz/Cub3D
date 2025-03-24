@@ -17,7 +17,7 @@ static bool	found_map_start(const char *str)
 	int	i;
 
 	i = -1;
-	while (str[++i] == ' ');
+	while (str[++i] == ' '); //can be represented using {} to indicate do nothing//
 	return (str[i] == '1');
 }
 
@@ -143,6 +143,7 @@ static bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path)
 		mlx_destroy_image(data->mlx, sprite->img);
 		return (false);
 	}
+	sprite->move_speed = 0.005;
 	return (true);
 }
 
@@ -483,15 +484,15 @@ int	parsing(t_data *data, char *file_path)
 			data->map_data.file_content = ft_strjoin(data->map_data.file_content, data->map_data.line);
 			free(data->map_data.tmp);
 			free(data->map_data.line);
-			if (!data->map_data.file_content)
+			if (!data->map_data.file_content) // handling ft_strjoin failure //
 				return (0);
 		}
 		data->map_data.line = get_next_line(data->map_data.fd);
 	}
-	data->map_data.elements = ft_split(data->map_data.file_content, '\n');
+	data->map_data.elements = ft_split(data->map_data.file_content, '\n'); // split the data up by new line //
 	free(data->map_data.file_content);
 	data->map_data.file_content = NULL;
-	if (!data->map_data.elements)
+	if (!data->map_data.elements) // if ft_split fails //
 		return (0);
 	if (!get_element_info(data))
 	{

@@ -21,6 +21,20 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*((unsigned int *)dest) = color;
 }
 
+int	game_loop(t_data *data)
+{
+	int	i;
+	
+	i = 0;
+	while (i < data->map_data.num_sprites)
+	{
+		update_sprite(data, i);
+		i++;
+	}
+	redraw_image(data);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -50,6 +64,7 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, ON_DESTROY, 0, close_window, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, keydown, &data);
+	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }

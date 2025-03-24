@@ -47,6 +47,7 @@ typedef struct s_sprite
 {
 	double	x;
 	double	y;
+	double	move_speed;
 	void 	*img;
 	char	*addr;
 	int	width;
@@ -165,6 +166,7 @@ void	move_player(t_data *data, int direction);
 int	is_door_open(t_data *data, int x, int y);
 void	render_sprites(t_data *data);
 void	sort_sprites(t_data *data);
+void	update_sprite(t_data *data, int i);
 
 // init.c //
 void	init_data(t_data *data);
