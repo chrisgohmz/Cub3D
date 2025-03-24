@@ -108,6 +108,8 @@ typedef struct s_data
 	t_point		camera_plane_pos;
 	t_mapdata	map_data;
 	double		*zBuffer;
+	int			mouse_pos_x;
+	int			mouse_pos_y;
 }	t_data;
 
 typedef struct s_renderdata
@@ -167,6 +169,7 @@ int	is_door_open(t_data *data, int x, int y);
 void	render_sprites(t_data *data);
 void	sort_sprites(t_data *data);
 void	update_sprite(t_data *data, int i);
+int		mouse_move(int x, int y, t_data *data);
 
 // init.c //
 void	init_data(t_data *data);

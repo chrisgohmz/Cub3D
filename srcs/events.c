@@ -95,6 +95,17 @@ static void	interact_with_door(t_data *data)
     	}
 }	
 
+int	mouse_move(int x, int y, t_data *data)
+{
+	if (x > data->mouse_pos_x)
+		rotate_view(data, XK_Right);
+	else if (x < data->mouse_pos_x)
+		rotate_view(data, XK_Left);
+	data->mouse_pos_x = x;
+	data->mouse_pos_y = y;
+	return (1);
+}
+
 int	keydown(int keycode, t_data *data)
 {
 	if (keycode == XK_Escape)

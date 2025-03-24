@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	
-	if (argc != 2)
+	if (argc != 2 || !ft_strend(argv[1], ".cub"))
 	{
 		printf("Usage: ./cub3D <.cub file>\n");
 		exit(EXIT_FAILURE);
@@ -79,6 +79,7 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	mlx_hook(data.win, ON_DESTROY, 0, close_window, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, keydown, &data);
+	mlx_hook(data.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
 	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_loop(data.mlx);
 	return (0);
