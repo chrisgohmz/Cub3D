@@ -144,7 +144,7 @@ void	update_sprite(t_data *data, int i)
         if (fabs(data->player_pos.x - data->map_data.sprites[i].x) < 0.1 &&
 			fabs(data->player_pos.y - data->map_data.sprites[i].y) < 0.1)
 	{
-		printf("Collisonn with enemy! Player died\n");
+		printf("Collison with enemy! Player died\n");
 		close_window(data);
 	}
 }
