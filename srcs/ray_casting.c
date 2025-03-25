@@ -90,7 +90,7 @@ void	cast_ray(t_data *data, t_renderdata *render)
 			render->hitPointX = render->mapX;
 			render->hitPointY = render->mapY;
 		}
-		if ((data->map_data.map[(int)render->mapY][(int)render->mapX] == '1') || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'D' && !is_door_open(data, (int)render->mapX, (int)render->mapY)))
+		if ((data->map_data.map[(int)render->mapY][(int)render->mapX] == '1') || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'D' && !is_door_open(data, (int)render->mapX, (int)render->mapY)) || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'M'))
 		{
 			/*printf("Wall collison detected\n");*/
 			hit = 1;

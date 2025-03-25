@@ -14,6 +14,9 @@
 
 int	close_window(t_data *data)
 {
+	int	i;
+	
+	i = 0;
 	if (data->map_data.north_texture.img != NULL)
 	{
 		mlx_destroy_image(data->mlx, data->map_data.north_texture.img);
@@ -38,6 +41,16 @@ int	close_window(t_data *data)
 	{
 		mlx_destroy_image(data->mlx, data->map_data.door_texture.img);
 		data->map_data.door_texture.img = NULL;
+	}
+	if (data->map_data.sprites)
+	{
+		for (int i = 0; i < data->map_data.num_sprites; i++)
+		{
+			if (data->map_data.sprites[i].img)
+				mlx_destroy_image(data->mlx, data->map_data.sprites[i].img);
+		}
+		free(data->map_data.sprites);
+		data->map_data.sprites = NULL;
 	}
 	if (data->img != NULL)
 	{
