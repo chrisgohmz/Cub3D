@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 20:00:44 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/06 21:14:16 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/25 22:14:59 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	redraw_image(t_data *data)
 {
+	struct timeval	tv;
+	unsigned long	elapsed_time_in_ms;
+
 	mlx_destroy_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	data->addr = mlx_get_data_addr(data->img,
@@ -21,6 +24,12 @@ void	redraw_image(t_data *data)
 			&data->endian);
 	render_scene(data);
 	render_map(data);
+	gettimeofday(&tv, NULL);
+	elapsed_time_in_ms = (tv.tv_sec - data->current_time.tv_sec) * 1000 + (tv.tv_usec - data->current_time.tv_usec) / 1000;
+	if (elapsed_time_in_ms < 1000 / FRAMES_PER_SECOND)
+		return ;
+	data->current_time.tv_sec = tv.tv_sec;
+	data->current_time.tv_usec = tv.tv_usec;
 	mlx_put_image_to_window(data->mlx, data->win,
 		data->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/19 15:05:42 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/25 18:29:05 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ static int	get_color(char *str)
 
 static bool	get_texture(t_wall_texture *wall, t_data *data, char *path)
 {
+	if (wall->img)
+		mlx_destroy_image(data->mlx, wall->img);
 	wall->img = mlx_xpm_file_to_image(data->mlx, path, &wall->img_width, &wall->img_height);
 	if (!wall->img)
 	{
@@ -488,6 +490,12 @@ int	parsing(t_data *data, char *file_path)
 				return (0);
 		}
 		data->map_data.line = get_next_line(data->map_data.fd);
+	}
+	if (!data->map_data.file_content)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nFile is empty\n");
+		close(data->map_data.fd);
+		return (0);
 	}
 	data->map_data.elements = ft_split(data->map_data.file_content, '\n'); // split the data up by new line //
 	free(data->map_data.file_content);

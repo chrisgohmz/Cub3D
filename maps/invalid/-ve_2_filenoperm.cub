@@ -1,0 +1,9 @@
+NO ./textures/Brick.xpm
+SO ./textures/Brick.xpm
+WE ./textures/Brick.xpm
+EA ./textures/Brick_no_perm.xpm
+
+F 255, 255, 0
+C 0, 42, 55
+
+ 11 111  11 111 1 1 11

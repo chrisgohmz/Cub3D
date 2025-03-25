@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:32:37 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/07 22:53:12 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/25 22:12:22 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ static void	interact_with_door(t_data *data)
 
 int	mouse_move(int x, int y, t_data *data)
 {
+	if (ft_abs(x - data->mouse_pos_x) < 100)
+		return (1);
 	if (x > data->mouse_pos_x)
 		rotate_view(data, XK_Right);
 	else if (x < data->mouse_pos_x)

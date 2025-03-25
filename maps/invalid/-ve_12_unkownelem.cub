@@ -1,0 +1,13 @@
+NO ./textures/Brick.xpm
+SO ./textures/Brick.xpm
+WE ./textures/Brick.xpm
+EA ./textures/Brick.xpm
+
+F 255,52,0
+
+C 0,42,255
+
+G g
+
+
+ 11 111  11 111 1 1 11

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:33 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/07 21:23:58 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/25 21:43:48 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,4 @@ void	drawing_multiple_rays(t_data *data, t_renderdata *render)
 		drawing_single_ray(data, render);
 		render->k++;
 	}
-	printf("Player world pos: (%.2f, %.2f)\n", data->player_pos.x, data->player_pos.y);
-	printf("Player screen pos: (%d, %d)\n", render->player_screen_x, render->player_screen_y);
 }

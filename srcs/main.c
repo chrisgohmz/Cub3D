@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/19 10:11:32 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/25 21:18:16 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	main(int argc, char **argv)
 		close_window(&data);
 	render_map(&data);
 	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
+	gettimeofday(&data.current_time, NULL);
 	mlx_hook(data.win, ON_DESTROY, 0, close_window, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, keydown, &data);
 	mlx_hook(data.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
