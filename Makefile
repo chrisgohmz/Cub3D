@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -pedantic
+CFLAGS ?= -Wall -Wextra -Werror -MMD -MP -Ofast -pedantic
 LDFLAGS = -Llibft -L$(MLXDIR) -L/usr/lib
 LDLIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz 
 
@@ -24,6 +24,9 @@ NAME = cub3D
 RM = rm -rf
 
 all: $(NAME)
+
+debug: CFLAGS += -g -Og
+debug: all
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
@@ -57,4 +60,4 @@ re: fclean all
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug

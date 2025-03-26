@@ -1,13 +1,13 @@
-     NO      ./textures/Brick.xpm
+     NO      ./textures/walls/Brick.xpm
 
 
-   SO     ./textures/Metal.xpm
+   SO     ./textures/walls/Metal.xpm
 
 
-    WE     ./textures/Stone.xpm
+    WE     ./textures/walls/Stone.xpm
 
 
-        EA       ./textures/Wood.xpm
+        EA       ./textures/walls/Wood.xpm
 
 
 

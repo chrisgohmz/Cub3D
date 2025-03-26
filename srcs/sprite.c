@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:09:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/24 15:10:09 by apoh             ###   ########.fr       */
+/*   Updated: 2025/03/26 21:51:38 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	render_sprites(t_data *data)
 					d = (y_loop) * 256 - HEIGHT * 128 + spriteHeight * 128;
 					texY = ((d * data->map_data.sprites[i].height) / spriteHeight) / 256;
 					color = *(unsigned int *)(data->map_data.sprites[i].addr + (texY * data->map_data.sprites[i].size_line + texX * (data->map_data.sprites[i].bits_per_pixel / 8)));
-					if ((color & 0x00FFFFFF) != 0)
+					if ((color & 0x00FFFFFF) != 0 && (stripe > MINIMAP_SIZE || y_loop > MINIMAP_SIZE))
 						ft_mlx_pixel_put(data, stripe, y_loop, color);
 					y_loop++;
 				}

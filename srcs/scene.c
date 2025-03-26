@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:22:38 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/06 21:28:27 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/26 20:01:43 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ void	render_scene(t_data *data)
 			int texY = (y1 - HEIGHT / 2 + lineHeight / 2) * texture->img_height / lineHeight;
 			// Fetch color from texture
 			int color = *(unsigned int *)(texture->addr + texY * texture->size_line + texX * (texture->bits_per_pixel / 8));
-			ft_mlx_pixel_put(data, x, y1, color);
+			if (x > MINIMAP_SIZE || y1 > MINIMAP_SIZE)
+				ft_mlx_pixel_put(data, x, y1, color);
 			y1++;
 		}
 		data->zBuffer[x] = perpWallDist;

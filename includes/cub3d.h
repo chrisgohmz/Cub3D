@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/25 22:08:24 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/26 19:10:37 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ typedef struct s_raycast
 
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
-void	redraw_image(t_data *data);
 void	rotate_view(t_data *data, int direction);
 int		keydown(int keycode, t_data *data);
 void	move_player(t_data *data, int direction);

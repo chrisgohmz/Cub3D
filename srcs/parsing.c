@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/25 18:29:05 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/26 21:29:01 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int	get_color(char *str)
 		return (-1);
 	}
 	free_2d_arr((void ***)&color_rgb_arr);
-	return ((red << 16) + (green << 8) + blue);
+	return (red << 16 | green << 8 | blue);
 }
 
 static bool	get_texture(t_wall_texture *wall, t_data *data, char *path)
@@ -126,7 +126,7 @@ static bool	get_texture(t_wall_texture *wall, t_data *data, char *path)
 
 static bool	load_door_texture(t_data *data)
 {
-	char	*door_texture_path = "./textures/Door.xpm";
+	char	*door_texture_path = "./textures/door/Door.xpm";
 	return (get_texture(&data->map_data.door_texture, data, door_texture_path));
 }
 
@@ -454,7 +454,7 @@ static bool	get_map(t_data *data)
 			{
 				data->map_data.sprites[sprite_index].x = x;
 				data->map_data.sprites[sprite_index].y = y;
-				if (!load_sprite_texture(&data->map_data.sprites[sprite_index], data, "./textures/Enemy.xpm"))
+				if (!load_sprite_texture(&data->map_data.sprites[sprite_index], data, "./textures/sprites/toy_bonnie.xpm"))
 					return (false);
 				sprite_index++;
 			}

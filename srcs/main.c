@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/25 21:18:16 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/26 19:04:10 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	game_loop(t_data *data)
 		i++;
 	}
 	render_map(data);
-	render_sprites(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
@@ -75,8 +74,6 @@ int	main(int argc, char **argv)
 	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.size_line, &data.endian);
 	if (data.addr == NULL)
 		close_window(&data);
-	render_map(&data);
-	mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
 	gettimeofday(&data.current_time, NULL);
 	mlx_hook(data.win, ON_DESTROY, 0, close_window, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, keydown, &data);
