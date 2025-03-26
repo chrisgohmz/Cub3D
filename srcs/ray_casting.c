@@ -12,28 +12,113 @@
 
 #include "../includes/cub3d.h"
 
-int	is_door_open(t_data *data, int x, int y)
+static void	calculate_step_and_initial_side_dist(t_data *data,
+			t_renderdata *render, t_raycast *ray)
+		// Calculate step and initial sideDist //
 {
-	int	i;
-	
-	i = 0;
-	while (i < data->map_data.num_doors)
+	if (render->dirX < 0)
 	{
-		if (data->map_data.door_x[i] == x && data->map_data.door_y[i] == y)
-			return (data->map_data.door_states[i]);
-		i++;
+		ray->stepX = -1;
+		ray->sideDistX = (data->player_pos.x - render->mapX)
+			* render->deltaDistX;
 	}
-	return (0);
+	else
+	{
+		ray->stepX = 1;
+		ray->sideDistX = (render->mapX + 1.0 - data->player_pos.x)
+			* render->deltaDistX;
+	}
+	if (render->dirY < 0)
+	{
+		ray->stepY = -1;
+		ray->sideDistY = (data->player_pos.y - render->mapY)
+			* render->deltaDistY;
+	}
+	else
+	{
+		ray->stepY = 1;
+		ray->sideDistY = (render->mapY + 1.0 - data->player_pos.y)
+			* render->deltaDistY;
+	}
+}
+
+static void	further_condition_checks(t_data *data,
+			t_renderdata *render, t_raycast *ray)
+	// first checks if its out of bounds // 
+	// second checks if its hitting objects //
+{
+	if (render->mapX < 0 || render->mapX >= MINIMAP_SIZE
+		* render->block_size_x || render->mapY < 0
+		|| render->mapY >= MINIMAP_SIZE * render->block_size_y)
+	{
+		ray->hit = 1;
+		render->hitPointX = render->mapX;
+		render->hitPointY = render->mapY;
+	}
+	if ((data->map_data.map[(int)render->mapY][(int)render->mapX] == '1') ||
+	(data->map_data.map[(int)render->mapY][(int)render->mapX] == 'D'
+	&& !is_door_open(data, (int)render->mapX, (int)render->mapY)) ||
+	(data->map_data.map[(int)render->mapY][(int)render->mapX] == 'M'))
+		ray->hit = 1;
+}
+
+static void	performing_dda(t_data *data, t_renderdata *render, t_raycast *ray)
+	// Perform DDA //
+{
+	while (ray->hit == 0)
+	{
+		if (ray->sideDistX < ray->sideDistY)
+		{
+			ray->sideDistX = ray->sideDistX + render->deltaDistX;
+			render->mapX = render->mapX + ray->stepX;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->sideDistY = ray->sideDistY + render->deltaDistY;
+			render->mapY = render->mapY + ray->stepY;
+			ray->side = 1;
+		}
+		further_condition_checks(data, render, ray);
+	}
+}
+
+static void	calculate_distance_projected_on_camera(t_data *data,
+			t_renderdata *render, t_raycast *ray)
+	// Calculate distance projected on camera direction //
+	// (avoiding fisheye effect) //
+{
+	if (ray->side == 0)
+	{
+		render->perpWallDist = (render->mapX - data->player_pos.x
+				+ (1 - ray->stepX) / 2) / render->dirX;
+		render->hitPointX = render->mapX + (1 - ray->stepX) / 2.0;
+		render->hitPointY = data->player_pos.y + render->perpWallDist
+			* render->dirY;
+	}
+	else
+	{
+		render->perpWallDist = (render->mapY - data->player_pos.y
+				+ (1 - ray->stepY) / 2) / render->dirY;
+		render->hitPointX = data->player_pos.x + render->perpWallDist
+			* render->dirX;
+		render->hitPointY = render->mapY + (1 - ray->stepY) / 2.0;
+	}
 }
 
 void	cast_ray(t_data *data, t_renderdata *render)
+	// dirX = where it is moving in the x-axis //
+	// dirY = where it is moving in the y-axis //
+	// mapX = converting it back to map coordinates //
+	// instead of floating points //
+	// mapY = converting it back to map coordinates //
+	// instead of floating points //
+	// deltaDist X = how far ray moves per unit of x //
+	// moved when it hit next vertical line //
+	// deltaDist Y = how far ray moves per unit of y //
+	// moved when it hit next horizontal line //
 {
-	double	sideDistX;
-	double	sideDistY;
-	int		stepX;
-	int		stepY;
-	int		hit;
-	int		side; // 0 for X side, 1 for Y side
+	t_raycast	ray;
 
 	render->dirX = cos(render->ray_cast_angle);
 	render->dirY = sin(render->ray_cast_angle);
@@ -41,72 +126,8 @@ void	cast_ray(t_data *data, t_renderdata *render)
 	render->mapY = (int)data->player_pos.y;
 	render->deltaDistX = fabs(1 / render->dirX);
 	render->deltaDistY = fabs(1 / render->dirY);
-	hit = 0;
-	/*printf("dirX :%.2f\n", render->dirX);
-	printf("dirY :%.2f\n", render->dirY);
-	printf("mapX :%d\n", render->mapX);
-	printf("mapY : %d\n", render->mapY);
-	printf("deltaDistX :%.2f\n", render->deltaDistX);
-	printf("deltaDistY :%.2f\n", render->deltaDistY);*/
-	// Calculate step and initial sideDist
-	if (render->dirX < 0)
-	{
-		stepX = -1;
-		sideDistX = (data->player_pos.x - render->mapX) * render->deltaDistX;
-	}
-	else
-	{
-		stepX = 1;
-		sideDistX = (render->mapX + 1.0 - data->player_pos.x) * render->deltaDistX;
-	}
-	if (render->dirY < 0)
-	{
-		stepY = -1;
-		sideDistY = (data->player_pos.y - render->mapY) * render->deltaDistY;
-	}
-	else
-	{
-		stepY = 1;
-		sideDistY = (render->mapY + 1.0 - data->player_pos.y) * render->deltaDistY;
-	}
-	// Perform DDA
-	while (hit == 0)
-	{
-		if (sideDistX < sideDistY)
-		{
-			sideDistX = sideDistX + render->deltaDistX;
-			render->mapX = render->mapX + stepX;
-			side = 0;
-		}
-		else
-		{
-			sideDistY = sideDistY + render->deltaDistY;
-			render->mapY = render->mapY + stepY;
-			side = 1;
-		}
-		if (render->mapX < 0 || render->mapX >= MINIMAP_SIZE * render->block_size_x || render->mapY < 0 || render->mapY >= MINIMAP_SIZE * render->block_size_y)
-		{
-			hit = 1;
-			render->hitPointX = render->mapX;
-			render->hitPointY = render->mapY;
-		}
-		if ((data->map_data.map[(int)render->mapY][(int)render->mapX] == '1') || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'D' && !is_door_open(data, (int)render->mapX, (int)render->mapY)) || (data->map_data.map[(int)render->mapY][(int)render->mapX] == 'M'))
-		{
-			/*printf("Wall collison detected\n");*/
-			hit = 1;
-		}
-	}
-	// Calculate distance projected on camera direction (avoiding fisheye effect)
-	if (side == 0)
-	{
-		render->perpWallDist = (render->mapX - data->player_pos.x + (1 - stepX) / 2) / render->dirX;	
-		render->hitPointX = render->mapX + (1 - stepX) / 2.0;
-		render->hitPointY = data->player_pos.y + render->perpWallDist * render->dirY;
-	}
-	else
-	{
-		render->perpWallDist = (render->mapY - data->player_pos.y + (1 - stepY) / 2) / render->dirY;
-		render->hitPointX = data->player_pos.x + render->perpWallDist * render->dirX;
-		render->hitPointY = render->mapY + (1 - stepY) / 2.0;
-	}
+	ray.hit = 0;
+	calculate_step_and_initial_side_dist(data, render, &ray);
+	performing_dda(data, render, &ray);
+	calculate_distance_projected_on_camera(data, render, &ray);
 }

@@ -12,20 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-static	int	get_door_index(t_data *data, int x, int y)
-{
-	int	i;
-	
-	i = 0;
-	while (i < data->map_data.num_doors)
-	{
-		if (data->map_data.door_x[i] == x && data->map_data.door_y[i] == y)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 void	render_scene(t_data *data)
 {
 	int	x;

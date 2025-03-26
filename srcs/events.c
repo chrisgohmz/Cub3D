@@ -12,101 +12,40 @@
 
 #include "../includes/cub3d.h"
 
-int	close_window(t_data *data)
-{
-	int	i;
-	
-	i = 0;
-	if (data->map_data.north_texture.img != NULL)
-	{
-		mlx_destroy_image(data->mlx, data->map_data.north_texture.img);
-		data->map_data.north_texture.img = NULL;
-	}
-	if (data->map_data.south_texture.img != NULL)
-	{
-		mlx_destroy_image(data->mlx, data->map_data.south_texture.img);
-		data->map_data.south_texture.img = NULL;
-	}
-	if (data->map_data.east_texture.img != NULL)
-	{
-		mlx_destroy_image(data->mlx, data->map_data.east_texture.img);
-		data->map_data.east_texture.img = NULL;
-	}
-	if (data->map_data.west_texture.img != NULL)
-	{
-		mlx_destroy_image(data->mlx, data->map_data.west_texture.img);
-		data->map_data.west_texture.img = NULL;
-	}
-	if (data->map_data.door_texture.img != NULL)
-	{
-		mlx_destroy_image(data->mlx, data->map_data.door_texture.img);
-		data->map_data.door_texture.img = NULL;
-	}
-	if (data->map_data.sprites)
-	{
-		for (int i = 0; i < data->map_data.num_sprites; i++)
-		{
-			if (data->map_data.sprites[i].img)
-				mlx_destroy_image(data->mlx, data->map_data.sprites[i].img);
-		}
-		free(data->map_data.sprites);
-		data->map_data.sprites = NULL;
-	}
-	if (data->img != NULL)
-	{
-		mlx_destroy_image(data->mlx, data->img);
-		data->img = NULL;
-	}
-	if (data->win != NULL)
-	{
-		mlx_destroy_window(data->mlx, data->win);
-		data->win = NULL;
-	}
-	if (data->mlx != NULL)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-		data->mlx = NULL;
-	}
-	if (data->zBuffer)
-		free(data->zBuffer);
-	free(data->map_data.door_x);
-	free(data->map_data.door_y);
-	free(data->map_data.door_states);
-	free_2d_arr((void ***)&data->map_data.map);
-	exit(EXIT_SUCCESS);
-}
-
 static void	interact_with_door(t_data *data)
+	// Find the nearest door //
+	// Toggle the state of the nearest door if it's within range //
+	// Adjust the range as needed //
 {
-	double	min_distance = INFINITY;
-	int	nearest_door_index = -1;
-	int	i;
-	double	dx;
-	double	dy;
-	double	distance;
-	
-	i = 0;
-	// Find the nearest door
-	while (i < data->map_data.num_doors)
+	data->map_data.i = 0;
+	data->map_data.nearest_door_index = -1;
+	data->map_data.min_distance = INFINITY;
+	while (data->map_data.i < data->map_data.num_doors)
 	{
-		dx = data->map_data.door_x[i] - data->player_pos.x;
-		dy = data->map_data.door_y[i] - data->player_pos.y;
-		distance = sqrt(dx * dx + dy * dy);
-		if (distance < min_distance)
+		data->map_data.dx = data->map_data.door_x[data->map_data.i]
+			- data->player_pos.x;
+		data->map_data.dy = data->map_data.door_y[data->map_data.i]
+			- data->player_pos.y;
+		data->map_data.distance = sqrt(data->map_data.dx * data->map_data.dx
+				+ data->map_data.dy * data->map_data.dy);
+		if (data->map_data.distance <= data->map_data.min_distance)
 		{
-			min_distance = distance;
-			nearest_door_index = i;
+			if (data->map_data.distance < data->map_data.min_distance || data->map_data.nearest_door_index == -1)
+			{
+				data->map_data.min_distance = data->map_data.distance;
+				data->map_data.nearest_door_index = data->map_data.i;
+			}
 		}
-		i++;
+		data->map_data.i++;
 	}
-	// Toggle the state of the nearest door if it's within range
-	if (nearest_door_index != -1 && min_distance < 2.0) // Adjust the range as needed
+	if (data->map_data.nearest_door_index != -1
+		&& data->map_data.min_distance < 200)
 	{
-		data->map_data.door_states[nearest_door_index] = !data->map_data.door_states[nearest_door_index];
-		redraw_image(data); // Assuming you have a function to redraw the scene
-    	}
-}	
+		data->map_data.door_states[data->map_data.nearest_door_index]
+			= !data->map_data.door_states[data->map_data.nearest_door_index];
+		redraw_image(data);
+	}
+}
 
 int	mouse_move(int x, int y, t_data *data)
 {
@@ -127,7 +66,8 @@ int	keydown(int keycode, t_data *data)
 		close_window(data);
 	else if (keycode == XK_Left || keycode == XK_Right)
 		rotate_view(data, keycode);
-	else if (keycode == XK_w || keycode == XK_s || keycode == XK_a || keycode == XK_d)
+	else if (keycode == XK_w || keycode == XK_s
+		|| keycode == XK_a || keycode == XK_d)
 		move_player(data, keycode);
 	else if (keycode == XK_o)
 		interact_with_door(data);

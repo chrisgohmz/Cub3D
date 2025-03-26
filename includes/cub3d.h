@@ -94,6 +94,12 @@ typedef struct	s_mapdata
 	char	*tmp;
 	char	**elements;
 	char	**elements_info;
+	double	min_distance;
+	double	dx;
+	double	dy;
+	double	distance;
+	int		nearest_door_index;
+	int		i;
 }	t_mapdata;
 
 typedef struct s_data
@@ -162,23 +168,44 @@ typedef struct s_renderdata
 	int	k;
 }	t_renderdata;
 
+typedef struct s_raycast
+{
+	double	sideDistX;
+	double	sideDistY;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+}	t_raycast;
+
+
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
 void	redraw_image(t_data *data);
 void	rotate_view(t_data *data, int direction);
 int		keydown(int keycode, t_data *data);
 void	move_player(t_data *data, int direction);
-int	is_door_open(t_data *data, int x, int y);
 void	render_sprites(t_data *data);
 void	sort_sprites(t_data *data);
 void	update_sprite(t_data *data, int i);
 int		mouse_move(int x, int y, t_data *data);
 
+// events.c //
+int		mouse_move(int x, int y, t_data *data);
+int		keydown(int keycode, t_data *data);
+
+// drawing_rays.c //
+void	drawing_single_ray(t_data *data, t_renderdata *render);
+void	drawing_multiple_rays(t_data *data, t_renderdata *render);
+
+// ray_casting.c //
+void	cast_ray(t_data *data, t_renderdata *render);
+
+// parsing.c //
+int		parsing(t_data *data, char *file_path);
+
 // init.c //
 void	init_data(t_data *data);
-
-// close_window.c //
-int	close_window(t_data *data);
 
 // render_map.c //
 void	render_map(t_data *data);
@@ -192,14 +219,11 @@ void	drawing_grid_lines(t_data *data, t_renderdata *render);
 // drawing_player.c //
 void	drawing_player(t_data *data, t_renderdata *render);
 
-// drawing_rays.c //
-void	drawing_single_ray(t_data *data, t_renderdata *render);
-void	drawing_multiple_rays(t_data *data, t_renderdata *render);
+// door.c //
+int		is_door_open(t_data *data, int x, int y);
+int		get_door_index(t_data *data, int x, int y);
 
-// ray_casting.c //
-void	cast_ray(t_data *data, t_renderdata *render);
-
-// parsing.c //
-int		parsing(t_data *data, char *file_path);
+// free.c //
+int		close_window(t_data *data);
 
 #endif

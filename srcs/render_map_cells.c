@@ -12,13 +12,34 @@
 
 #include "../includes/cub3d.h"
 
-void	render_map_cells(t_data *data, t_renderdata *render)
+static void	finding_memory_address_and_set_colour(
+		t_data *data, t_renderdata *render)
 {
+	render->i = 0;
+	while (render->i < render->block_size_x)
+	{
+		render->j = 0;
+		while (render->j < render->block_size_y)
+		{
+			render->pixel = ((render->y * render->block_size_y + render->j)
+					* data->size_line) + ((render->x * render->block_size_x
+						+ render->i) * (data->bits_per_pixel / 8));
+			*(unsigned int *)((char *)data->addr + render->pixel)
+				= render->color;
+			render->j++;
+		}
+		render->i++;
+	}
+}
+
+void	render_map_cells(t_data *data, t_renderdata *render)
 	// this is for adding colour to each cell //
+{
 	while (render->y < data->map_data.map_height)
 	{
 		render->x = 0;
-		while (render->x < data->map_data.map_width && data->map_data.map[render->y][render->x])
+		while (render->x < data->map_data.map_width
+			&& data->map_data.map[render->y][render->x])
 		{
 			if (data->map_data.map[render->y][render->x] == '1')
 				render->color = 0x808080;
@@ -28,20 +49,9 @@ void	render_map_cells(t_data *data, t_renderdata *render)
 				render->color = 0x0000FF;
 			else
 				render->color = 0x000000;
-			render->i = 0;
-			while (render->i < render->block_size_x)
-			{
-				render->j = 0;
-				while (render->j < render->block_size_y)
-				{
-					render->pixel = ((render->y * render->block_size_y + render->j) * data->size_line) + ((render->x* render->block_size_x + render->i) * (data->bits_per_pixel / 8));
-					*(unsigned int*)((char*)data->addr + render->pixel) = render->color;
-					render->j++;
-				}
-				render->i++;
-			}
+			finding_memory_address_and_set_colour(data, render);
 			render->x++;
-		}	
+		}
 		render->y++;
 	}
 }

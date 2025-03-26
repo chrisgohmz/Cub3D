@@ -20,6 +20,7 @@ void	init_data(t_data *data)
 	if (!data->zBuffer)
 	{
 		perror("Failed to allocate memory for Z-buffer");
+		close_window(data);
 		exit(EXIT_FAILURE);
 	}
 }
