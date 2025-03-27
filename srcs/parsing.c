@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/26 21:29:01 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/27 18:47:21 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,7 +454,7 @@ static bool	get_map(t_data *data)
 			{
 				data->map_data.sprites[sprite_index].x = x;
 				data->map_data.sprites[sprite_index].y = y;
-				if (!load_sprite_texture(&data->map_data.sprites[sprite_index], data, "./textures/sprites/toy_bonnie.xpm"))
+				if (!load_sprite_texture(&data->map_data.sprites[sprite_index], data, "./textures/sprites/golden_freddy.xpm"))
 					return (false);
 				sprite_index++;
 			}
