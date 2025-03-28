@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static void	free_textures(t_data *data)
+void	free_textures(t_data *data)
 {
 	if (data->map_data.north_texture.img != NULL)
 	{
@@ -41,7 +41,7 @@ static void	free_textures(t_data *data)
 	}
 }
 
-static void	freeing_sprites(t_data *data)
+void	freeing_sprites(t_data *data)
 {
 	int	i;
 
@@ -59,7 +59,7 @@ static void	freeing_sprites(t_data *data)
 	}
 }
 
-static	void	free_others(t_data *data)
+void	free_others(t_data *data)
 {
 	if (data->img != NULL)
 	{

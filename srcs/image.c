@@ -15,41 +15,45 @@
 void	rotate_view(t_data *data, int direction)
 {
 	double	angle_change;
-	double	oldDirX;
-	double	oldPlaneX;
+	double	olddir_x;
+	double	oldplane_x;
 
 	angle_change = 0;
 	if (direction == XK_Left)
 		angle_change = -M_PI / 180;
 	else if (direction == XK_Right)
 		angle_change = M_PI / 180;
-	oldDirX = data->player_direction.x;
+	olddir_x = data->player_direction.x;
 	data->player_direction.x = data->player_direction.x * cos(angle_change)
-	- data->player_direction.y * sin(angle_change);
-	data->player_direction.y = oldDirX * sin(angle_change)
-	+ data->player_direction.y * cos(angle_change);
-	oldPlaneX = data->camera_plane_pos.x;
+		- data->player_direction.y * sin(angle_change);
+	data->player_direction.y = olddir_x * sin(angle_change)
+		+ data->player_direction.y * cos(angle_change);
+	oldplane_x = data->camera_plane_pos.x;
 	data->camera_plane_pos.x = data->camera_plane_pos.x * cos(angle_change)
-	- data->camera_plane_pos.y * sin(angle_change);
-	data->camera_plane_pos.y = oldPlaneX * sin(angle_change)
-	+ data->camera_plane_pos.y * cos(angle_change);
+		- data->camera_plane_pos.y * sin(angle_change);
+	data->camera_plane_pos.y = oldplane_x * sin(angle_change)
+		+ data->camera_plane_pos.y * cos(angle_change);
 }
 
-static bool	can_move_to(t_data *data, double x, double y)
+bool	can_move_to(t_data *data, double x, double y)
 {
-	int	map_x = (int)x;
-	int	map_y = (int)y;
-	char	map_cell = data->map_data.map[map_y][map_x];
-	int	i;
-	
+	char	map_cell;
+	int		map_x;
+	int		map_y;
+	int		i;
+
 	i = 0;
+	map_x = (int)x;
+	map_y = (int)y;
+	map_cell = data->map_data.map[map_y][map_x];
 	if (map_cell == '1')
 		return (false);
 	if (map_cell == 'D')
 	{
 		while (i < data->map_data.num_doors)
 		{
-			if (data->map_data.door_x[i] == map_x && data->map_data.door_y[i] == map_y)
+			if (data->map_data.door_x[i] == map_x
+				&& data->map_data.door_y[i] == map_y)
 				return (data->map_data.door_states[i]);
 			i++;
 		}
@@ -58,39 +62,31 @@ static bool	can_move_to(t_data *data, double x, double y)
 	return (true);
 }
 
-
 void	move_player(t_data *data, int direction)
 {
-	const double	speed = 0.1;
-	double	new_x;
-	double	new_y;
-	
+	const double	speed;
+	double			new_x;
+	double			new_y;
+
+	speed = 0.1;
 	if (direction == XK_w)
 	{
-		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.x * speed)] != '1')*/
 		new_x = data->player_pos.x + data->player_direction.x * speed;
-		/*if (data->map_data.map[(int)(data->player_pos.y + data->player_direction.y * speed)][(int)data->player_pos.x] != '1')*/
 		new_y = data->player_pos.y + data->player_direction.y * speed;
 	}
 	else if (direction == XK_s)
 	{
-		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.x * speed)] != '1')*/
 		new_x = data->player_pos.x - data->player_direction.x * speed;
-		/*if (data->map_data.map[(int)(data->player_pos.y - data->player_direction.y * speed)][(int)data->player_pos.x] != '1')*/
 		new_y = data->player_pos.y - data->player_direction.y * speed;
 	}
 	else if (direction == XK_a)
 	{
-		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x + data->player_direction.y * speed)] != '1')*/
 		new_x = data->player_pos.x + data->player_direction.y * speed;
-		/*if (data->map_data.map[(int)(data->player_pos.y - data->player_direction.x * speed)][(int)data->player_pos.x] != '1')*/
 		new_y = data->player_pos.y - data->player_direction.x * speed;
 	}
 	else if (direction == XK_d)
 	{
-		/*if (data->map_data.map[(int)data->player_pos.y][(int)(data->player_pos.x - data->player_direction.y * speed)] != '1')*/
 		new_x = data->player_pos.x - data->player_direction.y * speed;
-		/*if (data->map_data.map[(int)(data->player_pos.y + data->player_direction.x * speed)][(int)data->player_pos.x] != '1')*/
 		new_y = data->player_pos.y + data->player_direction.x * speed;
 	}
 	else

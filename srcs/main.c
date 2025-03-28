@@ -28,7 +28,7 @@ int	game_loop(t_data *data)
 	int	new_y;
 	int	old_x;
 	int	old_y;
-	
+
 	i = 0;
 	while (i < data->map_data.num_sprites)
 	{
@@ -49,15 +49,29 @@ int	game_loop(t_data *data)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+static void	validating_input(int argc, char **argv)
 {
-	t_data	data;
-	
 	if (argc != 2 || !ft_strend(argv[1], ".cub"))
 	{
 		printf("Usage: ./cub3D <.cub file>\n");
 		exit(EXIT_FAILURE);
 	}
+}
+
+static void	set_up_mlx_hooks(t_data *data)
+{
+	mlx_hook(data->win, ON_DESTROY, 0, close_window, data);
+	mlx_hook(data->win, ON_KEYDOWN, 1L << 0, keydown, data);
+	mlx_hook(data->win, ON_MOUSEMOVE, 1L << 6, mouse_move, data);
+	mlx_loop_hook(data->mlx, game_loop, data);
+	mlx_loop(data->mlx);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	data;
+
+	validating_input(argc, argv);
 	ft_bzero(&data, sizeof(t_data));
 	data.mlx = mlx_init();
 	if (data.mlx == NULL)
@@ -71,14 +85,11 @@ int	main(int argc, char **argv)
 	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	if (data.img == NULL)
 		close_window(&data);
-	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.size_line, &data.endian);
+	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel,
+			&data.size_line, &data.endian);
 	if (data.addr == NULL)
 		close_window(&data);
 	gettimeofday(&data.current_time, NULL);
-	mlx_hook(data.win, ON_DESTROY, 0, close_window, &data);
-	mlx_hook(data.win, ON_KEYDOWN, 1L << 0, keydown, &data);
-	mlx_hook(data.win, ON_MOUSEMOVE, 1L << 6, mouse_move, &data);
-	mlx_loop_hook(data.mlx, game_loop, &data);
-	mlx_loop(data.mlx);
+	set_up_mlx_hooks(&data);
 	return (0);
 }

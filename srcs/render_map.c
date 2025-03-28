@@ -15,7 +15,7 @@
 void	render_map(t_data *data)
 {
 	t_renderdata	render;
-	
+
 	ft_memset(&render, 0, sizeof(t_renderdata));
 	if (data->map_data.map_width > data->map_data.map_height)
 	{
@@ -29,8 +29,8 @@ void	render_map(t_data *data)
 	}
 	render.line_color = 0xFFFFFF;
 	render.y = 0;
-	render_map_cells(data, &render);	
-	drawing_grid_lines(data, &render);	
+	render_map_cells(data, &render);
+	drawing_grid_lines(data, &render);
 	drawing_player(data, &render);
 	drawing_multiple_rays(data, &render);
 	render_scene(data);

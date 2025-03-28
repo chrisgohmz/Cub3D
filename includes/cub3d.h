@@ -94,12 +94,6 @@ typedef struct	s_mapdata
 	char	*tmp;
 	char	**elements;
 	char	**elements_info;
-	double	min_distance;
-	double	dx;
-	double	dy;
-	double	distance;
-	int		nearest_door_index;
-	int		i;
 }	t_mapdata;
 
 typedef struct s_data
@@ -118,6 +112,7 @@ typedef struct s_data
 	double		*zBuffer;
 	int			mouse_pos_x;
 	int			mouse_pos_y;
+	int		i;
 	struct timeval	current_time;
 }	t_data;
 
@@ -170,38 +165,70 @@ typedef struct s_renderdata
 
 typedef struct s_raycast
 {
-	double	sideDistX;
-	double	sideDistY;
-	int		stepX;
-	int		stepY;
+	double	sidedist_x;
+	double	sidedist_y;
+	int		step_x;
+	int		step_y;
 	int		hit;
 	int		side;
 }	t_raycast;
 
-
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
-void	rotate_view(t_data *data, int direction);
-int		keydown(int keycode, t_data *data);
-void	move_player(t_data *data, int direction);
 void	render_sprites(t_data *data);
-void	sort_sprites(t_data *data);
+void	sort_sprites(t_data *data);bool	can_move_to(t_data *data, double x, double y)
 void	update_sprite(t_data *data, int i);
-int		mouse_move(int x, int y, t_data *data);
 
 // events.c //
+void	interact_with_door(t_data *data);
 int		mouse_move(int x, int y, t_data *data);
 int		keydown(int keycode, t_data *data);
+
+// image.c //
+void	rotate_view(t_data *data, int direction);
+bool	can_move_to(t_data *data, double x, double y);
+void	move_player(t_data *data, int direction);
 
 // drawing_rays.c //
 void	drawing_single_ray(t_data *data, t_renderdata *render);
 void	drawing_multiple_rays(t_data *data, t_renderdata *render);
-
+void	interact_with_door(t_data *data)
 // ray_casting.c //
 void	cast_ray(t_data *data, t_renderdata *render);
 
 // parsing.c //
+bool	get_map(t_data *data);
 int		parsing(t_data *data, char *file_path);
+
+// parsing_utils1.c //
+bool	found_map_start(const char *str);
+int		count_arr_elements(char **arr);
+bool	print_error(const char *message);
+bool	check_color_range(int *color, char *color_str);
+int		count_commas(const char *str);
+
+// parsing_utils2.c //
+int		validating_commas(char *str);
+int		validating_array_elements(char **color_rgb_arr);
+int		get_color(char *str);
+bool	get_texture(t_wall_texture *wall, t_data *data, char *path);
+bool	load_door_texture(t_data *data);
+
+// parsing_utils3.c //
+bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path);
+bool	check_for_NSEW_textures(t_data *data);
+bool	check_for_FC_textures(t_data *data);
+
+// parsing_utils4.c //
+bool	get_element_info(t_data *data);
+bool	check_wall_surround(t_mapdata *map_data, char **map_copy, int x, int y);
+bool	check_map_valid(t_data *data);
+void	setting_up_player_direction(t_data *data, int x, int y);
+void	get_player_pos_direction(t_data *data);
+
+// pasring_utils5.c //
+bool	check_map_chars_valid(const char *line, bool *player_found);
+bool	get_map(t_data *data);
 
 // init.c //
 void	init_data(t_data *data);
@@ -223,6 +250,9 @@ int		is_door_open(t_data *data, int x, int y);
 int		get_door_index(t_data *data, int x, int y);
 
 // free.c //
+void	free_textures(t_data *data);
+void	freeing_sprites(t_data *data);
+void	free_others(t_data *data);
 int		close_window(t_data *data);
 
 #endif

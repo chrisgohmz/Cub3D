@@ -49,7 +49,7 @@ static void	drawing_lines_for_width(t_data *data, t_renderdata *render)
 			if ((size_t)render->x <= ft_strlen(data->map_data.map
 					[render->j / render->block_size_y])
 				&& data->map_data.map[render->j / render->block_size_y]
-					[render->x] != ' ')
+				[render->x] != ' ')
 			{
 				render->pixel = (render->j * data->size_line)
 					+ (render->x * render->block_size_x

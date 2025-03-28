@@ -12,38 +12,21 @@
 
 #include "../includes/cub3d.h"
 
-static void	interact_with_door(t_data *data)
-	// Find the nearest door //
-	// Toggle the state of the nearest door if it's within range //
-	// Adjust the range as needed //
+void	interact_with_door(t_data *data)
 {
-	data->map_data.i = 0;
-	data->map_data.nearest_door_index = -1;
-	data->map_data.min_distance = INFINITY;
-	while (data->map_data.i < data->map_data.num_doors)
+	int	i;
+	bool	doors_changed;
+	
+	i = 0;
+	doors_changed = false;
+	while (i < data->map_data.num_doors)
 	{
-		data->map_data.dx = data->map_data.door_x[data->map_data.i]
-			- data->player_pos.x;
-		data->map_data.dy = data->map_data.door_y[data->map_data.i]
-			- data->player_pos.y;
-		data->map_data.distance = sqrt(data->map_data.dx * data->map_data.dx
-				+ data->map_data.dy * data->map_data.dy);
-		if (data->map_data.distance <= data->map_data.min_distance)
-		{
-			if (data->map_data.distance < data->map_data.min_distance || data->map_data.nearest_door_index == -1)
-			{
-				data->map_data.min_distance = data->map_data.distance;
-				data->map_data.nearest_door_index = data->map_data.i;
-			}
-		}
-		data->map_data.i++;
+		data->map_data.door_states[i] = !data->map_data.door_states[i];
+		doors_changed = true;
+		i++;
 	}
-	if (data->map_data.nearest_door_index != -1
-		&& data->map_data.min_distance < 200)
-	{
-		data->map_data.door_states[data->map_data.nearest_door_index]
-			= !data->map_data.door_states[data->map_data.nearest_door_index];
-	}
+	if (doors_changed)
+		render_map(data);
 }
 
 int	mouse_move(int x, int y, t_data *data)

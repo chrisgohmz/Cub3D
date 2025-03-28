@@ -29,7 +29,7 @@ int	is_door_open(t_data *data, int x, int y)
 int	get_door_index(t_data *data, int x, int y)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < data->map_data.num_doors)
 	{

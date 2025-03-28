@@ -18,26 +18,26 @@ static void	calculate_step_and_initial_side_dist(t_data *data,
 {
 	if (render->dirX < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (data->player_pos.x - render->mapX)
+		ray->step_x = -1;
+		ray->sidedist_x = (data->player_pos.x - render->mapX)
 			* render->deltaDistX;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (render->mapX + 1.0 - data->player_pos.x)
+		ray->step_x = 1;
+		ray->sidedist_x = (render->mapX + 1.0 - data->player_pos.x)
 			* render->deltaDistX;
 	}
 	if (render->dirY < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (data->player_pos.y - render->mapY)
+		ray->step_y = -1;
+		ray->sidedist_y = (data->player_pos.y - render->mapY)
 			* render->deltaDistY;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (render->mapY + 1.0 - data->player_pos.y)
+		ray->step_y = 1;
+		ray->sidedist_y = (render->mapY + 1.0 - data->player_pos.y)
 			* render->deltaDistY;
 	}
 }
@@ -67,16 +67,16 @@ static void	performing_dda(t_data *data, t_renderdata *render, t_raycast *ray)
 {
 	while (ray->hit == 0)
 	{
-		if (ray->sideDistX < ray->sideDistY)
+		if (ray->sidedist_x < ray->sidedist_y)
 		{
-			ray->sideDistX = ray->sideDistX + render->deltaDistX;
-			render->mapX = render->mapX + ray->stepX;
+			ray->sidedist_x = ray->sidedist_x + render->deltaDistX;
+			render->mapX = render->mapX + ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sideDistY = ray->sideDistY + render->deltaDistY;
-			render->mapY = render->mapY + ray->stepY;
+			ray->sidedist_y = ray->sidedist_y + render->deltaDistY;
+			render->mapY = render->mapY + ray->step_y;
 			ray->side = 1;
 		}
 		further_condition_checks(data, render, ray);
@@ -91,18 +91,18 @@ static void	calculate_distance_projected_on_camera(t_data *data,
 	if (ray->side == 0)
 	{
 		render->perpWallDist = (render->mapX - data->player_pos.x
-				+ (1 - ray->stepX) / 2) / render->dirX;
-		render->hitPointX = render->mapX + (1 - ray->stepX) / 2.0;
+				+ (1 - ray->step_x) / 2) / render->dirX;
+		render->hitPointX = render->mapX + (1 - ray->step_x) / 2.0;
 		render->hitPointY = data->player_pos.y + render->perpWallDist
 			* render->dirY;
 	}
 	else
 	{
 		render->perpWallDist = (render->mapY - data->player_pos.y
-				+ (1 - ray->stepY) / 2) / render->dirY;
+				+ (1 - ray->step_y) / 2) / render->dirY;
 		render->hitPointX = data->player_pos.x + render->perpWallDist
 			* render->dirX;
-		render->hitPointY = render->mapY + (1 - ray->stepY) / 2.0;
+		render->hitPointY = render->mapY + (1 - ray->step_y) / 2.0;
 	}
 }
 
