@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/26 19:10:37 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/28 15:58:37 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/stat.h>
 # include <X11/keysym.h>
 # include <stdbool.h>
-# include <sys/time.h>
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MINIMAP_SIZE 400
@@ -37,7 +36,6 @@
 # define EAST "EA"
 # define FLOOR "F"
 # define CEILING "C"
-# define FRAMES_PER_SECOND 60
 
 typedef struct s_point
 {
@@ -78,6 +76,8 @@ typedef struct	s_mapdata
 	t_wall_texture	east_texture;
 	t_wall_texture	door_texture;
 	t_sprite	*sprites;
+	t_sprite	head_sprites[12];
+	bool	dead;
 	int		num_sprites;
 	bool	*door_states;
 	int		num_doors;
@@ -113,7 +113,6 @@ typedef struct s_data
 	int			mouse_pos_x;
 	int			mouse_pos_y;
 	int		i;
-	struct timeval	current_time;
 }	t_data;
 
 typedef struct s_renderdata
@@ -176,7 +175,7 @@ typedef struct s_raycast
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	render_scene(t_data *data);
 void	render_sprites(t_data *data);
-void	sort_sprites(t_data *data);bool	can_move_to(t_data *data, double x, double y)
+void	sort_sprites(t_data *data);bool	can_move_to(t_data *data, double x, double y);
 void	update_sprite(t_data *data, int i);
 
 // events.c //
@@ -192,7 +191,7 @@ void	move_player(t_data *data, int direction);
 // drawing_rays.c //
 void	drawing_single_ray(t_data *data, t_renderdata *render);
 void	drawing_multiple_rays(t_data *data, t_renderdata *render);
-void	interact_with_door(t_data *data)
+void	interact_with_door(t_data *data);
 // ray_casting.c //
 void	cast_ray(t_data *data, t_renderdata *render);
 

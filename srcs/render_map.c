@@ -6,11 +6,17 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:30:28 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/07 22:58:08 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/29 18:15:30 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	render_head_sprites(t_data *data)
+{
+	if (data->map_data.dead)
+		mlx_put_image_to_window(data->mlx, data->win, data->map_data.head_sprites, 0, 0);
+}
 
 void	render_map(t_data *data)
 {
@@ -35,4 +41,5 @@ void	render_map(t_data *data)
 	drawing_multiple_rays(data, &render);
 	render_scene(data);
 	render_sprites(data);
+	render_head_sprites(data);
 }

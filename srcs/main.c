@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/26 19:04:10 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/28 15:39:16 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	main(int argc, char **argv)
 			&data.size_line, &data.endian);
 	if (data.addr == NULL)
 		close_window(&data);
-	gettimeofday(&data.current_time, NULL);
 	set_up_mlx_hooks(&data);
 	return (0);
 }

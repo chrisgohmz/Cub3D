@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 20:00:44 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/26 19:09:40 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/28 15:02:56 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,10 @@ bool	can_move_to(t_data *data, double x, double y)
 
 void	move_player(t_data *data, int direction)
 {
-	const double	speed;
+	const double	speed = 0.1;
 	double			new_x;
 	double			new_y;
 
-	speed = 0.1;
 	if (direction == XK_w)
 	{
 		new_x = data->player_pos.x + data->player_direction.x * speed;

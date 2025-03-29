@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:09:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/27 21:08:39 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/28 15:59:25 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void	update_sprite(t_data *data, int i)
 			fabs(data->player_pos.y - data->map_data.sprites[i].y) < 0.1)
 	{
 		printf("Collison with enemy! Player died\n");
-		close_window(data);
+		data->map_data.dead = 1;
+		//close_window(data);
 	}
 }

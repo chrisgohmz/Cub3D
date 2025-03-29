@@ -6,11 +6,40 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/27 18:47:21 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/28 15:55:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static bool	load_head_sprites(t_data *data)
+{
+	if (!load_sprite_texture(data->map_data.head_sprites, data, "./textures/sprites/golden_freddy_head1.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 1, data, "./textures/sprites/golden_freddy_head2.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 2, data, "./textures/sprites/golden_freddy_head3.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 3, data, "./textures/sprites/golden_freddy_head4.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 4, data, "./textures/sprites/golden_freddy_head5.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 5, data, "./textures/sprites/golden_freddy_head6.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 6, data, "./textures/sprites/golden_freddy_head7.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 7, data, "./textures/sprites/golden_freddy_head8.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 8, data, "./textures/sprites/golden_freddy_head9.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 9, data, "./textures/sprites/golden_freddy_head10.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 10, data, "./textures/sprites/golden_freddy_head11.xpm"))
+		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 11, data, "./textures/sprites/golden_freddy_head12.xpm"))
+		return (false);
+	return (true);
+}
 
 int	parsing(t_data *data, char *file_path)
 {	
@@ -59,6 +88,8 @@ int	parsing(t_data *data, char *file_path)
 	if (!get_map(data))
 		return (close(data->map_data.fd), 0);
 	if (!load_door_texture(data))
+		return (close(data->map_data.fd), 0);
+	if (!load_head_sprites(data))
 		return (close(data->map_data.fd), 0);
 	close(data->map_data.fd);
 	return (1);
