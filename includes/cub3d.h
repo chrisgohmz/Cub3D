@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/28 15:58:37 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/29 21:35:37 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/stat.h>
 # include <X11/keysym.h>
 # include <stdbool.h>
+# include <sys/time.h>
 # define WIDTH 1920
 # define HEIGHT 1080
 # define MINIMAP_SIZE 400
@@ -77,6 +78,7 @@ typedef struct	s_mapdata
 	t_wall_texture	door_texture;
 	t_sprite	*sprites;
 	t_sprite	head_sprites[12];
+	int		head_sprite_index;
 	bool	dead;
 	int		num_sprites;
 	bool	*door_states;
@@ -113,6 +115,7 @@ typedef struct s_data
 	int			mouse_pos_x;
 	int			mouse_pos_y;
 	int		i;
+	struct timeval	current_time;
 }	t_data;
 
 typedef struct s_renderdata

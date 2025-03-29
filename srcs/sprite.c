@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:09:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/28 15:59:25 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/29 20:06:24 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,11 @@ void	render_sprites(t_data *data)
 				{
 					d = (y_loop) * 256 - HEIGHT * 128 + spriteHeight * 128;
 					texY = ((d * data->map_data.sprites[i].height) / spriteHeight) / 256;
-					color = *(unsigned int *)(data->map_data.sprites[i].addr + (texY * data->map_data.sprites[i].size_line + texX * (data->map_data.sprites[i].bits_per_pixel / 8)));
+					if (texY < 0)
+						texY = 0;
+					else if (texY >= data->map_data.sprites[i].height)
+						texY = data->map_data.sprites[i].height - 1;
+					color = *(unsigned int *)(data->map_data.sprites[i].addr + texY * data->map_data.sprites[i].size_line + texX * data->map_data.sprites[i].bits_per_pixel / 8);
 					if ((color & 0x00FFFFFF) != 0 && (stripe > MINIMAP_SIZE || y_loop > MINIMAP_SIZE))
 						ft_mlx_pixel_put(data, stripe, y_loop, color);
 					y_loop++;
@@ -144,7 +148,6 @@ void	update_sprite(t_data *data, int i)
     if (fabs(data->player_pos.x - data->map_data.sprites[i].x) < 0.1 &&
 			fabs(data->player_pos.y - data->map_data.sprites[i].y) < 0.1)
 	{
-		printf("Collison with enemy! Player died\n");
 		data->map_data.dead = 1;
 		//close_window(data);
 	}

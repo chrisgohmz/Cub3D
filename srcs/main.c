@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/28 15:39:16 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/29 19:36:43 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	game_loop(t_data *data)
 	int	old_y;
 
 	i = 0;
-	while (i < data->map_data.num_sprites)
+	while (i < data->map_data.num_sprites && !data->map_data.dead)
 	{
 		old_x = (int)data->map_data.sprites[i].x;
 		old_y = (int)data->map_data.sprites[i].y;
