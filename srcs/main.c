@@ -33,7 +33,7 @@ int	game_loop(t_data *data)
 	{
 		game.old_x = (int)data->map_data.sprites[game.i].x;
 		game.old_y = (int)data->map_data.sprites[game.i].y;
-		/*update_sprite(data, game.i);*/
+		update_sprite(data, game.i);
 		game.new_x = (int)data->map_data.sprites[game.i].x;
 		game.new_y = (int)data->map_data.sprites[game.i].y;
 		if (game.new_x != game.old_x || game.new_y != game.old_y)

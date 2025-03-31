@@ -146,44 +146,6 @@ void	render_sprites(t_data *data)
 		}
 		i++;
 	}
-	if (distance < 4)
-	{
-		if (distance > 0.1)
-		{
-			move_x = (data->player_pos.x - data->map_data.sprites[i].x)
-				/ distance * data->map_data.sprites[i].move_speed;
-			move_y = (data->player_pos.y - data->map_data.sprites[i].y)
-				/ distance * data->map_data.sprites[i].move_speed;
-			new_x = data->map_data.sprites[i].x + move_x;
-			new_y = data->map_data.sprites[i].y + move_y;
-			if (new_x >= 1 && new_x < data->map_data.map_width - 1
-			&& data->map_data.map[(int)data->map_data.sprites[i].y][(int)new_x] != '1')
-				data->map_data.sprites[i].x = new_x;
-			if (new_y >= 1 && new_y < data->map_data.map_height - 1
-			&& data->map_data.map[(int)new_y][(int)data->map_data.sprites[i].x] != '1')
-				data->map_data.sprites[i].y = new_y;
-			if (fabs(data->player_pos.x - data->map_data.sprites[i].x) < 0.1 &&
-			fabs(data->player_pos.y - data->map_data.sprites[i].y) < 0.1)
-			{
-				/*data->map_data.dead = 1;*/
-				printf("collison with player! player died\n");
-				close_window(data);
-			}
-		}
-		if (fabs(data->player_pos.x - data->map_data.sprites[i].x) < 0.1 &&
-			fabs(data->player_pos.y - data->map_data.sprites[i].y) < 0.1)
-		{
-			/*data->map_data.dead = 1;*/
-			printf("collison with player! player died\n");
-			close_window(data);
-		}
-	}
-	else
-	{
-		move_x = 0;
-		move_y = 0;
-	}
-	
 }
 
 void	update_sprite(t_data *data, int i)
