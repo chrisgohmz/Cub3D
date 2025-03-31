@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/29 21:35:37 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/31 20:01:46 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct	s_mapdata
 	t_wall_texture	east_texture;
 	t_wall_texture	door_texture;
 	t_sprite	*sprites;
-	t_sprite	head_sprites[12];
+	t_sprite	head_sprites[13];
 	int		head_sprite_index;
 	bool	dead;
 	int		num_sprites;

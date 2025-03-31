@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:09:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/29 20:06:24 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/31 21:52:46 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,9 @@ void	update_sprite(t_data *data, int i)
 			if (new_y >= 1 && new_y < data->map_data.map_height - 1
 			&& data->map_data.map[(int)new_y][(int)data->map_data.sprites[i].x] != '1')
 				data->map_data.sprites[i].y = new_y;
-			if (fabs(data->player_pos.x - data->map_data.sprites[i].x) < 0.1 &&
-			fabs(data->player_pos.y - data->map_data.sprites[i].y) < 0.1)
-			{
-				/*data->map_data.dead = 1;*/
-				printf("collison with player! player died\n");
-				close_window(data);
-			}
+			if (fabs(data->player_pos.x - data->map_data.sprites[i].x) < 1 &&
+			fabs(data->player_pos.y - data->map_data.sprites[i].y) < 1)
+				data->map_data.dead = 1;
 		}
 	}
 	else

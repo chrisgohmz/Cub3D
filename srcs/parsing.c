@@ -6,13 +6,13 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/28 15:55:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/03/31 20:05:44 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/*static bool	load_head_sprites(t_data *data)
+static bool	load_head_sprites(t_data *data)
 {
 	if (!load_sprite_texture(data->map_data.head_sprites, data, "./textures/sprites/golden_freddy_head1.xpm"))
 		return (false);
@@ -38,8 +38,10 @@
 		return (false);
 	else if (!load_sprite_texture(data->map_data.head_sprites + 11, data, "./textures/sprites/golden_freddy_head12.xpm"))
 		return (false);
+	else if (!load_sprite_texture(data->map_data.head_sprites + 12, data, "./textures/sprites/golden_freddy_head13.xpm"))
+		return (false);
 	return (true);
-}*/
+}
 
 int	parsing(t_data *data, char *file_path)
 {	
@@ -89,8 +91,8 @@ int	parsing(t_data *data, char *file_path)
 		return (close(data->map_data.fd), 0);
 	if (!load_door_texture(data))
 		return (close(data->map_data.fd), 0);
-	/*if (!load_head_sprites(data))
-		return (close(data->map_data.fd), 0);*/
+	if (!load_head_sprites(data))
+		return (close(data->map_data.fd), 0);
 	close(data->map_data.fd);
 	return (1);
 }

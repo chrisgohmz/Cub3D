@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:24:25 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/28 13:24:28 by apoh             ###   ########.fr       */
+/*   Updated: 2025/03/31 20:05:26 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path)
 			&sprite->width, &sprite->height);
 	if (!sprite->img)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file\n");
+		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file: %s\n", path);
 		return (false);
 	}
 	sprite->addr = mlx_get_data_addr(sprite->img, &sprite->bits_per_pixel,

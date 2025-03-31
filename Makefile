@@ -25,7 +25,8 @@ RM = rm -rf
 
 all: $(NAME)
 
-debug: CFLAGS += -g -Og
+debug: CFLAGS += -g -Og -fsanitize=address
+debug: LDFLAGS += -fsanitize=address
 debug: all
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)

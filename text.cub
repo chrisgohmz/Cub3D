@@ -1,24 +1,24 @@
-     NO      ./textures/walls/Brick.xpm
+     NO      ./textures/walls/game_area.xpm
 
 
-   SO     ./textures/walls/Metal.xpm
+   SO     ./textures/walls/kids_cove.xpm
 
 
-    WE     ./textures/walls/Stone.xpm
+    WE     ./textures/walls/show_stage.xpm
 
 
-        EA       ./textures/walls/Wood.xpm
-
-
-
+        EA       ./textures/walls/main_hall.xpm
 
 
 
-F    200,100,100
 
 
 
-    C    132,255,222   
+F    0,0,0
+
+
+
+    C    0,0,0   
 
 
 
