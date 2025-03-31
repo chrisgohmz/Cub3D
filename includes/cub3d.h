@@ -44,6 +44,22 @@ typedef struct s_point
 	double	y;
 }	t_point;
 
+typedef struct s_move
+{
+	double	speed;
+	double	x;
+	double	y;
+}	t_move;
+
+typedef struct	s_game
+{
+	int	i;
+	int	new_x;
+	int	new_y;
+	int	old_x;
+	int	old_y;
+}	t_game;
+
 typedef struct s_sprite
 {
 	double	x;
@@ -56,6 +72,7 @@ typedef struct s_sprite
 	int	bits_per_pixel;
 	int	size_line;
 	int	endian;
+	char	original_cell;
 }	t_sprite;
 
 typedef struct s_wall_texture
@@ -189,7 +206,7 @@ int		keydown(int keycode, t_data *data);
 // image.c //
 void	rotate_view(t_data *data, int direction);
 bool	can_move_to(t_data *data, double x, double y);
-void	move_player(t_data *data, int direction);
+void	move_player(t_data *data, int direction, t_move *move);
 
 // drawing_rays.c //
 void	drawing_single_ray(t_data *data, t_renderdata *render);
@@ -218,8 +235,8 @@ bool	load_door_texture(t_data *data);
 
 // parsing_utils3.c //
 bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path);
-bool	check_for_NSEW_textures(t_data *data);
-bool	check_for_FC_textures(t_data *data);
+bool	check_for_nsew_textures(t_data *data);
+bool	check_for_fc_textures(t_data *data);
 
 // parsing_utils4.c //
 bool	get_element_info(t_data *data);

@@ -77,7 +77,7 @@ bool	get_element_info(t_data *data)
 		}
 		free_2d_arr((void ***)&data->map_data.elements_info);
 	}
-	if (check_for_NSEW_textures(data) == false || check_for_FC_textures(data) == false)
+	if (check_for_nsew_textures(data) == false || check_for_fc_textures(data) == false)
 		return (false);
 	return (true);
 }

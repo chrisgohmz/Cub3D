@@ -14,9 +14,9 @@
 
 void	interact_with_door(t_data *data)
 {
-	int	i;
 	bool	doors_changed;
-	
+	int		i;
+
 	i = 0;
 	doors_changed = false;
 	while (i < data->map_data.num_doors)
@@ -42,13 +42,17 @@ int	mouse_move(int x, int y, t_data *data)
 
 int	keydown(int keycode, t_data *data)
 {
+	t_move	move;
+	
+	ft_memset(&move, 0, sizeof(t_move));
+	move.speed = 0.1;
 	if (keycode == XK_Escape)
 		close_window(data);
 	else if (keycode == XK_Left || keycode == XK_Right)
 		rotate_view(data, keycode);
 	else if (keycode == XK_w || keycode == XK_s
 		|| keycode == XK_a || keycode == XK_d)
-		move_player(data, keycode);
+		move_player(data, keycode, &move);
 	else if (keycode == XK_o)
 		interact_with_door(data);
 	return (1);

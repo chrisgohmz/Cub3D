@@ -34,11 +34,11 @@ bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path)
 	return (true);
 }
 
-bool	check_for_NSEW_textures(t_data *data)
+bool	check_for_nsew_textures(t_data *data)
 {
 	if (!data->map_data.north_texture.img)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nMissing north wall texture\n");	
+		ft_dprintf(STDERR_FILENO, "Error\nMissing north wall texture\n");
 		return (false);
 	}
 	else if (!data->map_data.south_texture.img)
@@ -59,7 +59,7 @@ bool	check_for_NSEW_textures(t_data *data)
 	return (true);
 }
 
-bool	check_for_FC_textures(t_data *data)
+bool	check_for_fc_textures(t_data *data)
 {
 	if (data->map_data.ceiling_colour == -1)
 	{

@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static void	render_head_sprites(t_data *data)
+/*static void	render_head_sprites(t_data *data)
 {
 	int	color;
 	int	x;
@@ -43,34 +43,32 @@ static void	render_head_sprites(t_data *data)
 		data->current_time.tv_sec = new_time.tv_sec;
 		data->current_time.tv_usec = new_time.tv_usec;
 	}
-}
+}*/
 
 void	render_map(t_data *data)
 {
 	t_renderdata	render;
 
-	if (!data->map_data.dead)
+	/*if (!data->map_data.dead)*/
+	ft_memset(&render, 0, sizeof(t_renderdata));
+	if (data->map_data.map_width > data->map_data.map_height)
 	{
-		ft_memset(&render, 0, sizeof(t_renderdata));
-		if (data->map_data.map_width > data->map_data.map_height)
-		{
-			render.block_size_x = MINIMAP_SIZE / data->map_data.map_width;
-			render.block_size_y = MINIMAP_SIZE / data->map_data.map_width;
-		}
-		else
-		{
-			render.block_size_x = MINIMAP_SIZE / data->map_data.map_height;
-			render.block_size_y = MINIMAP_SIZE / data->map_data.map_height;
-		}
-		render.line_color = 0xFFFFFF;
-		render.y = 0;
-		render_map_cells(data, &render);
-		drawing_grid_lines(data, &render);
-		drawing_player(data, &render);
-		drawing_multiple_rays(data, &render);
-		render_scene(data);
-		render_sprites(data);		
+		render.block_size_x = MINIMAP_SIZE / data->map_data.map_width;
+		render.block_size_y = MINIMAP_SIZE / data->map_data.map_width;
 	}
 	else
-		render_head_sprites(data);
+	{
+		render.block_size_x = MINIMAP_SIZE / data->map_data.map_height;
+		render.block_size_y = MINIMAP_SIZE / data->map_data.map_height;
+	}
+	render.line_color = 0xFFFFFF;
+	render.y = 0;
+	render_map_cells(data, &render);
+	drawing_grid_lines(data, &render);
+	drawing_player(data, &render);
+	drawing_multiple_rays(data, &render);
+	render_scene(data);
+	render_sprites(data);
+	/*else
+		render_head_sprites(data);*/
 }

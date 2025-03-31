@@ -62,36 +62,30 @@ bool	can_move_to(t_data *data, double x, double y)
 	return (true);
 }
 
-void	move_player(t_data *data, int direction)
+void	move_player(t_data *data, int direction, t_move *move)
 {
-	const double	speed = 0.1;
-	double			new_x;
-	double			new_y;
-
 	if (direction == XK_w)
 	{
-		new_x = data->player_pos.x + data->player_direction.x * speed;
-		new_y = data->player_pos.y + data->player_direction.y * speed;
+		move->x = data->player_pos.x + data->player_direction.x * move->speed;
+		move->y = data->player_pos.y + data->player_direction.y * move->speed;
 	}
 	else if (direction == XK_s)
 	{
-		new_x = data->player_pos.x - data->player_direction.x * speed;
-		new_y = data->player_pos.y - data->player_direction.y * speed;
+		move->x = data->player_pos.x - data->player_direction.x * move->speed;
+		move->y = data->player_pos.y - data->player_direction.y * move->speed;
 	}
 	else if (direction == XK_a)
 	{
-		new_x = data->player_pos.x + data->player_direction.y * speed;
-		new_y = data->player_pos.y - data->player_direction.x * speed;
+		move->x = data->player_pos.x + data->player_direction.y * move->speed;
+		move->y = data->player_pos.y - data->player_direction.x * move->speed;
 	}
 	else if (direction == XK_d)
 	{
-		new_x = data->player_pos.x - data->player_direction.y * speed;
-		new_y = data->player_pos.y + data->player_direction.x * speed;
+		move->x = data->player_pos.x - data->player_direction.y * move->speed;
+		move->y = data->player_pos.y + data->player_direction.x * move->speed;
 	}
-	else
-		return ;
-	if (can_move_to(data, new_x, data->player_pos.y))
-		data->player_pos.x = new_x;
-	if (can_move_to(data, data->player_pos.x, new_y))
-		data->player_pos.y = new_y;
+	if (can_move_to(data, move->x, data->player_pos.y))
+		data->player_pos.x = move->x;
+	if (can_move_to(data, data->player_pos.x, move->y))
+		data->player_pos.y = move->y;
 }

@@ -134,6 +134,7 @@ bool	get_map(t_data *data)
 				data->map_data.sprites[sprite_index].y = y;
 				if (!load_sprite_texture(&data->map_data.sprites[sprite_index], data, "./textures/sprites/golden_freddy.xpm"))
 					return (false);
+				printf("Sprite %d initialized at (%d, %d)\n", sprite_index - 1, x, y);
 				sprite_index++;
 			}
 		}

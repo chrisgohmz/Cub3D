@@ -22,27 +22,30 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 }
 
 int	game_loop(t_data *data)
+	/*data->map_data.map[game.old_y][game.old_x] = '0';
+			data->map_data.map[game.new_y][game.new_x] = 'M';*/
 {
-	int	i;
-	int	new_x;
-	int	new_y;
-	int	old_x;
-	int	old_y;
+	t_game	game;
 
-	i = 0;
-	while (i < data->map_data.num_sprites && !data->map_data.dead)
+	ft_memset(&game, 0, sizeof(t_game));
+	game.i = 0;
+	while (game.i < data->map_data.num_sprites && !data->map_data.dead)
 	{
-		old_x = (int)data->map_data.sprites[i].x;
-		old_y = (int)data->map_data.sprites[i].y;
-		update_sprite(data, i);
-		new_x = (int)data->map_data.sprites[i].x;
-		new_y = (int)data->map_data.sprites[i].y;
-		if (new_x != old_x || new_y != old_y)
+		game.old_x = (int)data->map_data.sprites[game.i].x;
+		game.old_y = (int)data->map_data.sprites[game.i].y;
+		/*update_sprite(data, game.i);*/
+		game.new_x = (int)data->map_data.sprites[game.i].x;
+		game.new_y = (int)data->map_data.sprites[game.i].y;
+		if (game.new_x != game.old_x || game.new_y != game.old_y)
 		{
-			data->map_data.map[old_y][old_x] = '0';
-			data->map_data.map[new_y][new_x] = 'M';
+			if (data->map_data.map[game.old_y][game.old_x] == 'M')
+				data->map_data.map[game.old_y][game.old_x]
+					= data->map_data.sprites[game.i].original_cell;
+			data->map_data.sprites[game.i].original_cell
+				= data->map_data.map[game.new_y][game.new_x];
+			data->map_data.map[game.new_y][game.new_x] = 'M';
 		}
-		i++;
+		game.i++;
 	}
 	render_map(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);

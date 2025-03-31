@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static bool	load_head_sprites(t_data *data)
+/*static bool	load_head_sprites(t_data *data)
 {
 	if (!load_sprite_texture(data->map_data.head_sprites, data, "./textures/sprites/golden_freddy_head1.xpm"))
 		return (false);
@@ -39,7 +39,7 @@ static bool	load_head_sprites(t_data *data)
 	else if (!load_sprite_texture(data->map_data.head_sprites + 11, data, "./textures/sprites/golden_freddy_head12.xpm"))
 		return (false);
 	return (true);
-}
+}*/
 
 int	parsing(t_data *data, char *file_path)
 {	
@@ -89,8 +89,8 @@ int	parsing(t_data *data, char *file_path)
 		return (close(data->map_data.fd), 0);
 	if (!load_door_texture(data))
 		return (close(data->map_data.fd), 0);
-	if (!load_head_sprites(data))
-		return (close(data->map_data.fd), 0);
+	/*if (!load_head_sprites(data))
+		return (close(data->map_data.fd), 0);*/
 	close(data->map_data.fd);
 	return (1);
 }
