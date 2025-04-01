@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:06:18 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/28 14:06:19 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/01 21:56:39 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ bool	get_map(t_data *data)
 	data->map_data.door_states = malloc(sizeof(bool) * data->map_data.num_doors);
 	if (!data->map_data.door_x || !data->map_data.door_y || !data->map_data.door_states)
 		return (false);
-	data->map_data.sprites = malloc(sizeof(t_sprite) * data->map_data.num_sprites);
+	data->map_data.sprites = ft_calloc(data->map_data.num_sprites, sizeof(t_sprite));
 	if (!data->map_data.sprites)
 		return (false);
 	y = 0;

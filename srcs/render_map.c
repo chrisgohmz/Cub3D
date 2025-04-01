@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:30:28 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/31 22:01:09 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/01 21:35:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	render_map(t_data *data)
 		render.block_size_y = MINIMAP_SIZE / data->map_data.map_height;
 	}
 	render.line_color = 0xFFFFFF;
-	render.y = 0;
 	render_map_cells(data, &render);
 	drawing_grid_lines(data, &render);
 	drawing_player(data, &render);

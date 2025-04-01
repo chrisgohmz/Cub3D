@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/31 20:05:44 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/01 20:43:27 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,31 @@
 
 static bool	load_head_sprites(t_data *data)
 {
-	if (!load_sprite_texture(data->map_data.head_sprites, data, "./textures/sprites/golden_freddy_head1.xpm"))
+	if (!load_sprite_texture(data->map_data.head_sprites, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 1, data, "./textures/sprites/golden_freddy_head2.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 1, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 2, data, "./textures/sprites/golden_freddy_head3.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 2, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 3, data, "./textures/sprites/golden_freddy_head4.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 3, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 4, data, "./textures/sprites/golden_freddy_head5.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 4, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 5, data, "./textures/sprites/golden_freddy_head6.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 5, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 6, data, "./textures/sprites/golden_freddy_head7.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 6, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 7, data, "./textures/sprites/golden_freddy_head8.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 7, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 8, data, "./textures/sprites/golden_freddy_head9.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 8, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 9, data, "./textures/sprites/golden_freddy_head10.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 9, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 10, data, "./textures/sprites/golden_freddy_head11.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 10, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 11, data, "./textures/sprites/golden_freddy_head12.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 11, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
-	else if (!load_sprite_texture(data->map_data.head_sprites + 12, data, "./textures/sprites/golden_freddy_head13.xpm"))
+	else if (!load_sprite_texture(data->map_data.head_sprites + 12, data, "./textures/sprites/golden_freddy.xpm"))
 		return (false);
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:26:55 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/26 16:27:04 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/01 20:50:37 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void	freeing_sprites(t_data *data)
 		}
 		free(data->map_data.sprites);
 		data->map_data.sprites = NULL;
+	}
+	i = -1;
+	while (++i < 13)
+	{
+		if (data->map_data.head_sprites[i].img)
+			mlx_destroy_image(data->mlx, data->map_data.head_sprites[i].img);	
 	}
 }
 

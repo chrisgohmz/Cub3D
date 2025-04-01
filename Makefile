@@ -1,4 +1,4 @@
-CFLAGS ?= -Wall -Wextra -Werror -MMD -MP -Ofast -pedantic
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -Ofast -pedantic
 LDFLAGS = -Llibft -L$(MLXDIR) -L/usr/lib
 LDLIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz 
 
@@ -25,8 +25,7 @@ RM = rm -rf
 
 all: $(NAME)
 
-debug: CFLAGS += -g -Og -fsanitize=address
-debug: LDFLAGS += -fsanitize=address
+debug: CFLAGS += -g -Og
 debug: all
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)

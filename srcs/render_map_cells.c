@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:33:05 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/07 21:15:04 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/01 21:35:23 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	finding_memory_address_and_set_colour(
 void	render_map_cells(t_data *data, t_renderdata *render)
 	// this is for adding colour to each cell //
 {
+	render->y = 0;
 	while (render->y < data->map_data.map_height)
 	{
 		render->x = 0;
