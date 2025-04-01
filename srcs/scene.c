@@ -149,10 +149,14 @@ void	render_scene(t_data *data)
 			else
 				texture = &data->map_data.north_texture; // North wall
 			// Calculate texture coordinates
-			double wallX = (side == 0) ? data->player_pos.y + perpWallDist * rayDirY : data->player_pos.x + perpWallDist * rayDirX;
+			double wallX; 
+			if (side == 0)
+				wallX = data->player_pos.y + perpWallDist * rayDirY;
+			else
+				wallX = data->player_pos.x + perpWallDist * rayDirX;
 			wallX -= floor(wallX); // Get fractional part of wallX
 			int texX = (int)(wallX * texture->img_width);
-			if ((side == 0 && rayDirX > 0) || (side == 1 && rayDirY < 0))
+			if ((side == 0 && rayDirX < 0) || (side == 1 && rayDirY > 0))
 				texX = texture->img_width - texX - 1; // Flip texture horizontally
 			int texY = (y1 - HEIGHT / 2 + lineHeight / 2) * texture->img_height / lineHeight;
 			// Fetch color from texture

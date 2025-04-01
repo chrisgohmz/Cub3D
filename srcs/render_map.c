@@ -12,40 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-static void	render_head_sprites(t_data *data)
-{
-	int	color;
-	int	x;
-	int	y;
-	struct timeval	new_time;
-	unsigned long	time_elapsed_in_ms;
-	
-	if (data->map_data.dead)
-	{
-		gettimeofday(&new_time, NULL);
-		time_elapsed_in_ms = (new_time.tv_sec - data->current_time.tv_sec) * 1000 + (new_time.tv_usec - data->current_time.tv_usec) / 1000;
-		if (time_elapsed_in_ms >= 50)
-		{
-			data->current_time.tv_sec = new_time.tv_sec;
-			data->current_time.tv_usec = new_time.tv_usec;
-			data->map_data.head_sprite_index++;
-		}
-		if (data->map_data.head_sprite_index == 13)
-			close_window(data);
-		y = -1;
-		while (++y < HEIGHT)
-		{
-			x = -1;
-			while (++x < WIDTH)
-			{
-				color = *(unsigned int *)(data->map_data.head_sprites[data->map_data.head_sprite_index].addr + y * data->map_data.head_sprites[data->map_data.head_sprite_index].size_line + x * data->map_data.head_sprites[data->map_data.head_sprite_index].bits_per_pixel / 8);
-				// if (color & 0xFFFFFF)
-				ft_mlx_pixel_put(data, x, y, color);
-			}
-		}
-	}
-}
-
 void	render_map(t_data *data)
 {
 	t_renderdata	render;
@@ -68,6 +34,6 @@ void	render_map(t_data *data)
 	drawing_player(data, &render);
 	drawing_multiple_rays(data, &render);
 	render_scene(data);
-	render_sprites(data);	
+	render_sprites(data);
 	render_head_sprites(data);
 }

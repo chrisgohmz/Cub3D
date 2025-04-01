@@ -60,6 +60,40 @@ typedef struct	s_game
 	int	old_y;
 }	t_game;
 
+typedef struct	s_sprite_update
+{
+	double	move_x;
+	double	move_y;
+	double	new_x;
+	double	new_y;
+	double	distance;
+	double	dx;
+	double	dy;
+}	t_sprite_update;
+
+typedef struct	s_render_sprites
+{
+	double	sprite_x;
+	double	sprite_y;
+	double	invdet;
+	double	transform_x;
+	double	transform_y;
+	int	i;
+	int	spritescreen_x;
+	int	spriteheight;
+	int	drawstart_y;
+	int	drawend_y;
+	int	spritewidth;
+	int	drawstart_x;
+	int	drawend_x;
+	int	stripe;
+	int	y_loop;
+	int	d;
+	int	tex_x;
+	int	tex_y;
+	int	color;
+}	t_render_sprites;
+
 typedef struct s_sprite
 {
 	double	x;
@@ -193,10 +227,9 @@ typedef struct s_raycast
 }	t_raycast;
 
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+// scene.c //
 void	render_scene(t_data *data);
-void	render_sprites(t_data *data);
-void	sort_sprites(t_data *data);bool	can_move_to(t_data *data, double x, double y);
-void	update_sprite(t_data *data, int i);
 
 // events.c //
 void	interact_with_door(t_data *data);
@@ -273,5 +306,29 @@ void	free_textures(t_data *data);
 void	freeing_sprites(t_data *data);
 void	free_others(t_data *data);
 int		close_window(t_data *data);
+
+// sprite.c //
+void	sort_sprites(t_data *data);
+
+void	render_sprites(t_data *data);
+
+
+// sprite_utils1.c //
+void	updating_enemy_status(t_sprite_update *update, t_data *data, int i);
+void	update_sprite(t_data *data, int i);
+void	update_sprite_time(t_data *data, struct timeval new_time);
+void	draw_sprites(t_data *data);
+void	render_head_sprites(t_data *data);
+
+// sprite_utils2.c //
+void	calculate_relative_position_and_transformations(
+			t_render_sprites *sprites, t_data *data);
+void	calculate_screen_position_and_size_of_sprite(t_render_sprites *sprites);
+int		validate_texture_coordinates(t_render_sprites *sprites, t_data *data);
+void	calculating_texture_y_coordinates(t_render_sprites *sprites, t_data *data);
+void	get_color_for_texture(t_render_sprites *sprites, t_data *data);
+
+// sprite_utils3.c //
+void	calculating_texture_x_coordinates(t_render_sprites *sprites, t_data *data);
 
 #endif
