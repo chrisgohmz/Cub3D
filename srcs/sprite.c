@@ -69,7 +69,7 @@ void	render_sprites(t_data *data)
 		calculate_screen_position_and_size_of_sprite(&sprites);
 		while (sprites.stripe < sprites.drawend_x)
 		{
-			calculating_texture_x_coorindates(&sprites, data);
+			calculating_texture_x_coordinates(&sprites, data);
 			if (sprites.transform_y > 0 && sprites.stripe > 0
 				&& sprites.stripe < WIDTH
 				&& sprites.transform_y < data->zBuffer[sprites.stripe])

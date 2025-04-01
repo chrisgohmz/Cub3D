@@ -84,7 +84,7 @@ void	calculating_texture_y_coordinates(
 	sprites->d = (sprites->y_loop) * 256 - HEIGHT * 128
 		+ sprites->spriteheight * 128;
 	sprites->tex_y = ((sprites->d * data->map_data.sprites[sprites->i].height)
-			/ sprites.spriteheight) / 256;
+			/ sprites->spriteheight) / 256;
 	if (sprites->tex_y < 0)
 		sprites->tex_y = 0;
 	else if (sprites->tex_y >= data->map_data.sprites[sprites->i].height)
@@ -100,7 +100,7 @@ void	get_color_for_texture(t_render_sprites *sprites, t_data *data)
 			* data->map_data.sprites[sprites->i].size_line
 			+ sprites->tex_x
 			* data->map_data.sprites[sprites->i].bits_per_pixel / 8);
-	if ((sprites.color & 0x00FFFFFF) != 0 && (sprites.stripe > MINIMAP_SIZE
-			|| sprites.y_loop > MINIMAP_SIZE))
-		ft_mlx_pixel_put(data, sprites.stripe, sprites.y_loop, sprites.color);
+	if ((sprites->color & 0x00FFFFFF) != 0 && (sprites->stripe > MINIMAP_SIZE
+			|| sprites->y_loop > MINIMAP_SIZE))
+		ft_mlx_pixel_put(data, sprites->stripe, sprites->y_loop, sprites->color);
 }
