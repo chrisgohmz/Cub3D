@@ -102,5 +102,6 @@ void	get_color_for_texture(t_render_sprites *sprites, t_data *data)
 			* data->map_data.sprites[sprites->i].bits_per_pixel / 8);
 	if ((sprites->color & 0x00FFFFFF) != 0 && (sprites->stripe > MINIMAP_SIZE
 			|| sprites->y_loop > MINIMAP_SIZE))
-		ft_mlx_pixel_put(data, sprites->stripe, sprites->y_loop, sprites->color);
+		ft_mlx_pixel_put(data, sprites->stripe,
+			sprites->y_loop, sprites->color);
 }

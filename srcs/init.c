@@ -16,8 +16,8 @@ void	init_data(t_data *data)
 {
 	data->camera_plane_pos.x = -data->player_direction.y * 0.66;
 	data->camera_plane_pos.y = data->player_direction.x * 0.66;
-	data->zBuffer = malloc(sizeof(double) * WIDTH);
-	if (!data->zBuffer)
+	data->zbuffer = malloc(sizeof(double) * WIDTH);
+	if (!data->zbuffer)
 	{
 		perror("Failed to allocate memory for Z-buffer");
 		close_window(data);

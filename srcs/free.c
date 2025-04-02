@@ -61,7 +61,7 @@ void	freeing_sprites(t_data *data)
 	while (++i < 13)
 	{
 		if (data->map_data.head_sprites[i].img)
-			mlx_destroy_image(data->mlx, data->map_data.head_sprites[i].img);	
+			mlx_destroy_image(data->mlx, data->map_data.head_sprites[i].img);
 	}
 }
 
@@ -83,8 +83,8 @@ void	free_others(t_data *data)
 		free(data->mlx);
 		data->mlx = NULL;
 	}
-	if (data->zBuffer)
-		free(data->zBuffer);
+	if (data->zbuffer)
+		free(data->zbuffer);
 	free(data->map_data.door_x);
 	free(data->map_data.door_y);
 	free(data->map_data.door_states);

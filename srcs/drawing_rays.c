@@ -20,8 +20,8 @@ static void	setting_up_data_to_start_drawing_line(t_renderdata *render)
 	// determine which direction ray should move //
 	// depending on player and ray position //
 {
-	render->end_x = render->hitPointX * render->block_size_x;
-	render->end_y = render->hitPointY * render->block_size_y;
+	render->end_x = render->hitpoint_x * render->block_size_x;
+	render->end_y = render->hitpoint_y * render->block_size_y;
 	render->ray_end_x = (int)render->end_x;
 	render->ray_end_y = (int)render->end_y;
 	render->dx = abs(render->ray_end_x - render->player_screen_x);

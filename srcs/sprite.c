@@ -42,17 +42,6 @@ void	sort_sprites(t_data *data)
 	}
 }
 
-int	checking_for_transform_y_value(t_render_sprites *sprites)
-{
-	if (sprites->transform_y <= 0)
-	{
-		printf("Transform_y is less than or equal to 0\n");
-		sprites->i++;
-		return (-1);
-	}
-	return (1);
-}
-
 void	render_sprites(t_data *data)
 	//skip sprites that are not seen in FOV //
 	// texture x-coordinate //
@@ -63,26 +52,14 @@ void	render_sprites(t_data *data)
 	sort_sprites(data);
 	while (sprites.i < data->map_data.num_sprites)
 	{
-		calculate_relative_position_and_transformations(&sprites, data);
-		if (checking_for_transform_y_value(&sprites) == -1)
+		if (process_sprite(&sprites, data) == -1)
 			continue ;
-		calculate_screen_position_and_size_of_sprite(&sprites);
 		while (sprites.stripe < sprites.drawend_x)
 		{
-			calculating_texture_x_coordinates(&sprites, data);
-			if (sprites.transform_y > 0 && sprites.stripe > 0
-				&& sprites.stripe < WIDTH
-				&& sprites.transform_y < data->zBuffer[sprites.stripe])
+			if (validate_stripes(&sprites, data))
 			{
 				sprites.y_loop = sprites.drawstart_y;
-				while (sprites.y_loop < sprites.drawend_y)
-				{
-					calculating_texture_y_coordinates(&sprites, data);
-					if (validate_texture_coordinates(&sprites, data) == -1)
-						break ;
-					get_color_for_texture(&sprites, data);
-					sprites.y_loop++;
-				}
+				render_pixels(&sprites, data);
 			}
 			sprites.stripe++;
 		}

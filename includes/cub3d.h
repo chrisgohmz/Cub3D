@@ -51,7 +51,44 @@ typedef struct s_move
 	double	y;
 }	t_move;
 
-typedef struct	s_game
+typedef struct s_colour
+{
+	float	raydir_x0;
+	float	raydir_y0;
+	float	raydir_x1;
+	float	raydir_y1;
+	float	pos_z;
+	float	rowdistance;
+	float	floorstep_x;
+	float	floorstep_y;
+	float	floor_x;
+	float	floor_y;
+	double	camera_x;
+	double	raydir_x;
+	double	raydir_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	perpwalldist;
+	double	wall_x;
+	int		p;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		door_index;
+	int		lineheight;
+	int		y1;
+	int		y2;
+	int		tex_x;
+	int		tex_y;
+	int		color;
+}	t_colour;
+
+typedef struct s_game
 {
 	int	i;
 	int	new_x;
@@ -60,7 +97,7 @@ typedef struct	s_game
 	int	old_y;
 }	t_game;
 
-typedef struct	s_sprite_update
+typedef struct s_sprite_update
 {
 	double	move_x;
 	double	move_y;
@@ -71,27 +108,27 @@ typedef struct	s_sprite_update
 	double	dy;
 }	t_sprite_update;
 
-typedef struct	s_render_sprites
+typedef struct s_render_sprites
 {
 	double	sprite_x;
 	double	sprite_y;
 	double	invdet;
 	double	transform_x;
 	double	transform_y;
-	int	i;
-	int	spritescreen_x;
-	int	spriteheight;
-	int	drawstart_y;
-	int	drawend_y;
-	int	spritewidth;
-	int	drawstart_x;
-	int	drawend_x;
-	int	stripe;
-	int	y_loop;
-	int	d;
-	int	tex_x;
-	int	tex_y;
-	int	color;
+	int		i;
+	int		spritescreen_x;
+	int		spriteheight;
+	int		drawstart_y;
+	int		drawend_y;
+	int		spritewidth;
+	int		drawstart_x;
+	int		drawend_x;
+	int		stripe;
+	int		y_loop;
+	int		d;
+	int		tex_x;
+	int		tex_y;
+	int		color;
 }	t_render_sprites;
 
 typedef struct s_sprite
@@ -99,13 +136,13 @@ typedef struct s_sprite
 	double	x;
 	double	y;
 	double	move_speed;
-	void 	*img;
+	void	*img;
 	char	*addr;
-	int	width;
-	int	height;
-	int	bits_per_pixel;
-	int	size_line;
-	int	endian;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
 	char	original_cell;
 }	t_sprite;
 
@@ -120,100 +157,102 @@ typedef struct s_wall_texture
 	int		endian;
 }	t_wall_texture;
 
-typedef struct	s_mapdata
+typedef struct s_mapdata
 {
 	t_wall_texture	north_texture;
 	t_wall_texture	south_texture;
 	t_wall_texture	west_texture;
 	t_wall_texture	east_texture;
 	t_wall_texture	door_texture;
-	t_sprite	*sprites;
-	t_sprite	head_sprites[13];
-	int		head_sprite_index;
-	bool	dead;
-	int		num_sprites;
-	bool	*door_states;
-	int		num_doors;
-	int	*door_x;
-	int	*door_y;
-	int		floor_colour;
-	int		ceiling_colour;
-	char	**map;
-	int		map_height;
-	int		map_width;
-	int		fd;
-	char	*line;
-	char	*file_content;
-	char	*tmp;
-	char	**elements;
-	char	**elements_info;
+	t_sprite		*sprites;
+	t_sprite		head_sprites[13];
+	char			**map;
+	char			**elements;
+	char			**elements_info;
+	char			*line;
+	char			*file_content;
+	char			*tmp;
+	bool			dead;
+	bool			*door_states;
+	int				num_sprites;
+	int				head_sprite_index;
+	int				num_doors;
+	int				*door_x;
+	int				*door_y;
+	int				floor_colour;
+	int				ceiling_colour;
+	int				map_height;
+	int				map_width;
+	int				fd;
 }	t_mapdata;
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
-	void		*addr;
-	int			bits_per_pixel;
-	int			size_line;
-	int			endian;
-	t_point		player_pos;
-	t_point		player_direction;
-	t_point		camera_plane_pos;
-	t_mapdata	map_data;
-	double		*zBuffer;
-	int			mouse_pos_x;
-	int			mouse_pos_y;
-	int		i;
 	struct timeval	current_time;
+	void			*mlx;
+	void			*win;
+	void			*img;
+	void			*addr;
+	t_point			player_pos;
+	t_point			player_direction;
+	t_point			camera_plane_pos;
+	t_mapdata		map_data;
+	double			*zbuffer;
+	int				bits_per_pixel;
+	int				size_line;
+	int				endian;
+	int				mouse_pos_x;
+	int				mouse_pos_y;
+	int				i;
+	int				x;
+	int				y;
 }	t_data;
 
 typedef struct s_renderdata
 {
-	double	perpWallDist;
+	double	perpwalldist;
 	double	cos_offset;
 	double	sin_offset;
-	double	dirX;
-	double	dirY;
-	double	hitPointX;
-	double	hitPointY;
-	double	deltaDistX;
-	double	deltaDistY;
+	double	dir_x;
+	double	dir_y;
+	double	hitpoint_x;
+	double	hitpoint_y;
+	double	deltadist_x;
+	double	deltadist_y;
 	double	angle_offset;
 	double	ray_cast_angle;
 	double	fov;
-	int	mapX;
-	int	mapY;
-	int	x;
-	int	y;
-	int	block_size_x;
-	int	block_size_y;
-	int	color;
-	int	line_color;
-	int	i;
-	int	j;
-	int	pixel;
-	int	player_screen_x;
-	int	player_screen_y;
-	int	player_radius;
-	int	player_color;
-	int	py;
-	int	px;
 	double	end_x;
 	double	end_y;
-	int	ray_end_x;
-	int	ray_end_y;
-	int	dx;
-	int	dy;
-	int	sx;
-	int	sy;
-	int	err;
-	int	e2;
-	int	current_x;
-	int	current_y;
-	int	num_rays;
-	int	k;
+	int		map_x;
+	int		map_y;
+	int		x;
+	int		y;
+	int		block_size_x;
+	int		block_size_y;
+	int		color;
+	int		line_color;
+	int		i;
+	int		j;
+	int		pixel;
+	int		player_screen_x;
+	int		player_screen_y;
+	int		player_radius;
+	int		player_color;
+	int		py;
+	int		px;
+	int		ray_end_x;
+	int		ray_end_y;
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+	int		current_x;
+	int		current_y;
+	int		num_rays;
+	int		k;
 }	t_renderdata;
 
 typedef struct s_raycast
@@ -231,6 +270,22 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 // scene.c //
 void	render_scene(t_data *data);
 
+// scene_utils1.c //
+void	initialising_zbuffer(t_data *data);
+void	calculating_data_for_floor_and_ceiling(t_colour *fc, t_data *data);
+void	apply_colour_to_floor_and_ceiling(t_colour *fc, t_data *data);
+
+// scene_utils2.c //
+void	calculating_data_for_textures(t_colour *fc, t_data *data);
+void	initialising_data_for_raycasting(t_colour *fc, t_data *data);
+void	applying_raycasting_on_walls_and_doors(t_colour *fc, t_data *data);
+void	calculating_data_for_3d_image(t_colour *fc);
+void	count_texture_coordinates_and_fetch_colour(
+			t_colour *fc, t_data *data, t_wall_texture *texture);
+
+// scene_utils3.c //
+t_wall_texture	*get_texture_for_ray_hit(t_data *data, t_colour *fc);
+
 // events.c //
 void	interact_with_door(t_data *data);
 int		mouse_move(int x, int y, t_data *data);
@@ -245,6 +300,7 @@ void	move_player(t_data *data, int direction, t_move *move);
 void	drawing_single_ray(t_data *data, t_renderdata *render);
 void	drawing_multiple_rays(t_data *data, t_renderdata *render);
 void	interact_with_door(t_data *data);
+
 // ray_casting.c //
 void	cast_ray(t_data *data, t_renderdata *render);
 
@@ -309,9 +365,7 @@ int		close_window(t_data *data);
 
 // sprite.c //
 void	sort_sprites(t_data *data);
-
 void	render_sprites(t_data *data);
-
 
 // sprite_utils1.c //
 void	updating_enemy_status(t_sprite_update *update, t_data *data, int i);
@@ -325,10 +379,16 @@ void	calculate_relative_position_and_transformations(
 			t_render_sprites *sprites, t_data *data);
 void	calculate_screen_position_and_size_of_sprite(t_render_sprites *sprites);
 int		validate_texture_coordinates(t_render_sprites *sprites, t_data *data);
-void	calculating_texture_y_coordinates(t_render_sprites *sprites, t_data *data);
+void	calculating_texture_y_coordinates(
+			t_render_sprites *sprites, t_data *data);
 void	get_color_for_texture(t_render_sprites *sprites, t_data *data);
 
 // sprite_utils3.c //
-void	calculating_texture_x_coordinates(t_render_sprites *sprites, t_data *data);
+void	calculating_texture_x_coordinates(
+			t_render_sprites *sprites, t_data *data);
+int		checking_for_transform_y_value(t_render_sprites *sprites);
+int		process_sprite(t_render_sprites *sprites, t_data *data);
+int		validate_stripes(t_render_sprites *sprites, t_data *data);
+void	render_pixels(t_render_sprites *sprites, t_data *data);
 
 #endif

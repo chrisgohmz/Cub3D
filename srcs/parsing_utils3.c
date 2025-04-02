@@ -18,7 +18,8 @@ bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path)
 			&sprite->width, &sprite->height);
 	if (!sprite->img)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file: %s\n", path);
+		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file: %s\n",
+			path);
 		return (false);
 	}
 	sprite->addr = mlx_get_data_addr(sprite->img, &sprite->bits_per_pixel,

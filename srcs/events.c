@@ -43,7 +43,7 @@ int	mouse_move(int x, int y, t_data *data)
 int	keydown(int keycode, t_data *data)
 {
 	t_move	move;
-	
+
 	ft_memset(&move, 0, sizeof(t_move));
 	move.speed = 0.1;
 	if (keycode == XK_Escape)
