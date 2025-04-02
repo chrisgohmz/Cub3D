@@ -23,16 +23,16 @@ void	render_scene(t_data *data)
 	data->x = -1;
 	while (++data->x < WIDTH)
 	{
-		calculating_data_for_textures(&fc, data);
+		calculate_texture_data(&fc, data);
 		initialising_data_for_raycasting(&fc, data);
-		applying_raycasting_on_walls_and_doors(&fc, data);
-		calculating_data_for_3d_image(&fc);
+		raycast_walls_and_doors(&fc, data);
+		calculate_3d_rendering_data(&fc);
 		while (fc.y1 <= fc.y2)
 		{
 			texture = get_texture_for_ray_hit(data, &fc);
 			if (texture == NULL)
 				continue ;
-			count_texture_coordinates_and_fetch_colour(&fc, data, texture);
+			get_texture_coordinates_and_colour(&fc, data, texture);
 		}
 		data->zbuffer[data->x] = fc.perpwalldist;
 	}

@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-void	calculating_data_for_textures(t_colour *fc, t_data *data)
+void	calculate_texture_data(t_colour *fc, t_data *data)
 {
 	fc->camera_x = 2 * data->x / (double)WIDTH - 1;
 	fc->raydir_x = data->player_direction.x + data->camera_plane_pos.x
@@ -60,7 +60,7 @@ void	initialising_data_for_raycasting(t_colour *fc, t_data *data)
 	}
 }
 
-void	applying_raycasting_on_walls_and_doors(t_colour *fc, t_data *data)
+void	raycast_walls_and_doors(t_colour *fc, t_data *data)
 {
 	while (!fc->hit)
 	{
@@ -88,7 +88,7 @@ void	applying_raycasting_on_walls_and_doors(t_colour *fc, t_data *data)
 	}
 }
 
-void	calculating_data_for_3d_image(t_colour *fc)
+void	calculate_3d_rendering_data(t_colour *fc)
 {
 	if (fc->side == 0)
 		fc->perpwalldist = fc->sidedist_x - fc->deltadist_x;
@@ -103,7 +103,7 @@ void	calculating_data_for_3d_image(t_colour *fc)
 		fc->y2 = HEIGHT - 1;
 }
 
-void	count_texture_coordinates_and_fetch_colour(
+void	get_texture_coordinates_and_colour(
 			t_colour *fc, t_data *data, t_wall_texture *texture)
 	// Get fractional part of wallX
 	// Flip texture horizontally

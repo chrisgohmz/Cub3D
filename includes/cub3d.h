@@ -272,15 +272,15 @@ void	render_scene(t_data *data);
 
 // scene_utils1.c //
 void	initialising_zbuffer(t_data *data);
-void	calculating_data_for_floor_and_ceiling(t_colour *fc, t_data *data);
+void	calculate_floor_and_ceiling_data(t_colour *fc, t_data *data);
 void	apply_colour_to_floor_and_ceiling(t_colour *fc, t_data *data);
 
 // scene_utils2.c //
-void	calculating_data_for_textures(t_colour *fc, t_data *data);
+void	calculate_texture_data(t_colour *fc, t_data *data);
 void	initialising_data_for_raycasting(t_colour *fc, t_data *data);
-void	applying_raycasting_on_walls_and_doors(t_colour *fc, t_data *data);
-void	calculating_data_for_3d_image(t_colour *fc);
-void	count_texture_coordinates_and_fetch_colour(
+void	raycast_walls_and_doors(t_colour *fc, t_data *data);
+void	calculate_3d_rendering_data(t_colour *fc);
+void	get_texture_coordinates_and_colour(
 			t_colour *fc, t_data *data, t_wall_texture *texture);
 
 // scene_utils3.c //
@@ -297,11 +297,20 @@ bool	can_move_to(t_data *data, double x, double y);
 void	move_player(t_data *data, int direction, t_move *move);
 
 // drawing_rays.c //
+void	setting_up_data_to_start_drawing_line(t_renderdata *render);
+void	draw_ray_if_within_screen(t_data *data, t_renderdata *render);
+void	implementing_bresenham_algo(t_renderdata *render);
 void	drawing_single_ray(t_data *data, t_renderdata *render);
 void	drawing_multiple_rays(t_data *data, t_renderdata *render);
-void	interact_with_door(t_data *data);
 
 // ray_casting.c //
+void	calculate_step_and_initial_side_dist(t_data *data,
+			t_renderdata *render, t_raycast *ray);
+void	detecting_ray_collisons(t_data *data,
+			t_renderdata *render, t_raycast *ray);
+void	performing_dda(t_data *data, t_renderdata *render, t_raycast *ray);
+void	calculate_distance_projected_on_camera(t_data *data,
+			t_renderdata *render, t_raycast *ray);
 void	cast_ray(t_data *data, t_renderdata *render);
 
 // parsing.c //
@@ -368,25 +377,24 @@ void	sort_sprites(t_data *data);
 void	render_sprites(t_data *data);
 
 // sprite_utils1.c //
-void	updating_enemy_status(t_sprite_update *update, t_data *data, int i);
+void	update_enemy_position_and_status(
+			t_sprite_update *update, t_data *data, int i);
 void	update_sprite(t_data *data, int i);
 void	update_sprite_time(t_data *data, struct timeval new_time);
 void	draw_sprites(t_data *data);
 void	render_head_sprites(t_data *data);
 
 // sprite_utils2.c //
-void	calculate_relative_position_and_transformations(
+void	calculate_sprite_transformations(
 			t_render_sprites *sprites, t_data *data);
-void	calculate_screen_position_and_size_of_sprite(t_render_sprites *sprites);
+void	calculate_sprite_screen_position_and_size(t_render_sprites *sprites);
 int		validate_texture_coordinates(t_render_sprites *sprites, t_data *data);
-void	calculating_texture_y_coordinates(
-			t_render_sprites *sprites, t_data *data);
+void	calculate_texture_y(t_render_sprites *sprites, t_data *data);
 void	get_color_for_texture(t_render_sprites *sprites, t_data *data);
 
 // sprite_utils3.c //
-void	calculating_texture_x_coordinates(
-			t_render_sprites *sprites, t_data *data);
-int		checking_for_transform_y_value(t_render_sprites *sprites);
+void	calculate_texture_x(t_render_sprites *sprites, t_data *data);
+int		validate_transform_y_value(t_render_sprites *sprites);
 int		process_sprite(t_render_sprites *sprites, t_data *data);
 int		validate_stripes(t_render_sprites *sprites, t_data *data);
 void	render_pixels(t_render_sprites *sprites, t_data *data);

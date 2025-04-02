@@ -12,7 +12,8 @@
 
 #include "../includes/cub3d.h"
 
-void	updating_enemy_status(t_sprite_update *update, t_data *data, int i)
+void	update_enemy_position_and_status(
+			t_sprite_update *update, t_data *data, int i)
 {
 	update->move_x = (data->player_pos.x - data->map_data.sprites[i].x)
 		/ update->distance * data->map_data.sprites[i].move_speed;
@@ -44,7 +45,7 @@ void	update_sprite(t_data *data, int i)
 	if (update.distance < 4)
 	{
 		if (update.distance > 0.1)
-			updating_enemy_status(&update, data, i);
+			update_enemy_position_and_status(&update, data, i);
 	}
 	else
 	{

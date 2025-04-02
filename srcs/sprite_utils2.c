@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-void	calculate_relative_position_and_transformations(
+void	calculate_sprite_transformations(
 			t_render_sprites *sprites, t_data *data)
 	// calculate relative position to player //
 	// transformations for rendering //
@@ -32,7 +32,7 @@ void	calculate_relative_position_and_transformations(
 			* sprites->sprite_y);
 }
 
-void	calculate_screen_position_and_size_of_sprite(t_render_sprites *sprites)
+void	calculate_sprite_screen_position_and_size(t_render_sprites *sprites)
 	// calculate screen position and size of sprite //
 {
 	sprites->spritescreen_x = (int)((WIDTH / 2)
@@ -77,8 +77,7 @@ int	validate_texture_coordinates(t_render_sprites *sprites, t_data *data)
 	return (1);
 }
 
-void	calculating_texture_y_coordinates(
-			t_render_sprites *sprites, t_data *data)
+void	calculate_texture_y(t_render_sprites *sprites, t_data *data)
 	// texture y-cooridnate //
 {
 	sprites->d = (sprites->y_loop) * 256 - HEIGHT * 128

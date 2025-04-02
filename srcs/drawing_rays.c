@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static void	setting_up_data_to_start_drawing_line(t_renderdata *render)
+void	setting_up_data_to_start_drawing_line(t_renderdata *render)
 	// converting end point by getting its pixel coordinates //
 	// converting end point to int coordinates //
 	// as graphics usually requires int //
@@ -39,7 +39,7 @@ static void	setting_up_data_to_start_drawing_line(t_renderdata *render)
 	render->current_y = render->player_screen_y;
 }
 
-static void	checking_if_ray_is_within_map(t_data *data, t_renderdata *render)
+void	draw_ray_if_within_screen(t_data *data, t_renderdata *render)
 {
 	if (render->current_x >= 0 && render->current_x < WIDTH
 		&& render->current_y >= 0 && render->current_y < HEIGHT)
@@ -51,7 +51,7 @@ static void	checking_if_ray_is_within_map(t_data *data, t_renderdata *render)
 	}
 }
 
-static void	implementing_bresenham_algo(t_renderdata *render)
+void	implementing_bresenham_algo(t_renderdata *render)
 	// determine whether to move in x direction or y direction //
 {
 	render->e2 = 2 * render->err;
@@ -76,9 +76,12 @@ void	drawing_single_ray(t_data *data, t_renderdata *render)
 	setting_up_data_to_start_drawing_line(render);
 	while (1)
 	{
-		checking_if_ray_is_within_map(data, render);
+		draw_ray_if_within_screen(data, render);
 		map_x = render->current_x / render->block_size_x;
 		map_y = render->current_y / render->block_size_y;
+		if (map_x < 0 || map_x >= data->map_data.map_width
+			|| map_y < 0 || map_y >= data->map_data.map_height)
+			break ;
 		if (data->map_data.map[map_y][map_x] == '1')
 			break ;
 		if (render->current_x == render->ray_end_x

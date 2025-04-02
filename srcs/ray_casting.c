@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d.h"
 
-static void	calculate_step_and_initial_side_dist(t_data *data,
+void	calculate_step_and_initial_side_dist(t_data *data,
 			t_renderdata *render, t_raycast *ray)
 		// Calculate step and initial sideDist //
 {
@@ -42,7 +42,7 @@ static void	calculate_step_and_initial_side_dist(t_data *data,
 	}
 }
 
-static void	further_condition_checks(t_data *data,
+void	detecting_ray_collisons(t_data *data,
 			t_renderdata *render, t_raycast *ray)
 	// first checks if its out of bounds // 
 	// second checks if its hitting objects //
@@ -62,7 +62,7 @@ static void	further_condition_checks(t_data *data,
 		ray->hit = 1;
 }
 
-static void	performing_dda(t_data *data, t_renderdata *render, t_raycast *ray)
+void	performing_dda(t_data *data, t_renderdata *render, t_raycast *ray)
 	// Perform DDA //
 {
 	while (ray->hit == 0)
@@ -79,11 +79,11 @@ static void	performing_dda(t_data *data, t_renderdata *render, t_raycast *ray)
 			render->map_y = render->map_y + ray->step_y;
 			ray->side = 1;
 		}
-		further_condition_checks(data, render, ray);
+		detecting_ray_collisons(data, render, ray);
 	}
 }
 
-static void	calculate_distance_projected_on_camera(t_data *data,
+void	calculate_distance_projected_on_camera(t_data *data,
 			t_renderdata *render, t_raycast *ray)
 	// Calculate distance projected on camera direction //
 	// (avoiding fisheye effect) //

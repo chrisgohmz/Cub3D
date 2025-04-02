@@ -22,7 +22,7 @@ void	initialising_zbuffer(t_data *data)
 	}
 }
 
-void	calculating_data_for_floor_and_ceiling(t_colour *fc, t_data *data)
+void	calculate_floor_and_ceiling_data(t_colour *fc, t_data *data)
 {
 	fc->raydir_x0 = data->player_direction.x - data->camera_plane_pos.x;
 	fc->raydir_y0 = data->player_direction.y - data->camera_plane_pos.y;
@@ -42,7 +42,7 @@ void	apply_colour_to_floor_and_ceiling(t_colour *fc, t_data *data)
 	data->y = -1;
 	while (++data->y < HEIGHT)
 	{
-		calculating_data_for_floor_and_ceiling(fc, data);
+		calculate_floor_and_ceiling_data(fc, data);
 		data->x = -1;
 		while (++data->x < WIDTH)
 		{

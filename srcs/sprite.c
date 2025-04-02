@@ -56,7 +56,9 @@ void	render_sprites(t_data *data)
 			continue ;
 		while (sprites.stripe < sprites.drawend_x)
 		{
-			if (validate_stripes(&sprites, data))
+			if (sprites.stripe >= 0 && sprites.stripe < WIDTH
+			&& sprites.y_loop >= 0 && sprites.y_loop < HEIGHT
+			&& validate_stripes(&sprites, data))
 			{
 				sprites.y_loop = sprites.drawstart_y;
 				render_pixels(&sprites, data);

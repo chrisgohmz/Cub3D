@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -Ofast -pedantic
+CFLAGS = -g -Wall -Wextra -Werror -MMD -MP -Ofast -pedantic
 LDFLAGS = -Llibft -L$(MLXDIR) -L/usr/lib
 LDLIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz 
 
