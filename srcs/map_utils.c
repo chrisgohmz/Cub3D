@@ -1,86 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils4.c                                   :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:03:35 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/28 14:03:37 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/02 21:27:57 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-bool	get_element_info(t_data *data)
-{
-	int	i;
-
-	data->map_data.ceiling_colour = -1;
-	data->map_data.floor_colour = -1;
-	i = -1;
-	while (data->map_data.elements[++i])
-	{
-		data->map_data.elements_info = ft_split(data->map_data.elements[i], ' ');
-		if (!data->map_data.elements_info)
-			return (false);
-		if (count_arr_elements(data->map_data.elements_info) == 2)
-		{
-			if (!ft_strncmp(data->map_data.elements_info[0], NORTH, sizeof(NORTH)))
-			{
-				if (!get_texture((&(data->map_data).north_texture), data,
-					data->map_data.elements_info[1]))
-					return (free_2d_arr((void ***)&data->map_data.elements_info), false);
-			}
-			else if (!ft_strncmp(data->map_data.elements_info[0], SOUTH, sizeof(SOUTH)))
-			{
-				if (!get_texture(&data->map_data.south_texture, data,
-					data->map_data.elements_info[1]))
-					return (free_2d_arr((void ***)&data->map_data.elements_info), false);
-			}
-			else if (!ft_strncmp(data->map_data.elements_info[0], EAST, sizeof(EAST)))
-			{
-				if (!get_texture(&data->map_data.east_texture, data,
-					data->map_data.elements_info[1]))
-					return (free_2d_arr((void ***)&data->map_data.elements_info), false);
-			}
-			else if (!ft_strncmp(data->map_data.elements_info[0], WEST, sizeof(WEST)))
-			{
-				if (!get_texture(&data->map_data.west_texture, data,
-					data->map_data.elements_info[1]))
-					return (free_2d_arr((void ***)&data->map_data.elements_info), false);
-			}
-			else if (!ft_strncmp(data->map_data.elements_info[0], FLOOR, sizeof(FLOOR)))
-			{
-				data->map_data.floor_colour = get_color(data->map_data.elements_info[1]);
-				if (data->map_data.floor_colour == -1)
-					return (free_2d_arr((void ***)&data->map_data.elements_info), false);	
-			}
-			else if (!ft_strncmp(data->map_data.elements_info[0], CEILING, sizeof(CEILING)))
-			{
-				data->map_data.ceiling_colour = get_color(data->map_data.elements_info[1]);
-				if (data->map_data.ceiling_colour == -1)
-					return (free_2d_arr((void ***)&data->map_data.elements_info), false);	
-			}
-			else
-			{
-				ft_dprintf(STDERR_FILENO, "Error\nFile contains invalid line\n");
-				free_2d_arr((void ***)&data->map_data.elements_info);
-				return (false);
-			}
-		}
-		else
-		{
-			ft_dprintf(STDERR_FILENO, "Error\nFile contains invalid line\n");
-			free_2d_arr((void ***)&data->map_data.elements_info);
-			return (false);
-		}
-		free_2d_arr((void ***)&data->map_data.elements_info);
-	}
-	if (check_for_nsew_textures(data) == false || check_for_fc_textures(data) == false)
-		return (false);
-	return (true);
-}
 
 bool	check_wall_surround(t_mapdata *map_data, char **map_copy, int x, int y)
 {

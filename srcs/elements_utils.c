@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   elements_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 12:17:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/02 18:25:30 by cgoh             ###   ########.fr       */
+/*   Created: 2025/03/28 12:49:12 by apoh              #+#    #+#             */
+/*   Updated: 2025/04/02 21:36:20 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_data(t_data *data)
+int	count_arr_elements(char **arr)
 {
-	data->camera_plane_pos.x = -data->player_direction.y * 0.66;
-	data->camera_plane_pos.y = data->player_direction.x * 0.66;
-	data->zbuffer = malloc(sizeof(double) * WIDTH);
-	if (!data->zbuffer)
-		close_window(data);
+	int	count;
+
+	count = -1;
+	while (arr[++count])
+	{
+	}
+	return (count);
+}
+
+bool	print_error(const char *message)
+{
+	ft_dprintf(STDERR_FILENO, "Error\n%s\n", message);
+	return (false);
 }

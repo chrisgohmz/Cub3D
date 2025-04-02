@@ -1,18 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils2.c                                   :+:      :+:    :+:   */
+/*   floor_ceiling.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 12:53:46 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/28 12:53:49 by apoh             ###   ########.fr       */
+/*   Created: 2025/04/02 21:33:24 by cgoh              #+#    #+#             */
+/*   Updated: 2025/04/02 21:36:59 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	validating_commas(char *str)
+static bool	check_color_range(int *color, char *color_str)
+{
+	int	i;
+
+	if (ft_strlen(color_str) > 3)
+		return (print_error("Color range must be within 0 and 255"));
+	i = -1;
+	while (color_str[++i])
+	{
+		if (!ft_isdigit(color_str[i]))
+			return (print_error("Color may only contain digits"));
+	}
+	*color = ft_atoi(color_str);
+	if (*color < 0 || *color > 255)
+		return (print_error("Color range must be within 0 and 255"));
+	return (true);
+}
+
+static int	count_commas(const char *str)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (str[++i])
+	{
+		if (str[i] == ',')
+			++count;
+	}
+	return (count);
+}
+
+static int	validating_commas(char *str)
 {
 	if (count_commas(str) != 2)
 	{
@@ -22,7 +55,7 @@ int	validating_commas(char *str)
 	return (0);
 }
 
-int	validating_array_elements(char **color_rgb_arr)
+static int	validating_array_elements(char **color_rgb_arr)
 {
 	if (count_arr_elements(color_rgb_arr) != 3)
 	{
@@ -56,35 +89,4 @@ int	get_color(char *str)
 	}
 	free_2d_arr((void ***)&color_rgb_arr);
 	return (red << 16 | green << 8 | blue);
-}
-
-bool	get_texture(t_wall_texture *wall, t_data *data, char *path)
-{
-	if (wall->img)
-		mlx_destroy_image(data->mlx, wall->img);
-	wall->img = mlx_xpm_file_to_image(data->mlx, path,
-			&wall->img_width, &wall->img_height);
-	if (!wall->img)
-	{
-		ft_dprintf(STDERR_FILENO, "Error\nFailed to load texture file\n");
-		return (false);
-	}
-	wall->addr = mlx_get_data_addr(wall->img, &wall->bits_per_pixel,
-			&wall->size_line, &wall->endian);
-	if (!wall->addr)
-	{
-		ft_dprintf(STDERR_FILENO, "Error\nFailed to get image data"
-			"address: %s\n", path);
-		mlx_destroy_image(data->mlx, wall->img);
-		return (false);
-	}
-	return (true);
-}
-
-bool	load_door_texture(t_data *data)
-{
-	char	*door_texture_path;
-
-	door_texture_path = "./textures/door/Door.xpm";
-	return (get_texture(&data->map_data.door_texture, data, door_texture_path));
 }

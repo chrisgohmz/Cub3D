@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/03/31 20:01:46 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/02 21:50:41 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,11 +167,6 @@ typedef struct s_mapdata
 	t_sprite		*sprites;
 	t_sprite		head_sprites[13];
 	char			**map;
-	char			**elements;
-	char			**elements_info;
-	char			*line;
-	char			*file_content;
-	char			*tmp;
 	bool			dead;
 	bool			*door_states;
 	int				num_sprites;
@@ -183,7 +178,9 @@ typedef struct s_mapdata
 	int				ceiling_colour;
 	int				map_height;
 	int				map_width;
-	int				fd;
+	t_point			player_pos;
+	t_point			player_direction;
+	t_point			camera_plane_pos;
 }	t_mapdata;
 
 typedef struct s_data
@@ -193,9 +190,6 @@ typedef struct s_data
 	void			*win;
 	void			*img;
 	void			*addr;
-	t_point			player_pos;
-	t_point			player_direction;
-	t_point			camera_plane_pos;
 	t_mapdata		map_data;
 	double			*zbuffer;
 	int				bits_per_pixel;
@@ -316,6 +310,8 @@ void	cast_ray(t_data *data, t_renderdata *render);
 // parsing.c //
 bool	get_map(t_data *data);
 int		parsing(t_data *data, char *file_path);
+bool	split_elements_and_extract_info(t_mapdata *map_data,
+	char **file_content);
 
 // parsing_utils1.c //
 bool	found_map_start(const char *str);
@@ -365,6 +361,7 @@ void	drawing_player(t_data *data, t_renderdata *render);
 // door.c //
 int		is_door_open(t_data *data, int x, int y);
 int		get_door_index(t_data *data, int x, int y);
+bool	load_doors_and_enemies(t_data *data);
 
 // free.c //
 void	free_textures(t_data *data);

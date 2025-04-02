@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprites_utils1.c                                   :+:      :+:    :+:   */
+/*   sprite_utils1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:36:14 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/01 16:36:16 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/02 18:12:02 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ void	draw_sprites(t_data *data)
 	int	y;
 
 	y = -1;
-	while (++y < HEIGHT)
+	while (++y < data->map_data.head_sprites[0].height)
 	{
 		x = -1;
-		while (++x < WIDTH)
+		while (++x < data->map_data.head_sprites[0].width)
 		{
 			color = *(unsigned int *)(data->map_data.head_sprites
 				[data->map_data.head_sprite_index].addr + y
