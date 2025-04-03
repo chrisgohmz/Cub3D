@@ -135,6 +135,8 @@ typedef struct s_sprite
 {
 	double	x;
 	double	y;
+	double	original_x;
+	double	original_y;
 	double	move_speed;
 	void	*img;
 	char	*addr;

@@ -21,17 +21,6 @@ void	ft_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*((unsigned int *)dest) = color;
 }
 
-void	reset_old_sprite_position(t_data *data, t_game *game)
-{
-	// Check if the old position is still marked as 'M'
-	if (data->map_data.map[game->old_y][game->old_x] == 'M')
-	{
-		// Reset it to its original cell value (e.g., '0' for empty space)
-		data->map_data.map[game->old_y][game->old_x] = '0';
-	}
-}
-
-
 int	game_loop(t_data *data)
 	/*data->map_data.map[game.old_y][game.old_x] = '0';
 			data->map_data.map[game.new_y][game.new_x] = 'M';*/
@@ -39,6 +28,13 @@ int	game_loop(t_data *data)
 	t_game	game;
 
 	ft_memset(&game, 0, sizeof(t_game));
+	game.i = 0;
+	while (game.i < data->map_data.num_sprites)
+	{
+		data->map_data.sprites[game.i].original_x = (int)data->map_data.sprites[game.i].x;
+		data->map_data.sprites[game.i].original_y = (int)data->map_data.sprites[game.i].y;
+		game.i++;
+	}
 	game.i = 0;
 	while (game.i < data->map_data.num_sprites && !data->map_data.dead)
 	{
@@ -49,10 +45,16 @@ int	game_loop(t_data *data)
 		game.new_y = (int)data->map_data.sprites[game.i].y;
 		if (game.new_x != game.old_x || game.new_y != game.old_y)
 		{
-			reset_old_sprite_position(data, &game);
-			if (data->map_data.map[game.old_y][game.old_x] == 'M')
+			if (data->map_data.sprites[game.i].original_cell == 'D')
+			{
 				data->map_data.map[game.old_y][game.old_x]
 					= data->map_data.sprites[game.i].original_cell;
+			}
+			else if (game.new_x != data->map_data.sprites[game.i].original_x
+				|| game.new_y != data->map_data.sprites[game.i].original_y)
+			{
+				data->map_data.map[game.old_y][game.old_x] = '0';
+			}
 			data->map_data.sprites[game.i].original_cell
 				= data->map_data.map[game.new_y][game.new_x];
 			data->map_data.map[game.new_y][game.new_x] = 'M';
