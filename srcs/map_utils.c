@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:03:35 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/02 21:27:57 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ bool	check_map_valid(t_data *data)
 		ft_memcpy(map_copy[i], data->map_data.map[i],
 			ft_strlen(data->map_data.map[i]) + 1);
 	}
-	if (!check_wall_surround(&data->map_data, map_copy, data->player_pos.x,
-			data->player_pos.y))
+	if (!check_wall_surround(&data->map_data, map_copy, data->map_data.player_pos.x,
+			data->map_data.player_pos.y))
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nMap is not enclosed with walls\n");
 		free_2d_arr((void ***)&map_copy);
@@ -71,23 +71,23 @@ void	setting_up_player_direction(t_data *data, int x, int y)
 {
 	if (data->map_data.map[y][x] == 'N')
 	{
-		data->player_direction.x = 0;
-		data->player_direction.y = -1;
+		data->map_data.player_direction.x = 0;
+		data->map_data.player_direction.y = -1;
 	}
 	else if (data->map_data.map[y][x] == 'S')
 	{
-		data->player_direction.x = 0;
-		data->player_direction.y = 1;
+		data->map_data.player_direction.x = 0;
+		data->map_data.player_direction.y = 1;
 	}
 	else if (data->map_data.map[y][x] == 'E')
 	{
-		data->player_direction.x = 1;
-		data->player_direction.y = 0;
+		data->map_data.player_direction.x = 1;
+		data->map_data.player_direction.y = 0;
 	}
 	else
 	{
-		data->player_direction.x = -1;
-		data->player_direction.y = 0;
+		data->map_data.player_direction.x = -1;
+		data->map_data.player_direction.y = 0;
 	}
 }
 
@@ -104,8 +104,8 @@ void	get_player_pos_direction(t_data *data)
 		{
 			if (ft_strchr("NSEW", data->map_data.map[y][x]))
 			{
-				data->player_pos.x = x + 0.5;
-				data->player_pos.y = y + 0.5;
+				data->map_data.player_pos.x = x + 0.5;
+				data->map_data.player_pos.y = y + 0.5;
 				setting_up_player_direction(data, x, y);
 				return ;
 			}

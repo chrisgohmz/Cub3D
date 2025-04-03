@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/02 21:50:41 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 19:00:02 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,32 +308,24 @@ void	calculate_distance_projected_on_camera(t_data *data,
 void	cast_ray(t_data *data, t_renderdata *render);
 
 // parsing.c //
-bool	get_map(t_data *data);
+bool	get_map(t_data *data, char **line, char **file_content, int fd);
 int		parsing(t_data *data, char *file_path);
 bool	split_elements_and_extract_info(t_mapdata *map_data,
-	char **file_content);
+	char **file_content, void *mlx);
 
 // parsing_utils1.c //
-bool	found_map_start(const char *str);
 int		count_arr_elements(char **arr);
 bool	print_error(const char *message);
-bool	check_color_range(int *color, char *color_str);
-int		count_commas(const char *str);
 
 // parsing_utils2.c //
-int		validating_commas(char *str);
-int		validating_array_elements(char **color_rgb_arr);
 int		get_color(char *str);
-bool	get_texture(t_wall_texture *wall, t_data *data, char *path);
+bool	get_texture(t_wall_texture *wall, void *mlx, char *path);
 bool	load_door_texture(t_data *data);
 
 // parsing_utils3.c //
 bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path);
-bool	check_for_nsew_textures(t_data *data);
-bool	check_for_fc_textures(t_data *data);
 
 // parsing_utils4.c //
-bool	get_element_info(t_data *data);
 bool	check_wall_surround(t_mapdata *map_data, char **map_copy, int x, int y);
 bool	check_map_valid(t_data *data);
 void	setting_up_player_direction(t_data *data, int x, int y);
@@ -341,7 +333,6 @@ void	get_player_pos_direction(t_data *data);
 
 // pasring_utils5.c //
 bool	check_map_chars_valid(const char *line, bool *player_found);
-bool	get_map(t_data *data);
 
 // init.c //
 void	init_data(t_data *data);

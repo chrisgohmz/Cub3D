@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:43:52 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/02 14:43:53 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ void	initialising_zbuffer(t_data *data)
 
 void	calculate_floor_and_ceiling_data(t_colour *fc, t_data *data)
 {
-	fc->raydir_x0 = data->player_direction.x - data->camera_plane_pos.x;
-	fc->raydir_y0 = data->player_direction.y - data->camera_plane_pos.y;
-	fc->raydir_x1 = data->player_direction.x + data->camera_plane_pos.x;
-	fc->raydir_y1 = data->player_direction.y + data->camera_plane_pos.y;
+	fc->raydir_x0 = data->map_data.player_direction.x - data->map_data.camera_plane_pos.x;
+	fc->raydir_y0 = data->map_data.player_direction.y - data->map_data.camera_plane_pos.y;
+	fc->raydir_x1 = data->map_data.player_direction.x + data->map_data.camera_plane_pos.x;
+	fc->raydir_y1 = data->map_data.player_direction.y + data->map_data.camera_plane_pos.y;
 	fc->p = data->y - HEIGHT / 2;
 	fc->pos_z = 0.5 * HEIGHT;
 	fc->rowdistance = fc->pos_z / fc->p;
 	fc->floorstep_x = fc->rowdistance * (fc->raydir_x1 - fc->raydir_x0) / WIDTH;
 	fc->floorstep_y = fc->rowdistance * (fc->raydir_y1 - fc->raydir_y0) / WIDTH;
-	fc->floor_x = data->player_pos.x + fc->rowdistance * fc->raydir_x0;
-	fc->floor_y = data->player_pos.y + fc->rowdistance * fc->raydir_y0;
+	fc->floor_x = data->map_data.player_pos.x + fc->rowdistance * fc->raydir_x0;
+	fc->floor_y = data->map_data.player_pos.y + fc->rowdistance * fc->raydir_y0;
 }
 
 void	apply_colour_to_floor_and_ceiling(t_colour *fc, t_data *data)

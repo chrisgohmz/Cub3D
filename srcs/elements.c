@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:59:40 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/02 20:08:44 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:51:11 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,14 @@ static bool	check_line_is_wall_or_color_identifier(t_mapdata *map_data,
 	char **element_info, void *mlx)
 {
 	if (!ft_strncmp(element_info[0], NORTH, sizeof(NORTH)))
-	{
-		if (!get_texture(&map_data->north_texture, mlx, element_info[1]))
-			return (false);
-	}
+		return (get_texture(&map_data->north_texture, mlx, element_info[1]));
 	else if (!ft_strncmp(element_info[0], SOUTH, sizeof(SOUTH)))
-	{
-		if (!get_texture(&map_data->south_texture, mlx, element_info[1]))
-			return (false);
-	}
+		return (get_texture(&map_data->south_texture, mlx, element_info[1]));
 	else if (!ft_strncmp(element_info[0], EAST, sizeof(EAST)))
-	{
-		if (!get_texture(&map_data->east_texture, mlx, element_info[1]))
-			return (false);
-	}
+		return (get_texture(&map_data->east_texture, mlx, element_info[1]));
 	else if (!ft_strncmp(element_info[0], WEST, sizeof(WEST)))
-	{
-		if (!get_texture(&map_data->west_texture, mlx, element_info[1]))
-			return (false);
-	}
-	else
-		return (check_line_is_color_identifier(map_data, element_info));
+		return (get_texture(&map_data->west_texture, mlx, element_info[1]));
+	return (check_line_is_color_identifier(map_data, element_info));
 }
 
 static bool	get_element_info(t_mapdata *map_data, char **elements, void *mlx)
@@ -102,7 +89,7 @@ static bool	get_element_info(t_mapdata *map_data, char **elements, void *mlx)
 	while (elements[++i])
 	{
 		element_info = ft_split(elements[i], ' ');
-		if (!data->map_data.elements_info)
+		if (!element_info)
 			return (false);
 		if (count_arr_elements(element_info) == 2)
 		{
@@ -117,7 +104,7 @@ static bool	get_element_info(t_mapdata *map_data, char **elements, void *mlx)
 		}
 		free_2d_arr((void ***)&element_info);
 	}
-	return (check_for_nsew_textures(map_data) && check_for_fc_color(map_data));
+	return (check_for_textures_and_colors(map_data));
 }
 
 bool	split_elements_and_extract_info(t_mapdata *map_data,

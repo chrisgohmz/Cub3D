@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:09:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/31 21:52:46 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	sort_sprites(t_data *data)
 		j = i + 1;
 		while (j < data->map_data.num_sprites)
 		{
-			dist_i = pow(data->player_pos.x - data->map_data.sprites[i].x, 2)
-				+ pow(data->player_pos.y - data->map_data.sprites[i].y, 2);
-			dist_j = pow(data->player_pos.x - data->map_data.sprites[j].x, 2)
-				+ pow(data->player_pos.y - data->map_data.sprites[j].y, 2);
+			dist_i = pow(data->map_data.player_pos.x - data->map_data.sprites[i].x, 2)
+				+ pow(data->map_data.player_pos.y - data->map_data.sprites[i].y, 2);
+			dist_j = pow(data->map_data.player_pos.x - data->map_data.sprites[j].x, 2)
+				+ pow(data->map_data.player_pos.y - data->map_data.sprites[j].y, 2);
 			if (dist_i < dist_j)
 			{
 				temp = data->map_data.sprites[i];

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/02 21:30:20 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:55:28 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	found_map_start(const char *str)
 	return (str[i] == '1');
 }
 
-static bool	read_file_lines_except_map(t_mapdata *map_data, int fd,
+static bool	read_file_lines_except_map(int fd,
 	char **file_content, char **line)
 {
 	char	*tmp;
@@ -91,17 +91,18 @@ int	parsing(t_data *data, char *file_path)
 	char	*line;
 	
 	ft_bzero(&data->map_data, sizeof(t_mapdata));
+	file_content = NULL;
 	fd = open(file_path, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nFailed to open %s\n", file_path);
 		return (0);
 	}
-	if (!read_file_lines_except_map(&data->map_data, fd, &file_content, &line))
+	if (!read_file_lines_except_map(fd, &file_content, &line))
 		return (0);
-	if (!split_elements_and_extract_info(&data->map_data, &file_content, mlx))
+	if (!split_elements_and_extract_info(&data->map_data, &file_content, data->mlx))
 		return (free(line), close(fd), 0);
-	if (!get_map(data))
+	if (!get_map(data, &line, &file_content, fd))
 		return (close(fd), 0);
 	if (!load_door_texture(data))
 		return (close(fd), 0);

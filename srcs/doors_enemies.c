@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:24:25 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/02 21:52:30 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:45:03 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool	load_doors_and_enemies(t_data *data)
 		return (false);
 	y = 0;
 	door_index = 0;
+	sprite_index = 0;
 	while (y < data->map_data.map_height)
 	{
 		x = -1;

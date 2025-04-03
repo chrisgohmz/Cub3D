@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 17:07:05 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/06 21:11:20 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@ void	calculate_step_and_initial_side_dist(t_data *data,
 	if (render->dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->sidedist_x = (data->player_pos.x - render->map_x)
+		ray->sidedist_x = (data->map_data.player_pos.x - render->map_x)
 			* render->deltadist_x;
 	}
 	else
 	{
 		ray->step_x = 1;
-		ray->sidedist_x = (render->map_x + 1.0 - data->player_pos.x)
+		ray->sidedist_x = (render->map_x + 1.0 - data->map_data.player_pos.x)
 			* render->deltadist_x;
 	}
 	if (render->dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->sidedist_y = (data->player_pos.y - render->map_y)
+		ray->sidedist_y = (data->map_data.player_pos.y - render->map_y)
 			* render->deltadist_y;
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->sidedist_y = (render->map_y + 1.0 - data->player_pos.y)
+		ray->sidedist_y = (render->map_y + 1.0 - data->map_data.player_pos.y)
 			* render->deltadist_y;
 	}
 }
@@ -90,17 +90,17 @@ void	calculate_distance_projected_on_camera(t_data *data,
 {
 	if (ray->side == 0)
 	{
-		render->perpwalldist = (render->map_x - data->player_pos.x
+		render->perpwalldist = (render->map_x - data->map_data.player_pos.x
 				+ (1 - ray->step_x) / 2) / render->dir_x;
 		render->hitpoint_x = render->map_x + (1 - ray->step_x) / 2.0;
-		render->hitpoint_y = data->player_pos.y + render->perpwalldist
+		render->hitpoint_y = data->map_data.player_pos.y + render->perpwalldist
 			* render->dir_y;
 	}
 	else
 	{
-		render->perpwalldist = (render->map_y - data->player_pos.y
+		render->perpwalldist = (render->map_y - data->map_data.player_pos.y
 				+ (1 - ray->step_y) / 2) / render->dir_y;
-		render->hitpoint_x = data->player_pos.x + render->perpwalldist
+		render->hitpoint_x = data->map_data.player_pos.x + render->perpwalldist
 			* render->dir_x;
 		render->hitpoint_y = render->map_y + (1 - ray->step_y) / 2.0;
 	}
@@ -122,8 +122,8 @@ void	cast_ray(t_data *data, t_renderdata *render)
 
 	render->dir_x = cos(render->ray_cast_angle);
 	render->dir_y = sin(render->ray_cast_angle);
-	render->map_x = (int)data->player_pos.x;
-	render->map_y = (int)data->player_pos.y;
+	render->map_x = (int)data->map_data.player_pos.x;
+	render->map_y = (int)data->map_data.player_pos.y;
 	render->deltadist_x = fabs(1 / render->dir_x);
 	render->deltadist_y = fabs(1 / render->dir_y);
 	ray.hit = 0;

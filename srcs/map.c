@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:06:18 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/02 21:52:20 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:52:30 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ bool	check_map_chars_valid(const char *line, bool *player_found)
 }
 
 static bool	read_map(t_mapdata *map_data, char **line,
-	char **file_content, int fd)
+	char **file_content, int fd, bool *player_found)
 {
 	char	*tmp;
 	size_t	width;
 	
 	while (*line)
 	{
-		if (!check_map_chars_valid(*line, &player_found))
+		if (!check_map_chars_valid(*line, player_found))
 			return (free(*file_content), free(*line), get_next_line(-1),
 				false);
 		if (!*file_content)
@@ -80,20 +80,21 @@ static bool	read_map(t_mapdata *map_data, char **line,
 		}
 		if (!*file_content)
 			return (false);
-		data->map_data.map_height++;
+		map_data->map_height++;
 		width = ft_strlen(*line);
 		if (width > (size_t)map_data->map_width)
 			map_data->map_width = width;
 		free(*line);
 		*line = get_next_line(fd);
 	}
+	return (true);
 }
 
 bool	process_map(t_data *data, char **file_content)
 {
-	map_data->map = ft_split(*file_content, '\n');
+	data->map_data.map = ft_split(*file_content, '\n');
 	free(*file_content);
-	if (!map_data->map)
+	if (!data->map_data.map)
 		return (false);
 	get_player_pos_direction(data);
 	if (!check_map_valid(data))
@@ -106,9 +107,8 @@ bool	get_map(t_data *data, char **line, char **file_content, int fd)
 	bool	player_found;
 	
 	player_found = false;
-	sprite_index = 0;
-	map_data->num_sprites = 0;
-	if (!read_map(map_data, line, file_content, fd))
+	data->map_data.num_sprites = 0;
+	if (!read_map(&data->map_data, line, file_content, fd, &player_found))
 		return (false);
 	if (!player_found)
 	{

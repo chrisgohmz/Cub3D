@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:17 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/01 18:43:18 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	calculate_sprite_transformations(
 	// transformations for rendering //
 {
 	sprites->sprite_x = data->map_data.sprites[sprites->i].x
-		- data->player_pos.x;
+		- data->map_data.player_pos.x;
 	sprites->sprite_y = data->map_data.sprites[sprites->i].y
-		- data->player_pos.y;
-	sprites->invdet = 1.0 / (data->camera_plane_pos.x
-			* data->player_direction.y - data->player_direction.x
-			* data->camera_plane_pos.y);
-	sprites->transform_x = sprites->invdet * (data->player_direction.y
-			* sprites->sprite_x - data->player_direction.x
+		- data->map_data.player_pos.y;
+	sprites->invdet = 1.0 / (data->map_data.camera_plane_pos.x
+			* data->map_data.player_direction.y - data->map_data.player_direction.x
+			* data->map_data.camera_plane_pos.y);
+	sprites->transform_x = sprites->invdet * (data->map_data.player_direction.y
+			* sprites->sprite_x - data->map_data.player_direction.x
 			* sprites->sprite_y);
-	sprites->transform_y = sprites->invdet * (-data->camera_plane_pos.y
-			* sprites->sprite_x + data->camera_plane_pos.x
+	sprites->transform_y = sprites->invdet * (-data->map_data.camera_plane_pos.y
+			* sprites->sprite_x + data->map_data.camera_plane_pos.x
 			* sprites->sprite_y);
 }
 

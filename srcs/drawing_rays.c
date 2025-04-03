@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:47:33 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/25 21:43:48 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:28:33 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ void	drawing_multiple_rays(t_data *data, t_renderdata *render)
 	{
 		ray_progress = (double)render->k / (render->num_rays - 1);
 		render->angle_offset = (ray_progress - 0.5) * render->fov;
-		render->ray_cast_angle = atan2(data->player_direction.y,
-				data->player_direction.x) + render->angle_offset;
+		render->ray_cast_angle = atan2(data->map_data.player_direction.y,
+				data->map_data.player_direction.x) + render->angle_offset;
 		cast_ray(data, render);
 		drawing_single_ray(data, render);
 		render->k++;

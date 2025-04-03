@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:43:32 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/05 19:27:24 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:28:05 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	drawing_player(t_data *data, t_renderdata *render)
 	// this is for drawing a dot for the player coordinates, //
 	// but shifting it to the middle of the cell for realistic purposes //
 {
-	render->player_screen_x = data->player_pos.x * render->block_size_x;
-	render->player_screen_y = data->player_pos.y * render->block_size_y;
+	render->player_screen_x = data->map_data.player_pos.x * render->block_size_x;
+	render->player_screen_y = data->map_data.player_pos.y * render->block_size_y;
 	render->player_radius = 2;
 	render->player_color = 0xFF0000;
 	render->py = -render->player_radius;
