@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:06:18 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:52:30 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 21:59:32 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	count_doors_and_enemies(t_mapdata *map_data)
 {
 	int	y;
 	int	x;
-	
+
 	y = -1;
 	while (++y < map_data->map_height)
 	{
@@ -60,16 +60,15 @@ bool	check_map_chars_valid(const char *line, bool *player_found)
 }
 
 static bool	read_map(t_mapdata *map_data, char **line,
-	char **file_content, int fd, bool *player_found)
+	char **file_content, t_readmap *readmap_vars)
 {
 	char	*tmp;
 	size_t	width;
-	
+
 	while (*line)
 	{
-		if (!check_map_chars_valid(*line, player_found))
-			return (free(*file_content), free(*line), get_next_line(-1),
-				false);
+		if (!check_map_chars_valid(*line, &readmap_vars->player_found))
+			return (free(*file_content), free(*line), get_next_line(-1), false);
 		if (!*file_content)
 			*file_content = ft_strdup(*line);
 		else
@@ -85,7 +84,7 @@ static bool	read_map(t_mapdata *map_data, char **line,
 		if (width > (size_t)map_data->map_width)
 			map_data->map_width = width;
 		free(*line);
-		*line = get_next_line(fd);
+		*line = get_next_line(readmap_vars->fd);
 	}
 	return (true);
 }
@@ -104,22 +103,22 @@ bool	process_map(t_data *data, char **file_content)
 
 bool	get_map(t_data *data, char **line, char **file_content, int fd)
 {
-	bool	player_found;
-	
-	player_found = false;
+	t_readmap	readmap_vars;
+
+	readmap_vars.player_found = false;
+	readmap_vars.fd = fd;
 	data->map_data.num_sprites = 0;
-	if (!read_map(&data->map_data, line, file_content, fd, &player_found))
+	if (!read_map(&data->map_data, line, file_content, &readmap_vars))
 		return (false);
-	if (!player_found)
+	if (!readmap_vars.player_found)
 	{
-		ft_dprintf(STDERR_FILENO, "Error\nMap must contain 1 starting position\n");
+		ft_dprintf(STDERR_FILENO,
+			"Error\nMap must contain 1 starting position\n");
 		free(*file_content);
 		return (false);
 	}
 	if (!process_map(data, file_content))
 		return (false);
 	count_doors_and_enemies(&data->map_data);
-	if (!load_doors_and_enemies(data))
-		return (false);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:59:40 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:51:11 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 20:36:35 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,17 @@ static bool	check_line_is_wall_or_color_identifier(t_mapdata *map_data,
 	char **element_info, void *mlx)
 {
 	if (!ft_strncmp(element_info[0], NORTH, sizeof(NORTH)))
-		return (get_texture(&map_data->north_texture, mlx, element_info[1]));
+		return (load_wall_texture(&map_data->north_texture, mlx,
+				element_info[1]));
 	else if (!ft_strncmp(element_info[0], SOUTH, sizeof(SOUTH)))
-		return (get_texture(&map_data->south_texture, mlx, element_info[1]));
+		return (load_wall_texture(&map_data->south_texture, mlx,
+				element_info[1]));
 	else if (!ft_strncmp(element_info[0], EAST, sizeof(EAST)))
-		return (get_texture(&map_data->east_texture, mlx, element_info[1]));
+		return (load_wall_texture(&map_data->east_texture, mlx,
+				element_info[1]));
 	else if (!ft_strncmp(element_info[0], WEST, sizeof(WEST)))
-		return (get_texture(&map_data->west_texture, mlx, element_info[1]));
+		return (load_wall_texture(&map_data->west_texture, mlx,
+				element_info[1]));
 	return (check_line_is_color_identifier(map_data, element_info));
 }
 

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:44:24 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/04 15:56:24 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	raycast_walls_and_doors(t_colour *fc, t_data *data)
 		{
 			fc->door_index = get_door_index(data, fc->map_x, fc->map_y);
 			if (fc->door_index != -1
-				&& !data->map_data.door_states[fc->door_index])
+				&& !data->map_data.doors[fc->door_index].open)
 				fc->hit = 1;
 		}
 	}
@@ -104,7 +104,7 @@ void	calculate_3d_rendering_data(t_colour *fc)
 }
 
 void	get_texture_coordinates_and_colour(
-			t_colour *fc, t_data *data, t_wall_texture *texture)
+			t_colour *fc, t_data *data, t_img_data *img_data)
 	// Get fractional part of wallX
 	// Flip texture horizontally
 {
@@ -113,14 +113,14 @@ void	get_texture_coordinates_and_colour(
 	else
 		fc->wall_x = data->map_data.player_pos.x + fc->perpwalldist * fc->raydir_x;
 	fc->wall_x -= floor(fc->wall_x);
-	fc->tex_x = (int)(fc->wall_x * texture->img_width);
+	fc->tex_x = (int)(fc->wall_x * img_data->width);
 	if ((fc->side == 0 && fc->raydir_x < 0)
 		|| (fc->side == 1 && fc->raydir_y > 0))
-		fc->tex_x = texture->img_width - fc->tex_x - 1;
+		fc->tex_x = img_data->width - fc->tex_x - 1;
 	fc->tex_y = (fc->y1 - HEIGHT / 2 + fc->lineheight / 2)
-		* texture->img_height / fc->lineheight;
-	fc->color = *(unsigned int *)(texture->addr + fc->tex_y
-			* texture->size_line + fc->tex_x * (texture->bits_per_pixel / 8));
+		* img_data->height / fc->lineheight;
+	fc->color = *(unsigned int *)(img_data->addr + fc->tex_y
+			* img_data->size_line + fc->tex_x * (img_data->bits_per_pixel / 8));
 	if (data->x > MINIMAP_SIZE || fc->y1 > MINIMAP_SIZE)
 		ft_mlx_pixel_put(data, data->x, fc->y1, fc->color);
 	fc->y1++;

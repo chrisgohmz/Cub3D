@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:03:35 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 20:21:58 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	check_wall_surround(t_mapdata *map_data, char **map_copy, int x, int y)
 {
-	if (y < 0 || y >= map_data->map_height || x < 0
+	if (y < 0 || !map_copy[y] || x < 0
 		|| map_copy[y][x] == ' ' || !map_copy[y][x])
 		return (false);
 	if (map_copy[y][x] == '1' || map_copy[y][x] == 'x')
@@ -56,8 +56,8 @@ bool	check_map_valid(t_data *data)
 		ft_memcpy(map_copy[i], data->map_data.map[i],
 			ft_strlen(data->map_data.map[i]) + 1);
 	}
-	if (!check_wall_surround(&data->map_data, map_copy, data->map_data.player_pos.x,
-			data->map_data.player_pos.y))
+	if (!check_wall_surround(&data->map_data, map_copy,
+			data->map_data.player_pos.x, data->map_data.player_pos.y))
 	{
 		ft_dprintf(STDERR_FILENO, "Error\nMap is not enclosed with walls\n");
 		free_2d_arr((void ***)&map_copy);

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 20:00:44 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/04 15:59:53 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ bool	can_move_to(t_data *data, double x, double y)
 	{
 		while (i < data->map_data.num_doors)
 		{
-			if (data->map_data.door_x[i] == map_x
-				&& data->map_data.door_y[i] == map_y)
-				return (data->map_data.door_states[i]);
+			if (data->map_data.doors[i].x == map_x
+				&& data->map_data.doors[i].y == map_y)
+				return (data->map_data.doors[i].open);
 			i++;
 		}
 		return (false);

@@ -3,35 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   scene_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:50:18 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/02 14:50:19 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/04 15:52:01 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-t_wall_texture	*get_texture_for_ray_hit(t_data *data, t_colour *fc)
-	// East wall
-	// West wall
-	// South wall
-	// North wall
+static void	get_wall_img_data(t_img_data *img_data, t_wall_texture *wall)
+{
+	img_data->img = wall->img;
+	img_data->addr = wall->addr;
+	img_data->width = wall->img_width;
+	img_data->height = wall->img_height;
+	img_data->bits_per_pixel = wall->bits_per_pixel;
+	img_data->size_line = wall->size_line;
+	img_data->endian = wall->endian;
+}
+
+void	get_img_data_for_ray_hit(t_data *data, t_colour *fc,
+	t_img_data *img_data)
 {
 	if (data->map_data.map[fc->map_y][fc->map_x] == 'D')
 	{
 		fc->door_index = get_door_index(data, fc->map_x, fc->map_y);
-		if (fc->door_index != -1 && !data->map_data.door_states[fc->door_index])
-			return (&data->map_data.door_texture);
+		if (fc->door_index != -1 && !data->map_data.doors[fc->door_index].open)
+		{
+			img_data->img = data->map_data.doors[fc->door_index].img;
+			img_data->addr = data->map_data.doors[fc->door_index].addr;
+			img_data->width = data->map_data.doors[fc->door_index].width;
+			img_data->height = data->map_data.doors[fc->door_index].height;
+			img_data->bits_per_pixel = data->map_data.doors[fc->door_index].bits_per_pixel;
+			img_data->size_line = data->map_data.doors[fc->door_index].size_line;
+			img_data->endian = data->map_data.doors[fc->door_index].endian;
+		}
 		else
-			return (NULL);
+			return ;
 	}
 	else if (fc->side == 0 && fc->raydir_x > 0)
-		return (&data->map_data.east_texture);
+		get_wall_img_data(img_data, &data->map_data.east_texture);
 	else if (fc->side == 0 && fc->raydir_x < 0)
-		return (&data->map_data.west_texture);
+		get_wall_img_data(img_data, &data->map_data.west_texture);
 	else if (fc->side == 1 && fc->raydir_y > 0)
-		return (&data->map_data.south_texture);
+		get_wall_img_data(img_data, &data->map_data.south_texture);
 	else
-		return (&data->map_data.north_texture);
+		get_wall_img_data(img_data, &data->map_data.north_texture);
 }

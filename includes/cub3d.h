@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/03 19:00:02 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/05 17:29:12 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,17 @@ typedef struct s_render_sprites
 	int		color;
 }	t_render_sprites;
 
+typedef	struct s_img_data
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+}	t_img_data;
+
 typedef struct s_sprite
 {
 	double	x;
@@ -147,6 +158,20 @@ typedef struct s_sprite
 	int		endian;
 	char	original_cell;
 }	t_sprite;
+
+typedef struct s_door
+{
+	int		x;
+	int		y;
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+	bool	open;
+}	t_door;
 
 typedef struct s_wall_texture
 {
@@ -165,21 +190,18 @@ typedef struct s_mapdata
 	t_wall_texture	south_texture;
 	t_wall_texture	west_texture;
 	t_wall_texture	east_texture;
-	t_wall_texture	door_texture;
+	t_door			*doors;
 	t_sprite		*sprites;
 	t_sprite		head_sprites[13];
 	char			**map;
+	int				map_width;
+	int				map_height;
 	bool			dead;
-	bool			*door_states;
 	int				num_sprites;
 	int				head_sprite_index;
 	int				num_doors;
-	int				*door_x;
-	int				*door_y;
 	int				floor_colour;
 	int				ceiling_colour;
-	int				map_height;
-	int				map_width;
 	t_point			player_pos;
 	t_point			player_direction;
 	t_point			camera_plane_pos;
@@ -261,6 +283,12 @@ typedef struct s_raycast
 	int		side;
 }	t_raycast;
 
+typedef struct s_readmap
+{
+	bool	player_found;
+	int		fd;
+}	t_readmap;
+
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // scene.c //
@@ -277,10 +305,11 @@ void	initialising_data_for_raycasting(t_colour *fc, t_data *data);
 void	raycast_walls_and_doors(t_colour *fc, t_data *data);
 void	calculate_3d_rendering_data(t_colour *fc);
 void	get_texture_coordinates_and_colour(
-			t_colour *fc, t_data *data, t_wall_texture *texture);
+	t_colour *fc, t_data *data, t_img_data *img_data);
 
 // scene_utils3.c //
-t_wall_texture	*get_texture_for_ray_hit(t_data *data, t_colour *fc);
+void	get_img_data_for_ray_hit(t_data *data, t_colour *fc,
+	t_img_data *img_data);
 
 // events.c //
 void	interact_with_door(t_data *data);
@@ -321,8 +350,8 @@ bool	print_error(const char *message);
 
 // parsing_utils2.c //
 int		get_color(char *str);
-bool	get_texture(t_wall_texture *wall, void *mlx, char *path);
-bool	load_door_texture(t_data *data);
+bool	load_wall_texture(t_wall_texture *wall, void *mlx, char *path);
+bool	load_door_texture(t_door *door, void *mlx, char *path);
 
 // parsing_utils3.c //
 bool	load_sprite_texture(t_sprite *sprite, t_data *data, char *path);
@@ -335,6 +364,7 @@ void	get_player_pos_direction(t_data *data);
 
 // pasring_utils5.c //
 bool	check_map_chars_valid(const char *line, bool *player_found);
+bool	load_death_sprites(t_data *data);
 
 // init.c //
 void	init_data(t_data *data);

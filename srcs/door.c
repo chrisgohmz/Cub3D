@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <apoh@student.42singapore.sg>         +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 14:33:26 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/26 14:33:37 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/04 16:02:02 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	is_door_open(t_data *data, int x, int y)
 	i = 0;
 	while (i < data->map_data.num_doors)
 	{
-		if (data->map_data.door_x[i] == x && data->map_data.door_y[i] == y)
-			return (data->map_data.door_states[i]);
+		if (data->map_data.doors[i].x == x && data->map_data.doors[i].y == y)
+			return (data->map_data.doors[i].open);
 		i++;
 	}
 	return (0);
@@ -33,7 +33,7 @@ int	get_door_index(t_data *data, int x, int y)
 	i = 0;
 	while (i < data->map_data.num_doors)
 	{
-		if (data->map_data.door_x[i] == x && data->map_data.door_y[i] == y)
+		if (data->map_data.doors[i].x == x && data->map_data.doors[i].y == y)
 			return (i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:32:37 by apoh              #+#    #+#             */
-/*   Updated: 2025/03/26 19:11:43 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/04 16:28:54 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ void	interact_with_door(t_data *data)
 	doors_changed = false;
 	while (i < data->map_data.num_doors)
 	{
-		data->map_data.door_states[i] = !data->map_data.door_states[i];
+		data->map_data.doors[i].open = !data->map_data.doors[i].open;
 		doors_changed = true;
 		i++;
 	}
-	if (doors_changed)
-		render_map(data);
 }
 
 int	mouse_move(int x, int y, t_data *data)
