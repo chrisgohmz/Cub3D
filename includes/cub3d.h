@@ -303,7 +303,7 @@ void	apply_colour_to_floor_and_ceiling(t_colour *fc, t_data *data);
 void	calculate_texture_data(t_colour *fc, t_data *data);
 void	initialising_data_for_raycasting(t_colour *fc, t_data *data);
 void	raycast_walls_and_doors(t_colour *fc, t_data *data);
-void	calculate_3d_rendering_data(t_colour *fc);
+void	calculate_3d_rendering_data(t_colour *fc, t_data *data);
 void	get_texture_coordinates_and_colour(
 	t_colour *fc, t_data *data, t_img_data *img_data);
 

@@ -24,7 +24,6 @@ int	validate_transform_y_value(t_render_sprites *sprites)
 {
 	if (sprites->transform_y <= 0)
 	{
-		printf("Transform_y is less than or equal to 0\n");
 		sprites->i++;
 		return (-1);
 	}
@@ -43,9 +42,11 @@ int	process_sprite(t_render_sprites *sprites, t_data *data)
 int	validate_stripes(t_render_sprites *sprites, t_data *data)
 {
 	calculate_texture_x(sprites, data);
-	return (sprites->transform_y > 0 && sprites->stripe > 0
+	return (sprites->transform_y > 0
+		&& sprites->stripe >= 0
 		&& sprites->stripe < WIDTH
-		&& sprites->transform_y < data->zbuffer[sprites->stripe]);
+		&& data->zbuffer[sprites->stripe] >= 0
+		&& sprites->transform_y <= data->zbuffer[sprites->stripe]);
 }
 
 void	render_pixels(t_render_sprites *sprites, t_data *data)

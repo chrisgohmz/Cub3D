@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:17 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/04 16:54:04 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	calculate_sprite_screen_position_and_size(t_render_sprites *sprites)
 	if (sprites->drawend_x >= WIDTH)
 		sprites->drawend_x = WIDTH - 1;
 	sprites->stripe = sprites->drawstart_x;
+	printf("Sprite %d: Height=%d, Width=%d\n", 
+	sprites->i, sprites->spriteheight, sprites->spritewidth);
 }
 
 int	validate_texture_coordinates(t_render_sprites *sprites, t_data *data)
@@ -101,6 +103,7 @@ void	get_color_for_texture(t_render_sprites *sprites, t_data *data)
 			* data->map_data.sprites[sprites->i].bits_per_pixel / 8);
 	if ((sprites->color & 0x00FFFFFF) != 0 && (sprites->stripe > MINIMAP_SIZE
 			|| sprites->y_loop > MINIMAP_SIZE))
-		ft_mlx_pixel_put(data, sprites->stripe,
-			sprites->y_loop, sprites->color);
+	{
+		ft_mlx_pixel_put(data, sprites->stripe,sprites->y_loop, sprites->color);
+	}
 }
