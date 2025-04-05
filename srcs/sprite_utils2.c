@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:43:17 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/05 21:03:53 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	calculate_sprite_screen_position_and_size(t_render_sprites *sprites)
 	if (sprites->drawend_x >= WIDTH)
 		sprites->drawend_x = WIDTH - 1;
 	sprites->stripe = sprites->drawstart_x;
-	printf("Sprite %d: Height=%d, Width=%d\n", 
-	sprites->i, sprites->spriteheight, sprites->spritewidth);
 }
 
 int	validate_texture_coordinates(t_render_sprites *sprites, t_data *data)
@@ -86,10 +84,10 @@ void	calculate_texture_y(t_render_sprites *sprites, t_data *data)
 		+ sprites->spriteheight * 128;
 	sprites->tex_y = ((sprites->d * data->map_data.sprites[sprites->i].height)
 			/ sprites->spriteheight) / 256;
-	if (sprites->tex_y < 0)
-		sprites->tex_y = 0;
-	else if (sprites->tex_y >= data->map_data.sprites[sprites->i].height)
-		sprites->tex_y = data->map_data.sprites[sprites->i].height - 1;
+	// if (sprites->tex_y < 0)
+	// 	sprites->tex_y = 0;
+	// else if (sprites->tex_y >= data->map_data.sprites[sprites->i].height)
+	// 	sprites->tex_y = data->map_data.sprites[sprites->i].height - 1;
 }
 
 void	get_color_for_texture(t_render_sprites *sprites, t_data *data)

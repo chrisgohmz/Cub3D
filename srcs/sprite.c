@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 15:09:41 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/05 20:42:44 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,10 @@ void	render_sprites(t_data *data)
 			continue ;
 		while (sprites.stripe < sprites.drawend_x)
 		{
-			if (sprites.stripe >= 0 && sprites.stripe < WIDTH
-			&& sprites.y_loop >= 0 && sprites.y_loop < HEIGHT
-			&& validate_stripes(&sprites, data))
+			if (validate_stripes(&sprites, data))
 			{
 				sprites.y_loop = sprites.drawstart_y;
-				render_pixels(&sprites, data);
+				render_pixels(&sprites, data);	
 			}
 			sprites.stripe++;
 		}

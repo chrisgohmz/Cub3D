@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:44:24 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/05 19:13:07 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	raycast_walls_and_doors(t_colour *fc, t_data *data)
 	}
 }
 
-void	calculate_3d_rendering_data(t_colour *fc, t_data *data)
+void	calculate_3d_rendering_data(t_colour *fc)
 {
 	if (fc->side == 0)
 		fc->perpwalldist = fc->sidedist_x - fc->deltadist_x;
@@ -101,7 +101,6 @@ void	calculate_3d_rendering_data(t_colour *fc, t_data *data)
 	fc->y2 = fc->lineheight / 2 + HEIGHT / 2;
 	if (fc->y2 >= HEIGHT)
 		fc->y2 = HEIGHT - 1;
-	printf("Wall Column %d: Height=%d\n", data->x, fc->lineheight);
 }
 
 void	get_texture_coordinates_and_colour(

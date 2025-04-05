@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 18:45:48 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/01 18:45:49 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/05 20:16:16 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	validate_transform_y_value(t_render_sprites *sprites)
 int	process_sprite(t_render_sprites *sprites, t_data *data)
 {
 	calculate_sprite_transformations(sprites, data);
-	if (validate_transform_y_value(sprites) == -1)
-		return (-1);
+	// if (validate_transform_y_value(sprites) == -1)
+	// 	return (-1);
 	calculate_sprite_screen_position_and_size(sprites);
 	return (0);
 }
@@ -43,10 +43,9 @@ int	validate_stripes(t_render_sprites *sprites, t_data *data)
 {
 	calculate_texture_x(sprites, data);
 	return (sprites->transform_y > 0
-		&& sprites->stripe >= 0
+		&& sprites->stripe > 0
 		&& sprites->stripe < WIDTH
-		&& data->zbuffer[sprites->stripe] >= 0
-		&& sprites->transform_y <= data->zbuffer[sprites->stripe]);
+		&& sprites->transform_y < data->zbuffer[sprites->stripe]);
 }
 
 void	render_pixels(t_render_sprites *sprites, t_data *data)
@@ -54,8 +53,8 @@ void	render_pixels(t_render_sprites *sprites, t_data *data)
 	while (sprites->y_loop < sprites->drawend_y)
 	{
 		calculate_texture_y(sprites, data);
-		if (validate_texture_coordinates(sprites, data) == -1)
-			break ;
+		// if (validate_texture_coordinates(sprites, data) == -1)
+		// 	break ;
 		get_color_for_texture(sprites, data);
 		sprites->y_loop++;
 	}

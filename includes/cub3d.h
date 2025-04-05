@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/05 17:29:12 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/05 19:49:03 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ void	apply_colour_to_floor_and_ceiling(t_colour *fc, t_data *data);
 void	calculate_texture_data(t_colour *fc, t_data *data);
 void	initialising_data_for_raycasting(t_colour *fc, t_data *data);
 void	raycast_walls_and_doors(t_colour *fc, t_data *data);
-void	calculate_3d_rendering_data(t_colour *fc, t_data *data);
+void	calculate_3d_rendering_data(t_colour *fc);
 void	get_texture_coordinates_and_colour(
 	t_colour *fc, t_data *data, t_img_data *img_data);
 

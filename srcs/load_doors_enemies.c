@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 13:24:25 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/04 16:24:03 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/05 21:01:47 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static bool	load_door(t_data *data, int *door_index, int x, int y)
 
 static bool	load_enemy(t_data *data, int *sprite_index, int x, int y)
 {
-	data->map_data.sprites[*sprite_index].x = x;
-	data->map_data.sprites[*sprite_index].y = y;
+	data->map_data.sprites[*sprite_index].x = x + 0.5;
+	data->map_data.sprites[*sprite_index].y = y + 0.5;
 	if (!load_sprite_texture(&data->map_data.sprites[*sprite_index], data,
 			"./textures/sprites/golden_freddy.xpm"))
 		return (false);
