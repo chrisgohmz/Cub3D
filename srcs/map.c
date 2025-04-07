@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:06:18 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 21:59:32 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/07 20:39:50 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ static bool	read_map(t_mapdata *map_data, char **line,
 	char **file_content, t_readmap *readmap_vars)
 {
 	char	*tmp;
-	size_t	width;
+	bool	end_of_map;
 
+	end_of_map = false;
 	while (*line)
 	{
 		if (!check_map_chars_valid(*line, &readmap_vars->player_found))
@@ -79,10 +80,8 @@ static bool	read_map(t_mapdata *map_data, char **line,
 		}
 		if (!*file_content)
 			return (false);
-		map_data->map_height++;
-		width = ft_strlen(*line);
-		if (width > (size_t)map_data->map_width)
-			map_data->map_width = width;
+		if (!check_multiple_maps(map_data, line, &end_of_map))
+			return (free(*file_content), free(*line), get_next_line(-1), false);
 		free(*line);
 		*line = get_next_line(readmap_vars->fd);
 	}

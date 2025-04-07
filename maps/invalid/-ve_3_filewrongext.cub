@@ -1,7 +1,7 @@
-NO ./textures/Brick.xpm
+NO ./textures/walls/Brick.xpm
 SO ./Makefile
-WE ./textures/Brick.xpm
-EA ./textures/Brick.xpm
+WE ./textures/walls/Stone.xpm
+EA ./textures/walls/Wood.xpm
 
 F 255, 255, 0
 C 0, 42, 55

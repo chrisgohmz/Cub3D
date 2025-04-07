@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/05 19:49:03 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/07 20:38:49 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,6 +290,7 @@ typedef struct s_readmap
 }	t_readmap;
 
 void	ft_mlx_pixel_put(t_data *data, int x, int y, int color);
+bool	check_multiple_maps(t_mapdata *map_data, char **line, bool *end_of_map);
 
 // scene.c //
 void	render_scene(t_data *data);

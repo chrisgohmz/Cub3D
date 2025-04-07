@@ -1,6 +1,6 @@
-NO ./textures/Brick.xpm
-SO ./textures/Brick.xpm
-WE ./textures/Brick.xpm
+NO ./textures/walls/Brick.xpm
+SO ./textures/walls/Metal.xpm
+WE ./textures/walls/Stone.xpm
 EA ./textures/Brick_no_perm.xpm
 
 F 255, 255, 0

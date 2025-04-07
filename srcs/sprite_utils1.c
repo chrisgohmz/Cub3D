@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:36:14 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 18:31:13 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/07 20:51:33 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	render_head_sprites(t_data *data)
 		gettimeofday(&new_time, NULL);
 		time_elapsed_in_ms = (new_time.tv_sec - data->current_time.tv_sec)
 			* 1000 + (new_time.tv_usec - data->current_time.tv_usec) / 1000;
-		if (time_elapsed_in_ms >= 50)
+		if (time_elapsed_in_ms >= 20)
 			update_sprite_time(data, new_time);
 		if (data->map_data.head_sprite_index == 13)
 			close_window(data);

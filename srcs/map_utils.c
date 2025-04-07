@@ -6,11 +6,30 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:03:35 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/03 20:21:58 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/07 20:49:43 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+bool	check_multiple_maps(t_mapdata *map_data, char **line, bool *end_of_map)
+{
+	size_t	width;
+
+	if (*end_of_map && (*line)[0] != '\n')
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nMultiple maps detected\n");
+		return (false);
+	}
+	else if ((*line)[0] != '\n')
+		map_data->map_height++;
+	else
+		*end_of_map = true;
+	width = ft_strlen(*line);
+	if (width > (size_t)map_data->map_width)
+		map_data->map_width = width;
+	return (true);
+}
 
 bool	check_wall_surround(t_mapdata *map_data, char **map_copy, int x, int y)
 {

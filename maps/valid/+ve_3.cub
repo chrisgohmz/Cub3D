@@ -1,10 +1,10 @@
-NO    ./textures/Brick.xpm
+NO    ./textures/walls/Brick.xpm
 
-SO ./textures/Brick.xpm
+SO ./textures/walls/Metal.xpm
 
-WE    ./textures/Brick.xpm
+WE    ./textures/walls/Brick.xpm
 
-EA ./textures/Brick.xpm
+EA ./textures/walls/Wood.xpm
 
 F    255,255,0
 

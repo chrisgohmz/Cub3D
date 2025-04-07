@@ -1,13 +1,13 @@
-     NO      ./textures/walls/Brick.xpm
+     NO      ./textures/walls/game_area.xpm
 
 
-   SO     ./textures/walls/Brick.xpm
+   SO     ./textures/walls/kids_cove.xpm
 
 
-    WE     ./textures/walls/Brick.xpm
+    WE     ./textures/walls/main_hall.xpm
 
 
-        EA       ./textures/walls/Brick.xpm
+        EA       ./textures/walls/show_stage.xpm
 
 
 

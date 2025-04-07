@@ -1,11 +1,12 @@
-NO ./textures/Brick.xpm
-SO ./textures/Brick.xpm
-WE ./textures/Brick.xpm
-EA ./textures/Brick.xpm
+NO ./textures/walls/Brick.xpm
+SO ./textures/walls/Metal.xpm
+WE ./textures/walls/Stone.xpm
+EA ./textures/walls/Wood.xpm
 
 F 255,255,0
 C 0,42,55
 
-11111111111
-10N00000001
-11111111111
+0000000000000
+0111111111110
+010N000000010
+0111111111110
