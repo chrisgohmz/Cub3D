@@ -6,7 +6,7 @@ SRCS_DIR = srcs/
 
 SRCS = $(addprefix $(SRCS_DIR), main.c init.c events.c render_map.c\
 		 render_map_cells.c drawing_grid_lines.c drawing_player.c drawing_rays.c\
-		 ray_casting.c scene.c scene_utils1.c scene_utils2.c scene_utils3.c image.c parsing.c load_doors_enemies.c elements_utils.c elements.c floor_ceiling.c map_utils.c map.c load_textures.c sprite.c sprite_utils1.c sprite_utils2.c sprite_utils3.c door.c free.c)
+		 ray_casting.c scene.c scene_utils1.c scene_utils2.c scene_utils3.c image.c parsing.c load_doors_enemies.c elements_utils.c elements.c floor_ceiling.c map_utils.c map.c load_textures.c sprite.c sprite_utils1.c sprite_utils2.c sprite_utils3.c door.c free.c game_loop.c)
 DEPS = $(SRCS:.c=.d)
 OBJS = $(SRCS:.c=.o)
 

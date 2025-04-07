@@ -15,10 +15,10 @@
 void	calculate_texture_data(t_colour *fc, t_data *data)
 {
 	fc->camera_x = 2 * data->x / (double)WIDTH - 1;
-	fc->raydir_x = data->map_data.player_direction.x + data->map_data.camera_plane_pos.x
-		* fc->camera_x;
-	fc->raydir_y = data->map_data.player_direction.y + data->map_data.camera_plane_pos.y
-		* fc->camera_x;
+	fc->raydir_x = data->map_data.player_direction.x
+		+ data->map_data.camera_plane_pos.x * fc->camera_x;
+	fc->raydir_y = data->map_data.player_direction.y
+		+ data->map_data.camera_plane_pos.y * fc->camera_x;
 	fc->map_x = (int)data->map_data.player_pos.x;
 	fc->map_y = (int)data->map_data.player_pos.y;
 	fc->hit = 0;
@@ -109,9 +109,11 @@ void	get_texture_coordinates_and_colour(
 	// Flip texture horizontally
 {
 	if (fc->side == 0)
-		fc->wall_x = data->map_data.player_pos.y + fc->perpwalldist * fc->raydir_y;
+		fc->wall_x = data->map_data.player_pos.y
+			+ fc->perpwalldist * fc->raydir_y;
 	else
-		fc->wall_x = data->map_data.player_pos.x + fc->perpwalldist * fc->raydir_x;
+		fc->wall_x = data->map_data.player_pos.x
+			+ fc->perpwalldist * fc->raydir_x;
 	fc->wall_x -= floor(fc->wall_x);
 	fc->tex_x = (int)(fc->wall_x * img_data->width);
 	if ((fc->side == 0 && fc->raydir_x < 0)

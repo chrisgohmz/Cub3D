@@ -16,8 +16,10 @@ void	drawing_player(t_data *data, t_renderdata *render)
 	// this is for drawing a dot for the player coordinates, //
 	// but shifting it to the middle of the cell for realistic purposes //
 {
-	render->player_screen_x = data->map_data.player_pos.x * render->block_size_x;
-	render->player_screen_y = data->map_data.player_pos.y * render->block_size_y;
+	render->player_screen_x = data->map_data.player_pos.x
+		* render->block_size_x;
+	render->player_screen_y = data->map_data.player_pos.y
+		* render->block_size_y;
 	render->player_radius = 2;
 	render->player_color = 0xFF0000;
 	render->py = -render->player_radius;

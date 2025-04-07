@@ -131,7 +131,7 @@ typedef struct s_render_sprites
 	int		color;
 }	t_render_sprites;
 
-typedef	struct s_img_data
+typedef struct s_img_data
 {
 	void	*img;
 	char	*addr;
@@ -305,11 +305,11 @@ void	initialising_data_for_raycasting(t_colour *fc, t_data *data);
 void	raycast_walls_and_doors(t_colour *fc, t_data *data);
 void	calculate_3d_rendering_data(t_colour *fc);
 void	get_texture_coordinates_and_colour(
-	t_colour *fc, t_data *data, t_img_data *img_data);
+			t_colour *fc, t_data *data, t_img_data *img_data);
 
 // scene_utils3.c //
-void	get_img_data_for_ray_hit(t_data *data, t_colour *fc,
-	t_img_data *img_data);
+void	get_img_data_for_ray_hit(
+			t_data *data, t_colour *fc, t_img_data *img_data);
 
 // events.c //
 void	interact_with_door(t_data *data);
@@ -319,6 +319,10 @@ int		keydown(int keycode, t_data *data);
 // image.c //
 void	rotate_view(t_data *data, int direction);
 bool	can_move_to(t_data *data, double x, double y);
+void	up_down_direction_checks_for_player(
+			t_data *data, int direction, t_move *move);
+void	left_and_right_direction_checks_for_player(
+			t_data *data, int direction, t_move *move);
 void	move_player(t_data *data, int direction, t_move *move);
 
 // drawing_rays.c //
@@ -341,8 +345,8 @@ void	cast_ray(t_data *data, t_renderdata *render);
 // parsing.c //
 bool	get_map(t_data *data, char **line, char **file_content, int fd);
 int		parsing(t_data *data, char *file_path);
-bool	split_elements_and_extract_info(t_mapdata *map_data,
-	char **file_content, void *mlx);
+bool	split_elements_and_extract_info(
+			t_mapdata *map_data, char **file_content, void *mlx);
 
 // parsing_utils1.c //
 int		count_arr_elements(char **arr);
@@ -391,6 +395,11 @@ void	free_textures(t_data *data);
 void	freeing_sprites(t_data *data);
 void	free_others(t_data *data);
 int		close_window(t_data *data);
+
+// game_loop.c //
+void	storing_sprites_spawning_point(t_game *game, t_data *data);
+void	sprites_position_update(t_game *game, t_data *data);
+int		game_loop(t_data *data);
 
 // sprite.c //
 void	sort_sprites(t_data *data);

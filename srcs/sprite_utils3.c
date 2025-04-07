@@ -33,8 +33,8 @@ int	validate_transform_y_value(t_render_sprites *sprites)
 int	process_sprite(t_render_sprites *sprites, t_data *data)
 {
 	calculate_sprite_transformations(sprites, data);
-	// if (validate_transform_y_value(sprites) == -1)
-	// 	return (-1);
+	if (validate_transform_y_value(sprites) == -1)
+		return (-1);
 	calculate_sprite_screen_position_and_size(sprites);
 	return (0);
 }
@@ -53,8 +53,8 @@ void	render_pixels(t_render_sprites *sprites, t_data *data)
 	while (sprites->y_loop < sprites->drawend_y)
 	{
 		calculate_texture_y(sprites, data);
-		// if (validate_texture_coordinates(sprites, data) == -1)
-		// 	break ;
+		if (validate_texture_coordinates(sprites, data) == -1)
+			break ;
 		get_color_for_texture(sprites, data);
 		sprites->y_loop++;
 	}

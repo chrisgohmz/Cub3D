@@ -23,22 +23,26 @@ static void	get_wall_img_data(t_img_data *img_data, t_wall_texture *wall)
 	img_data->endian = wall->endian;
 }
 
-void	get_img_data_for_ray_hit(t_data *data, t_colour *fc,
-	t_img_data *img_data)
+static void	get_door_img_data(t_data *data, t_colour *fc, t_img_data *img_data)
+{
+	img_data->img = data->map_data.doors[fc->door_index].img;
+	img_data->addr = data->map_data.doors[fc->door_index].addr;
+	img_data->width = data->map_data.doors[fc->door_index].width;
+	img_data->height = data->map_data.doors[fc->door_index].height;
+	img_data->bits_per_pixel
+		= data->map_data.doors[fc->door_index].bits_per_pixel;
+	img_data->size_line = data->map_data.doors[fc->door_index].size_line;
+	img_data->endian = data->map_data.doors[fc->door_index].endian;
+}
+
+void	get_img_data_for_ray_hit(
+			t_data *data, t_colour *fc, t_img_data *img_data)
 {
 	if (data->map_data.map[fc->map_y][fc->map_x] == 'D')
 	{
 		fc->door_index = get_door_index(data, fc->map_x, fc->map_y);
 		if (fc->door_index != -1 && !data->map_data.doors[fc->door_index].open)
-		{
-			img_data->img = data->map_data.doors[fc->door_index].img;
-			img_data->addr = data->map_data.doors[fc->door_index].addr;
-			img_data->width = data->map_data.doors[fc->door_index].width;
-			img_data->height = data->map_data.doors[fc->door_index].height;
-			img_data->bits_per_pixel = data->map_data.doors[fc->door_index].bits_per_pixel;
-			img_data->size_line = data->map_data.doors[fc->door_index].size_line;
-			img_data->endian = data->map_data.doors[fc->door_index].endian;
-		}
+			get_door_img_data(data, fc, img_data);
 		else
 			return ;
 	}

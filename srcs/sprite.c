@@ -12,6 +12,16 @@
 
 #include "../includes/cub3d.h"
 
+static double	calculate_distance_squared(t_data *data, int sprite_index)
+{
+	double	dx;
+	double	dy;
+
+	dx = data->map_data.player_pos.x - data->map_data.sprites[sprite_index].x;
+	dy = data->map_data.player_pos.y - data->map_data.sprites[sprite_index].y;
+	return (dx * dx + dy * dy);
+}
+
 void	sort_sprites(t_data *data)
 	// Sort descending by distance
 {
@@ -27,10 +37,8 @@ void	sort_sprites(t_data *data)
 		j = i + 1;
 		while (j < data->map_data.num_sprites)
 		{
-			dist_i = pow(data->map_data.player_pos.x - data->map_data.sprites[i].x, 2)
-				+ pow(data->map_data.player_pos.y - data->map_data.sprites[i].y, 2);
-			dist_j = pow(data->map_data.player_pos.x - data->map_data.sprites[j].x, 2)
-				+ pow(data->map_data.player_pos.y - data->map_data.sprites[j].y, 2);
+			dist_i = calculate_distance_squared(data, i);
+			dist_j = calculate_distance_squared(data, j);
 			if (dist_i < dist_j)
 			{
 				temp = data->map_data.sprites[i];
@@ -59,7 +67,7 @@ void	render_sprites(t_data *data)
 			if (validate_stripes(&sprites, data))
 			{
 				sprites.y_loop = sprites.drawstart_y;
-				render_pixels(&sprites, data);	
+				render_pixels(&sprites, data);
 			}
 			sprites.stripe++;
 		}

@@ -15,7 +15,7 @@
 void	render_scene(t_data *data)
 {
 	t_img_data	img_data;
-	t_colour		fc;
+	t_colour	fc;
 
 	ft_memset(&fc, 0, sizeof(t_colour));
 	initialising_zbuffer(data);

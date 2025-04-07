@@ -22,7 +22,8 @@ void	calculate_sprite_transformations(
 	sprites->sprite_y = data->map_data.sprites[sprites->i].y
 		- data->map_data.player_pos.y;
 	sprites->invdet = 1.0 / (data->map_data.camera_plane_pos.x
-			* data->map_data.player_direction.y - data->map_data.player_direction.x
+			* data->map_data.player_direction.y
+			- data->map_data.player_direction.x
 			* data->map_data.camera_plane_pos.y);
 	sprites->transform_x = sprites->invdet * (data->map_data.player_direction.y
 			* sprites->sprite_x - data->map_data.player_direction.x
@@ -84,10 +85,10 @@ void	calculate_texture_y(t_render_sprites *sprites, t_data *data)
 		+ sprites->spriteheight * 128;
 	sprites->tex_y = ((sprites->d * data->map_data.sprites[sprites->i].height)
 			/ sprites->spriteheight) / 256;
-	// if (sprites->tex_y < 0)
-	// 	sprites->tex_y = 0;
-	// else if (sprites->tex_y >= data->map_data.sprites[sprites->i].height)
-	// 	sprites->tex_y = data->map_data.sprites[sprites->i].height - 1;
+	if (sprites->tex_y < 0)
+		sprites->tex_y = 0;
+	else if (sprites->tex_y >= data->map_data.sprites[sprites->i].height)
+		sprites->tex_y = data->map_data.sprites[sprites->i].height - 1;
 }
 
 void	get_color_for_texture(t_render_sprites *sprites, t_data *data)
@@ -101,7 +102,6 @@ void	get_color_for_texture(t_render_sprites *sprites, t_data *data)
 			* data->map_data.sprites[sprites->i].bits_per_pixel / 8);
 	if ((sprites->color & 0x00FFFFFF) != 0 && (sprites->stripe > MINIMAP_SIZE
 			|| sprites->y_loop > MINIMAP_SIZE))
-	{
-		ft_mlx_pixel_put(data, sprites->stripe,sprites->y_loop, sprites->color);
-	}
+		ft_mlx_pixel_put(data, sprites->stripe,
+			sprites->y_loop, sprites->color);
 }

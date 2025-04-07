@@ -14,8 +14,10 @@
 
 void	init_data(t_data *data)
 {
-	data->map_data.camera_plane_pos.x = -data->map_data.player_direction.y * 0.66;
-	data->map_data.camera_plane_pos.y = data->map_data.player_direction.x * 0.66;
+	data->map_data.camera_plane_pos.x = -data->map_data.player_direction.y
+		* 0.66;
+	data->map_data.camera_plane_pos.y = data->map_data.player_direction.x
+		* 0.66;
 	data->zbuffer = malloc(sizeof(double) * WIDTH);
 	if (!data->zbuffer)
 		close_window(data);

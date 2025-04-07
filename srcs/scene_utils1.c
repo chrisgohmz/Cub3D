@@ -24,10 +24,14 @@ void	initialising_zbuffer(t_data *data)
 
 void	calculate_floor_and_ceiling_data(t_colour *fc, t_data *data)
 {
-	fc->raydir_x0 = data->map_data.player_direction.x - data->map_data.camera_plane_pos.x;
-	fc->raydir_y0 = data->map_data.player_direction.y - data->map_data.camera_plane_pos.y;
-	fc->raydir_x1 = data->map_data.player_direction.x + data->map_data.camera_plane_pos.x;
-	fc->raydir_y1 = data->map_data.player_direction.y + data->map_data.camera_plane_pos.y;
+	fc->raydir_x0 = data->map_data.player_direction.x
+		- data->map_data.camera_plane_pos.x;
+	fc->raydir_y0 = data->map_data.player_direction.y
+		- data->map_data.camera_plane_pos.y;
+	fc->raydir_x1 = data->map_data.player_direction.x
+		+ data->map_data.camera_plane_pos.x;
+	fc->raydir_y1 = data->map_data.player_direction.y
+		+ data->map_data.camera_plane_pos.y;
 	fc->p = data->y - HEIGHT / 2;
 	fc->pos_z = 0.5 * HEIGHT;
 	fc->rowdistance = fc->pos_z / fc->p;
