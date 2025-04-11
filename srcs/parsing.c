@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:58:40 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/07 20:48:38 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/11 21:04:16 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	found_map_start(const char *str)
 	while (str[++i] == ' ')
 	{
 	}
-	return (str[i] == '1' || str[i] == '0');
+	return (str[i] == '0' || str[i] == '1' || (i && str[i] == '\n'));
 }
 
 static bool	read_file_lines_except_map(int fd,

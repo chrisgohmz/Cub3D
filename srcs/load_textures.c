@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 21:33:59 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/07 20:51:08 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/08 21:42:09 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ bool	load_door_texture(t_door *door, void *mlx, char *path)
 bool	load_wall_texture(t_wall_texture *wall, void *mlx, char *path)
 {
 	if (wall->img)
-		mlx_destroy_image(mlx, wall->img);
+	{
+		ft_dprintf(STDERR_FILENO, "Error\nFile contains double key\n");
+		return (false);
+	}
 	wall->img = mlx_xpm_file_to_image(mlx, path,
 			&wall->img_width, &wall->img_height);
 	if (!wall->img)

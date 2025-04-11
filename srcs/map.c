@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 14:06:18 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/07 20:39:50 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/11 21:07:37 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	check_map_chars_valid(const char *line, bool *player_found)
 		if (!ft_strchr("01NSEWDM \n", line[i]))
 		{
 			ft_dprintf(STDERR_FILENO, "Error\nMap contains"
-				"an invalid character\n");
+				" an invalid character\n");
 			return (false);
 		}
 		if (ft_strchr("NSEW", line[i]))
@@ -51,7 +51,7 @@ bool	check_map_chars_valid(const char *line, bool *player_found)
 			else
 			{
 				ft_dprintf(STDERR_FILENO, "Error\nMap must"
-					"contain 1 starting position\n");
+					" contain 1 starting position\n");
 				return (false);
 			}
 		}
