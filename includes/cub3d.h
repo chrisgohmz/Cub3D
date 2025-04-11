@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:23 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/07 20:38:49 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/11 22:06:44 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ typedef struct s_data
 	void			*img;
 	void			*addr;
 	t_mapdata		map_data;
-	double			*zbuffer;
+	double			zbuffer[WIDTH];
 	int				bits_per_pixel;
 	int				size_line;
 	int				endian;

@@ -3,12 +3,22 @@ LDFLAGS = -Llibft -L$(MLXDIR) -L/usr/lib
 LDLIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz 
 
 SRCS_DIR = srcs/
+PARSING_DIR = $(SRCS_DIR)parsing/
+RENDERING_DIR = $(SRCS_DIR)rendering/
 
-SRCS = $(addprefix $(SRCS_DIR), main.c init.c events.c render_map.c\
-		 render_map_cells.c drawing_grid_lines.c drawing_player.c drawing_rays.c\
-		 ray_casting.c scene.c scene_utils1.c scene_utils2.c scene_utils3.c image.c parsing.c load_doors_enemies.c elements_utils.c elements.c floor_ceiling.c map_utils.c map.c load_textures.c sprite.c sprite_utils1.c sprite_utils2.c sprite_utils3.c door.c free.c game_loop.c)
+SRCS = $(addprefix $(SRCS_DIR), main.c events.c free.c game_loop.c)
 DEPS = $(SRCS:.c=.d)
 OBJS = $(SRCS:.c=.o)
+
+PARSING_SRCS = $(addprefix $(PARSING_DIR), elements_utils.c elements.c parsing.c load_doors_enemies.c\
+		floor_ceiling.c map_utils.c map.c load_textures.c)
+PARSING_DEPS = $(PARSING_SRCS:.c=.d)
+PARSING_OBJS = $(PARSING_SRCS:.c=.o)
+
+RENDERING_SRCS = $(addprefix $(RENDERING_DIR), render_map.c render_map_cells.c drawing_grid_lines.c drawing_player.c drawing_rays.c door.c\
+		 ray_casting.c scene.c scene_utils1.c scene_utils2.c scene_utils3.c image.c sprite.c sprite_utils1.c sprite_utils2.c sprite_utils3.c)
+RENDERING_DEPS = $(RENDERING_SRCS:.c=.d)
+RENDERING_OBJS = $(RENDERING_SRCS:.c=.o)
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -28,7 +38,7 @@ all: $(NAME)
 debug: CFLAGS += -g -Og
 debug: all
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS)
+$(NAME): $(LIBFT) $(MLX) $(OBJS) $(PARSING_OBJS) $(RENDERING_OBJS)
 	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 
 $(MLX):
@@ -58,6 +68,6 @@ fclean:
 
 re: fclean all
 
--include $(DEPS)
+-include $(DEPS) $(PARSING_DEPS) $(RENDERING_DEPS)
 
 .PHONY: all clean fclean re debug

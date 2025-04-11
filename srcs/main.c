@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 19:50:11 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/05 21:10:04 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/11 22:30:38 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	validating_input(int argc, char **argv)
 {
 	if (argc != 2 || !ft_strend(argv[1], ".cub"))
 	{
-		printf("Usage: ./cub3D <.cub file>\n");
+		ft_dprintf(STDERR_FILENO, "Usage: ./cub3D <.cub file>\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -50,7 +50,10 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	if (!parsing(&data, argv[1]))
 		close_window(&data);
-	init_data(&data);
+	data.map_data.camera_plane_pos.x = -data.map_data.player_direction.y
+		* 0.66;
+	data.map_data.camera_plane_pos.y = data.map_data.player_direction.x
+		* 0.66;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Cub3d");
 	if (data.win == NULL)
 		close_window(&data);

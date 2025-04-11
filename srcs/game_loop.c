@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apoh <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 14:20:39 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/07 14:20:40 by apoh             ###   ########.fr       */
+/*   Updated: 2025/04/11 22:01:12 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	sprites_position_update(t_game *game, t_data *data)
 }
 
 int	game_loop(t_data *data)
-	/*data->map_data.map[game.old_y][game.old_x] = '0';
-			data->map_data.map[game.new_y][game.new_x] = 'M';*/
 {
 	t_game	game;
 

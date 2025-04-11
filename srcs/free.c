@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:26:55 by apoh              #+#    #+#             */
-/*   Updated: 2025/04/04 16:21:58 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/11 22:06:58 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	free_others(t_data *data)
 		free(data->mlx);
 		data->mlx = NULL;
 	}
-	if (data->zbuffer)
-		free(data->zbuffer);
 	free_2d_arr((void ***)&data->map_data.map);
 }
 
