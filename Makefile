@@ -58,13 +58,13 @@ clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
 	$(RM) $(MLXDIR)
 	git rm --cached $(MLXDIR)
-	$(RM) $(OBJS) $(DEPS) $(MLX_SUBMODULE)
+	$(RM) $(OBJS) $(DEPS) $(MLX_SUBMODULE) $(PARSING_OBJS) $(PARSING_DEPS) $(RENDERING_OBJS) $(RENDERING_DEPS)
 
 fclean:
 	$(MAKE) fclean -C $(LIBFT_DIR)
 	$(RM) $(MLXDIR)
 	git rm --cached $(MLXDIR)
-	$(RM) $(OBJS) $(NAME) $(MLX_SUBMODULE) $(DEPS)
+	$(RM) $(OBJS) $(NAME) $(MLX_SUBMODULE) $(DEPS) $(PARSING_OBJS) $(PARSING_DEPS) $(RENDERING_OBJS) $(RENDERING_DEPS)
 
 re: fclean all
 

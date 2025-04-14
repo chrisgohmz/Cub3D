@@ -12,25 +12,32 @@
 
 #include "../../includes/cub3d.h"
 
+static void	assigning_line_colour_to_height(t_data *data, t_renderdata *render)
+{
+	render->pixel = (render->y * render->block_size_y * data->size_line)
+		+ (render->i * (data->bits_per_pixel / 8));
+	*(unsigned int *)((char *)data->addr + render->pixel) = render->line_color;
+}
+
 static	void	drawing_lines_for_height(t_data *data, t_renderdata *render)
 {
 	render->y = 0;
-	while (render->y <= data->map_data.map_height)
+	while (render->y < data->map_data.map_height)
 	{
 		render->i = 0;
 		while (render->i < data->map_data.map_width * render->block_size_x)
 		{
 			if (render->y < data->map_data.map_height
 				&& (size_t)(render->i / render->block_size_x)
-			< ft_strlen(data->map_data.map[render->y])
-				&& data->map_data.map[render->y]
-					[render->i / render->block_size_x] != ' ')
+			< ft_strlen(data->map_data.map[render->y]))
 			{
-				render->pixel = (render->y * render->block_size_y
-						* data->size_line) + (render->i
-						* (data->bits_per_pixel / 8));
-				*(unsigned int *)((char *)data->addr + render->pixel)
-					= render->line_color;
+				if (data->map_data.map[render->y]
+					[render->i / render->block_size_x] == ' ')
+				{
+					render->i++;
+					continue ;
+				}
+				assigning_line_colour_to_height(data, render);
 			}
 			render->i++;
 		}
@@ -41,16 +48,20 @@ static	void	drawing_lines_for_height(t_data *data, t_renderdata *render)
 static void	drawing_lines_for_width(t_data *data, t_renderdata *render)
 {
 	render->x = 0;
-	while (render->x <= data->map_data.map_width)
+	while (render->x < data->map_data.map_width)
 	{
 		render->j = 0;
 		while (render->j < data->map_data.map_height * render->block_size_y)
 		{
-			if ((size_t)render->x <= ft_strlen(data->map_data.map
-					[render->j / render->block_size_y])
-				&& data->map_data.map[render->j / render->block_size_y]
-				[render->x] != ' ')
+			if ((size_t)render->x < ft_strlen(data->map_data.map
+					[render->j / render->block_size_y]))
 			{
+				if (data->map_data.map[render->j / render->block_size_y]
+					[render->x] == ' ')
+				{
+					render->j++;
+					continue ;
+				}
 				render->pixel = (render->j * data->size_line)
 					+ (render->x * render->block_size_x
 						* (data->bits_per_pixel / 8));
