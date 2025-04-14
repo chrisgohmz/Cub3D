@@ -6,7 +6,7 @@
 /*   By: cgoh <cgoh@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 18:59:40 by cgoh              #+#    #+#             */
-/*   Updated: 2025/04/11 22:31:22 by cgoh             ###   ########.fr       */
+/*   Updated: 2025/04/14 19:00:51 by cgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,18 @@ static bool	check_line_is_color_identifier(t_mapdata *map_data,
 {
 	if (!ft_strncmp(element_info[0], FLOOR, sizeof(FLOOR)))
 	{
+		if (map_data->floor_colour > -1)
+			return (ft_dprintf(STDERR_FILENO, "Error\nFile contains"
+					" double key\n"), false);
 		map_data->floor_colour = get_color(element_info[1]);
 		if (map_data->floor_colour == -1)
 			return (false);
 	}
 	else if (!ft_strncmp(element_info[0], CEILING, sizeof(CEILING)))
 	{
+		if (map_data->ceiling_colour > -1)
+			return (ft_dprintf(STDERR_FILENO, "Error\nFile contains"
+					" double key\n"), false);
 		map_data->ceiling_colour = get_color(element_info[1]);
 		if (map_data->ceiling_colour == -1)
 			return (false);
